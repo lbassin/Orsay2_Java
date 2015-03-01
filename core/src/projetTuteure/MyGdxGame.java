@@ -10,18 +10,21 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
+	Perso perso;
+	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		perso = new Perso();
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
-		batch.draw(img, 0, 0);
+			batch.draw(img, 0, 0);
 		batch.end();
 	}
 }
