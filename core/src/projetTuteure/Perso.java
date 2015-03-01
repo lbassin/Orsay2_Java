@@ -37,5 +37,6 @@ public class Perso {
 		batch.draw(img, pos.x, pos.y);
 		batch.end();
 	}
+	// cdfgj
 	
 }
