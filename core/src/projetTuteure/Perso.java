@@ -74,6 +74,7 @@ public class Perso {
 	{
 		pos.x += deplacement.x;
 		pos.y += deplacement.y;
+		
 		deplacement.x = 0;
 		deplacement.y = 0;
 	}
