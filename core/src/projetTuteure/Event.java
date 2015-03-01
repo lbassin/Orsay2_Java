@@ -78,6 +78,8 @@ public class Event {
 			posSouri.x = Gdx.input.getX();
 			posSouri.y = Gdx.input.getY();
 			
+			// Mise a jour btn souri
+			
 			// Miise a jour touches action
 			action[0] = Gdx.input.isKeyPressed(Keys.A);
 			action[1] = Gdx.input.isKeyPressed(Keys.Z);
