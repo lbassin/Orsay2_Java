@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
-	
 	Perso perso;
+	public static final int LARGEUR_ECRAN = 1312;
+    public static final int HAUTEUR_ECRAN = 640;
 	
-	@Override
+    @Override
 	public void create () {
 		batch = new SpriteBatch();
 		perso = new Perso();
@@ -20,11 +20,22 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		//Initialisation de la fenêtre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//Recupération des événements
+		perso.updateEvent();
+		
+		//Calcul le deplacement
+        perso.update();
+		
+        //Deplacement
+        perso.deplacement();
+        
+        //Affichages
 		batch.begin();
-			batch.draw(img, 0, 0);
+		perso.draw(batch);
 		batch.end();
 	}
 }
