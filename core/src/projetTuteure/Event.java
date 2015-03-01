@@ -30,7 +30,7 @@ public class Event {
 	// Constructeur clavier
 	Event()
 	{
-		this.typeController = Event.CLAVIER; // Gerer exception si type est different de ceux existant
+		this.typeController = Event.CLAVIER;
 		
 		toucheDeplacement = new Boolean[4];
 		action = new Boolean[4];		
@@ -45,12 +45,12 @@ public class Event {
 	{
 		int i;
 		
-		this.typeController = Event.MANETTE; // Gerer exception si type est different de ceux existant
+		this.typeController = Event.MANETTE;
 		
 		if(numController < Controllers.getControllers().size)
-			controller = Controllers.getControllers().get(numController); // Exception a gerer si la manette n'est pas branché
+			controller = Controllers.getControllers().get(numController);
 		else
-			System.exit(3); // Exception manette
+			System.exit(4);
 					
 		joystick = new Vector2[2];
 		for(i=0; i < 2; i++)
@@ -59,7 +59,7 @@ public class Event {
 		action = new Boolean[4];
 		posSouri = new Vector2();
 		
-		System.out.println("Manette");
+		System.out.println(1);
 		
 	}
 	

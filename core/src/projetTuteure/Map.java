@@ -1,10 +1,10 @@
 package projetTuteure;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
 public class Map {
@@ -18,17 +18,23 @@ public class Map {
 		tailleTile = new Vector2();
 		nomImg = new String();
 		
+		Scanner fichier;
+		
 		try {
-			Scanner fichier = new Scanner(Gdx.files.internal("../core/assets/"+nom).file());
+			fichier = new Scanner(new File("assets/"+nom));
+			
 			tailleMap.x = fichier.nextInt();
 			tailleMap.y = fichier.nextInt();
+			
 			tailleTile.x = fichier.nextInt();
 			tailleTile.y = fichier.nextInt();
+			
 			nomImg = fichier.nextLine();
-		} 
-		catch (FileNotFoundException e) {
+			
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}	
+		}
+	
 	}
 	public static void main (String[] arg) {
 		Map map = new Map("map.txt");
