@@ -5,21 +5,45 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Perso {
+	
+	/// Laurent (a faire) : Ajout d'un numero de joueur
+	/// 					pour distinger les 4 joueurs
+	
 	//Déclaration des variables de la classe
 	private Vector2 pos;
 	private Vector2 deplacement;
+	
 	private Texture img;
-	private float vitesse;
+	
 	private Event event;
+
+	private float vitesse;
 	
 	//Constructeur de la classe
-	Perso()
+	/// Laurent : Ajout position au constructeur
+	Perso(Vector2 pos)
 	{
-		pos = new Vector2();
+		init(pos);
+		
+		event = new Event();
+	}
+	
+	Perso(Vector2 pos, int numManette)
+	{
+		init(pos);
+		
+		event = new Event(numManette);
+	}
+	
+	/// Laurent : Ajout init pour pas réécrire 2 fois le même constructeur
+	private void init(Vector2 pos)
+	{
+		this.pos = new Vector2();
 		deplacement = new Vector2();
 		img = new Texture("perso.png");
-		vitesse = 5;
-		event = new Event();
+		
+		this.pos = pos;
+		vitesse = 8;
 	}
 	
 	//Getteur de la position
@@ -28,12 +52,8 @@ public class Perso {
 		return pos;
 	}
 	
-	//Getteur de l'image
-	public Texture getImg()
-	{
-		return img;
-	}
-	
+	/// Laurent : Supprime getteur img : Inutile
+
 	//Getteur de la vitesse; 
 	public float getVitesse()
 	{
@@ -49,22 +69,27 @@ public class Perso {
 	//Calcul du déplacement
 	public void update()
 	{
-		if (event.getTouche(Event.TOUCHE_HAUT))
+		/// Laurent : Ajout du else if au lieu du if*2
+		/// Laurent : Ajout deplacement manette
+		
+		if(event.getTypeController() == Event.CLAVIER)
 		{
-			deplacement.y+=vitesse;
+			if (event.getTouche(Event.TOUCHE_HAUT))
+				deplacement.y+=vitesse;
+			else if (event.getTouche(Event.TOUCHE_BAS))
+				deplacement.y-=vitesse;
+	
+			if (event.getTouche(Event.TOUCHE_GAUCHE))
+				deplacement.x-=vitesse;
+			else if (event.getTouche(Event.TOUCHE_DROITE))
+				deplacement.x+=vitesse;
 		}
-		if (event.getTouche(Event.TOUCHE_BAS))
+		else if(event.getTypeController() == Event.MANETTE)
 		{
-			deplacement.y-=vitesse;
+			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0);
+			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
 		}
-		if (event.getTouche(Event.TOUCHE_GAUCHE))
-		{
-			deplacement.x-=vitesse;
-		}
-		if (event.getTouche(Event.TOUCHE_DROITE))
-		{
-			deplacement.x+=vitesse;
-		}
+		
 	}
 	
 	//Méthode de gestion de la collision
@@ -78,6 +103,7 @@ public class Perso {
 		deplacement.x = 0;
 		deplacement.y = 0;
 	}
+	
 	//Méthode d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{

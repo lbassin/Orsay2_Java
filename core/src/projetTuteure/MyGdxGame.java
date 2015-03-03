@@ -2,9 +2,11 @@ package projetTuteure;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -15,7 +17,13 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
 	public void create () {
 		batch = new SpriteBatch();
-		perso = new Perso();
+		
+		System.out.println(Controllers.getControllers().size);
+		
+		if(Controllers.getControllers().size == 0)
+			perso = new Perso(new Vector2(0, 0));
+		else
+			perso = new Perso(new Vector2(0,0), 0);
 	}
 
 	@Override
@@ -29,13 +37,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		//Calcul le deplacement
         perso.update();
+        
+        // Collision
 		
         //Deplacement
         perso.deplacement();
         
         //Affichages
 		batch.begin();
-		perso.draw(batch);
+			perso.draw(batch);
 		batch.end();
 	}
 }
