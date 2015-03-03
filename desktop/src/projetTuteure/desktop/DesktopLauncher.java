@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
-		//config.width = MyGdxGame.LARGEUR_ECRAN;
-		//config.height = MyGdxGame.HAUTEUR_ECRAN;
+		config.width = MyGdxGame.LARGEUR_ECRAN;
+		config.height = MyGdxGame.HAUTEUR_ECRAN;
 		
 		new LwjglApplication(new MyGdxGame(), config);
 	}
