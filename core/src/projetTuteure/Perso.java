@@ -20,7 +20,6 @@ public class Perso {
 	private float vitesse;
 	
 	//Constructeur de la classe
-	/// Laurent : Ajout position au constructeur
 	Perso(Vector2 pos)
 	{
 		init(pos);
@@ -35,7 +34,6 @@ public class Perso {
 		event = new Event(numManette);
 	}
 	
-	/// Laurent : Ajout init pour pas réécrire 2 fois le même constructeur
 	private void init(Vector2 pos)
 	{
 		this.pos = new Vector2();
@@ -52,8 +50,6 @@ public class Perso {
 		return pos;
 	}
 	
-	/// Laurent : Supprime getteur img : Inutile
-
 	//Getteur de la vitesse; 
 	public float getVitesse()
 	{
@@ -69,8 +65,6 @@ public class Perso {
 	//Calcul du déplacement
 	public void update()
 	{
-		/// Laurent : Ajout du else if au lieu du if*2
-		/// Laurent : Ajout deplacement manette
 		
 		if(event.getTypeController() == Event.CLAVIER)
 		{

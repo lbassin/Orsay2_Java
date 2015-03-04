@@ -11,19 +11,23 @@ import com.badlogic.gdx.math.Vector2;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Perso perso;
+	Perso perso2;
+
+	Map map;
+	
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
 	
     @Override
 	public void create () {
 		batch = new SpriteBatch();
-		
-		System.out.println(Controllers.getControllers().size);
+		map = new Map("map.txt");
 		
 		if(Controllers.getControllers().size == 0)
 			perso = new Perso(new Vector2(0, 0));
 		else
 			perso = new Perso(new Vector2(0,0), 0);
+		
 	}
 
 	@Override
@@ -36,15 +40,16 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 		
 		//Calcul le deplacement
-        perso.update();
-        
-        // Collision
+		perso.update();
+		
+		// Collision
 		
         //Deplacement
-        perso.deplacement();
+		perso.deplacement();
         
         //Affichages
 		batch.begin();
+			map.draw(batch);
 			perso.draw(batch);
 		batch.end();
 	}
