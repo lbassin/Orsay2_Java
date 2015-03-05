@@ -57,10 +57,9 @@ public class Event {
 			joystick[i] = new Vector2();
 		
 		action = new Boolean[4];
-		posSouri = new Vector2();
+		posSouri = new Vector2();		
 		
-		System.out.println(1);
-		
+		System.out.println("Manette");
 	}
 	
 	// Mise à jour des evenements
@@ -79,6 +78,7 @@ public class Event {
 			posSouri.y = Gdx.input.getY();
 			
 			// Mise a jour btn souri
+			/// A Faire (Laurent)\\\
 			
 			// Miise a jour touches action
 			action[0] = Gdx.input.isKeyPressed(Keys.A);

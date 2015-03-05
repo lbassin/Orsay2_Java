@@ -35,14 +35,16 @@ public class Map {
 		try 
 		{
 			fichier = new Scanner(new File("../core/assets/"+nom));
+			
 			tailleMap.x = fichier.nextInt();
 			tailleMap.y = fichier.nextInt();
 			tailleTile.x = fichier.nextInt();
 			tailleTile.y = fichier.nextInt();
+			
 			fichier.nextLine();
 			nomImg = fichier.nextLine();
+			
 			img = new Texture("../core/assets/" + nomImg);
-			System.out.println("Taille : " + img.getWidth());
 
 			int nbTileTexWidth = (int) (img.getWidth()/tailleTile.x);
 			
@@ -67,12 +69,11 @@ public class Map {
 				}
 			}
 			
-			//tiles.add(new Tile();
 		} 
-		
 		catch (FileNotFoundException e) 
 		{
-			e.printStackTrace();
+			System.err.println("Fichier de carte non trouvé");
+			System.exit(4);
 		}	
 		
 	}
@@ -85,16 +86,5 @@ public class Map {
 		{
 			tiles.get(i).afficher(batch);
 		}
-	}
-	
-	public static void main (String[] arg) {
-		Map map = new Map("map.txt");
-		
-		System.out.println(map.tailleMap.x);
-		System.out.println(map.tailleMap.y);
-		System.out.println(map.tailleTile.x);
-		System.out.println(map.tailleTile.y);
-		System.out.println(map.nomImg);
-		System.out.println(map.nb);
 	}
 }

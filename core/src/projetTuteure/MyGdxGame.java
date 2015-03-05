@@ -23,10 +23,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		map = new Map("map.txt");
 		
+		// Si une manette est connecté, le perso est controllé avec la manette
 		if(Controllers.getControllers().size == 0)
 			perso = new Perso(new Vector2(0, 0));
 		else
 			perso = new Perso(new Vector2(0,0), 0);
+
 		
 	}
 
@@ -38,7 +40,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		//Recupération des événements
 		perso.updateEvent();
-		
+				
 		//Calcul le deplacement
 		perso.update();
 		
