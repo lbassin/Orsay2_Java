@@ -19,7 +19,9 @@ public class Perso {
 
 	private float vitesse;
 	
-	//Constructeur de la classe
+	private Projectile projectile;
+	
+	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
 	{
 		init(pos);
@@ -42,6 +44,7 @@ public class Perso {
 		
 		this.pos = pos;
 		vitesse = 8;
+		projectile = new Projectile();
 	}
 	
 	//Getteur de la position
@@ -68,15 +71,18 @@ public class Perso {
 		
 		if(event.getTypeController() == Event.CLAVIER)
 		{
-			if (event.getTouche(Event.TOUCHE_HAUT))
+			if (event.getToucheDeplacement(Event.TOUCHE_HAUT))
 				deplacement.y+=vitesse;
-			else if (event.getTouche(Event.TOUCHE_BAS))
+			else if (event.getToucheDeplacement(Event.TOUCHE_BAS))
 				deplacement.y-=vitesse;
 	
-			if (event.getTouche(Event.TOUCHE_GAUCHE))
+			if (event.getToucheDeplacement(Event.TOUCHE_GAUCHE))
 				deplacement.x-=vitesse;
-			else if (event.getTouche(Event.TOUCHE_DROITE))
+			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 				deplacement.x+=vitesse;
+			
+				projectile.update(pos);
+				projectile.deplacement();
 		}
 		else if(event.getTypeController() == Event.MANETTE)
 		{
@@ -86,9 +92,9 @@ public class Perso {
 		
 	}
 	
-	//Méthode de gestion de la collision
+	//Procèdure de gestion de la collision
 	
-	//Méthode de déplacement
+	//Procèdure de déplacement
 	public void deplacement()
 	{
 		pos.x += deplacement.x;
@@ -98,9 +104,13 @@ public class Perso {
 		deplacement.y = 0;
 	}
 	
-	//Méthode d'affichage du personnage
+	//Procèdure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
 		batch.draw(img, pos.x, pos.y);
+	}
+	public void drawProjectile(SpriteBatch batch)
+	{
+			projectile.draw(batch);
 	}
 }
