@@ -11,9 +11,10 @@ import com.badlogic.gdx.math.Vector2;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Perso perso;
-	Perso perso2;
 
 	Map map;
+	
+	Ennemi ennemi;
 	
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
@@ -23,35 +24,39 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		map = new Map("map.txt");
 		
-		// Si une manette est connecté, le perso est controllé avec la manette
+		// Si une manette est connectï¿½, le perso est controllï¿½ avec la manette
 		if(Controllers.getControllers().size == 0)
 			perso = new Perso(new Vector2(0, 0));
 		else
 			perso = new Perso(new Vector2(0,0), 0);
 
+		ennemi = new Ennemi();
 		
 	}
 
 	@Override
 	public void render () {
-		//Initialisation de la fenêtre
+		//Initialisation de la fenï¿½tre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		//Recupération des événements
+		//Recupï¿½ration des ï¿½vï¿½nements
 		perso.updateEvent();
 				
 		//Calcul le deplacement
 		perso.update();
+		ennemi.update(perso);
 		
 		// Collision
 		
         //Deplacement
 		perso.deplacement();
+		ennemi.deplacement();
         
         //Affichages
 		batch.begin();
 			map.draw(batch);
+			ennemi.afficher(batch);
 			perso.draw(batch);
 		batch.end();
 	}
