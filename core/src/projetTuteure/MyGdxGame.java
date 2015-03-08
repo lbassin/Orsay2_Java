@@ -58,6 +58,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			map.draw(batch);
 			ennemi.afficher(batch);
 			perso.draw(batch);
+			perso.drawProjectile(batch);
 		batch.end();
 	}
 }
