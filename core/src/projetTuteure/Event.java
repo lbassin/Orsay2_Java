@@ -115,10 +115,16 @@ public class Event {
 		}
 	}
 	
-	// Verifie appui sur une touche
-	public boolean getTouche(int id)
+	// Verifie appui sur une touche de déplacement
+	public boolean getToucheDeplacement(int id)
 	{
 		return toucheDeplacement[id];
+	}
+	
+	//Vérifie l'appui d'une touche d'action 
+	public boolean getAction (int id)
+	{
+		return action[id];
 	}
 	
 	// Recupere si manette ou clavier
