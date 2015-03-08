@@ -53,8 +53,16 @@ public class Ennemi {
 		prodNormes *= Math.sqrt(ennemiDevant.x*ennemiDevant.x + ennemiDevant.y*ennemiDevant.y);
 		
 		double angle = (prodScalaire/prodNormes);
-		angle = Math.acos(angle);
 		
+		// Domaine depart arcCos : [-1;1]
+		// Erreur si hors du domaine
+		if(angle > 1)
+			angle = 1;
+		else if(angle < -1)
+			angle = -1;
+		
+		angle = Math.acos(angle);		
+
 		deplacement.x = (float) Math.cos(angle) * vitesse;
 		
 		// Si le perso est au dessus de l'ennemi 
@@ -66,7 +74,6 @@ public class Ennemi {
 		// TODO Quand perso va à 1 unité devant ennemi -> Division / zero
 		// TODO Erreur quand on va devant l'ennemi
 
-		System.out.println(angle);
 		System.out.println(Math.cos(angle) + " - " + Math.sin(angle));
 		
 
