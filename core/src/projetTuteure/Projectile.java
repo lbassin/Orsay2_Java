@@ -25,9 +25,8 @@ public class Projectile {
     }
 
     //Procèdure de mise à jour
-    public void update(Vector2 posPerso)
+    public void update()
     {
-    	
         if (this.pos.x < 1315)
         {
             deplacement.x = +vitesse;
