@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -19,7 +21,7 @@ public class Perso {
 
 	private float vitesse;
 	
-	private Projectile projectile;
+	private ArrayList <Projectile> projectiles;
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
@@ -41,8 +43,7 @@ public class Perso {
 		this.pos = new Vector2();
 		deplacement = new Vector2();
 		img = new Texture("perso.png");
-		projectile = new Projectile(this.pos);
-		
+		projectiles = new ArrayList <Projectile>();
 		this.pos = pos;
 		vitesse = 8;
 	}
@@ -82,8 +83,15 @@ public class Perso {
 				deplacement.x+=vitesse;
 			if (event.getAction(0))
 				{
-					projectile.update(pos);
-					projectile.deplacement();
+					Projectile projectile;
+					projectile = new Projectile(pos);
+					projectiles.add(projectile);
+					int i;
+					for (i=0; i< projectiles.size(); i++)
+					{
+						projectiles.get(i).update();
+					}
+					
 				}
 		}
 		else if(event.getTypeController() == Event.MANETTE)
@@ -104,6 +112,12 @@ public class Perso {
 		
 		deplacement.x = 0;
 		deplacement.y = 0;
+		
+		int i;
+		for (i=0; i < projectiles.size() ; i++)
+		{
+			projectiles.get(i).deplacement();
+		}
 	}
 	
 	//Procèdure d'affichage du personnage
@@ -113,6 +127,10 @@ public class Perso {
 	}
 	public void drawProjectile(SpriteBatch batch)
 	{
-			projectile.draw(batch);
+			int i;
+			for (i=0; i < projectiles.size() ; i++)
+			{
+				projectiles.get(i).draw(batch);
+			}
 	}
 }
