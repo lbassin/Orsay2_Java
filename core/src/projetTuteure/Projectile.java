@@ -19,7 +19,7 @@ public class Projectile {
         pos = new Vector2();
         deplacement = new Vector2();
         img = new Texture("carre.jpg");
-        vitesse = 4;
+        vitesse = 6;
         pos.x = posPerso.x;
         this.pos.y = posPerso.y;
     }
