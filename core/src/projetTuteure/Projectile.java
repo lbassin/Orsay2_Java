@@ -14,22 +14,23 @@ public class Projectile {
     private float vitesse;
 
     //Constructeur de la classe
-    Projectile ()
+    Projectile (Vector2 posPerso)
     {
         pos = new Vector2();
         deplacement = new Vector2();
         img = new Texture("carre.jpg");
         vitesse = 4;
-        pos.x = 1315;
-        this.pos.y = pos.y;
+        pos.x = posPerso.x;
+        this.pos.y = posPerso.y;
     }
 
     //Procèdure de mise à jour
-    public void update(Vector2 pos)
+    public void update(Vector2 posPerso)
     {
-        if (this.pos.x > 0)
+    	
+        if (this.pos.x < 1315)
         {
-            deplacement.x = -vitesse;
+            deplacement.x = +vitesse;
             System.out.println(pos.x + "En Y :" + pos.y);
         }
     }
@@ -41,7 +42,7 @@ public class Projectile {
         deplacement.x = 0;
     }
 
-    //Procèdure
+    //Procèdure d'affichage
     public void draw(SpriteBatch batch)
     {
         batch.draw(img, pos.x, pos.y);
