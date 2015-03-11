@@ -81,6 +81,7 @@ public class Perso {
 				deplacement.x-=vitesse;
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 				deplacement.x+=vitesse;
+			//TODO Suppression du projectile
 			if (event.getAction(0))
 				{
 					Projectile projectile;
