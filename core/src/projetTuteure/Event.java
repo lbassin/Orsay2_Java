@@ -7,6 +7,8 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 
 public class Event {
+	
+	// C'est bon ça bug plu ?! --'
 
 	static final int CLAVIER = 0;
 	static final int MANETTE = 1;
