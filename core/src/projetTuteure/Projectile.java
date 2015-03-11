@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
+	//Commentaire pour que j'ai le 69ème commit ahahahahaha
     //Déclaration des variables de la classe
     private Vector2 pos;
     private Vector2 deplacement;
