@@ -8,10 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Perso {
 	
-	/// Laurent (a faire) : Ajout d'un numero de joueur
-	/// 					pour distinger les 4 joueurs
+	static final int NB_JOUEURS_MAX = 4;
+	static int nbJoueurs = 0;
 	
 	//Déclaration des variables de la classe
+	
 	private Vector2 pos;
 	private Vector2 deplacement;
 	
@@ -26,9 +27,10 @@ public class Perso {
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
 	{
-		init(pos);
+			init(pos);
 		
 		event = new Event();
+		nbJoueurs++;
 	}
 	
 	Perso(Vector2 pos, int numManette)
@@ -36,9 +38,10 @@ public class Perso {
 		init(pos);
 		
 		event = new Event(numManette);
+		nbJoueurs++;
 	}
 	
-	private void init(Vector2 pos)
+		private void init(Vector2 pos)
 	{
 		this.pos = new Vector2();
 		deplacement = new Vector2();
