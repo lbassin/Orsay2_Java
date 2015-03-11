@@ -18,16 +18,20 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
 	
-    @Override
+	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		map = new Map("map.txt");
 		
-		// Si une manette est connectï¿½, le perso est controllï¿½ avec la manette
-		if(Controllers.getControllers().size == 0)
-			perso = new Perso(new Vector2(0, 0));
-		else
-			perso = new Perso(new Vector2(0,0), 0);
+		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
+		{
+			// Si une manette est connectée, le perso est controllé avec la manette
+			if(Controllers.getControllers().size == 0)
+				perso = new Perso(new Vector2(0, 0));
+			else
+				perso = new Perso(new Vector2(0,0), 0);
+		}
+		
 
 		ennemi = new Ennemi();
 		
