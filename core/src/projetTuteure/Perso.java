@@ -41,10 +41,10 @@ public class Perso {
 		this.pos = new Vector2();
 		deplacement = new Vector2();
 		img = new Texture("perso.png");
+		projectile = new Projectile(this.pos);
 		
 		this.pos = pos;
 		vitesse = 8;
-		projectile = new Projectile();
 	}
 	
 	//Getteur de la position
@@ -80,9 +80,11 @@ public class Perso {
 				deplacement.x-=vitesse;
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 				deplacement.x+=vitesse;
-			
-				projectile.update(pos);
-				projectile.deplacement();
+			if (event.getAction(0))
+				{
+					projectile.update(pos);
+					projectile.deplacement();
+				}
 		}
 		else if(event.getTypeController() == Event.MANETTE)
 		{
