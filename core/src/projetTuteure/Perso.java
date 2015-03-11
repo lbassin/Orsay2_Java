@@ -86,13 +86,12 @@ public class Perso {
 					Projectile projectile;
 					projectile = new Projectile(pos);
 					projectiles.add(projectile);
-					int i;
-					for (i=0; i< projectiles.size(); i++)
-					{
-						projectiles.get(i).update();
-					}
-					
 				}
+			int i;
+			for (i=0; i< projectiles.size(); i++)
+			{
+				projectiles.get(i).update();
+			}
 		}
 		else if(event.getTypeController() == Event.MANETTE)
 		{
