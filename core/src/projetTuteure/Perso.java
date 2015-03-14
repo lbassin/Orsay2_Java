@@ -1,7 +1,5 @@
 package projetTuteure;
 
-import java.time.Clock;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +26,8 @@ public class Perso {
 	
 	private ArrayList <Projectile> projectiles;
 	
+	private long dateLancementSort;
+	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
 	{
@@ -53,6 +53,7 @@ public class Perso {
 		projectiles = new ArrayList <Projectile>();
 		this.pos = pos;
 		vitesse = 8;
+		dateLancementSort = 0;
 	}
 	
 	//Getteur de la position
@@ -88,11 +89,12 @@ public class Perso {
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 				deplacement.x+=vitesse;
 			//TODO Suppression du projectile
-			if (event.getAction(0))
+			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort) > 1000)
 				{
 					Projectile projectile;
 					projectile = new Projectile(pos);
 					projectiles.add(projectile);
+					dateLancementSort = System.currentTimeMillis();
 				}
 			int i;
 			for (i=0; i< projectiles.size(); i++)
