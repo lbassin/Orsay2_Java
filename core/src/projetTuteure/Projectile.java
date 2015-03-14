@@ -7,12 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Projectile {
 	//Commentaire pour que j'ai le 69ème commit ahahahahaha
     //Déclaration des variables de la classe
-    private Vector2 pos;
-    private Vector2 deplacement;
+    protected Vector2 pos;
+    protected Vector2 deplacement;
 
-    private Texture img;
+    protected Texture img;
 
-    private float vitesse;
+    protected float vitesse;
 
     //Constructeur de la classe
     Projectile (Vector2 posPerso)
@@ -21,7 +21,7 @@ public class Projectile {
         deplacement = new Vector2();
         img = new Texture("carre.jpg");
         vitesse = 10;
-        pos.x = posPerso.x;
+        this.pos.x = posPerso.x;
         this.pos.y = posPerso.y;
     }
 
