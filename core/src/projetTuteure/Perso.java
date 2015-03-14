@@ -26,7 +26,7 @@ public class Perso {
 	
 	private ArrayList <Projectile> projectiles;
 	
-	private long dateLancementSort;
+	private long dateLancementSort[];
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
@@ -53,7 +53,7 @@ public class Perso {
 		projectiles = new ArrayList <Projectile>();
 		this.pos = pos;
 		vitesse = 8;
-		dateLancementSort = 0;
+		dateLancementSort = new long [4];
 	}
 	
 	//Getteur de la position
@@ -89,13 +89,26 @@ public class Perso {
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 				deplacement.x+=vitesse;
 			//TODO Suppression du projectile
-			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort) > 1000)
+			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
 				{
-					Projectile projectile;
-					projectile = new Projectile(pos);
-					projectiles.add(projectile);
-					dateLancementSort = System.currentTimeMillis();
+					projectiles.add(new Projectile(pos, 0));
+					dateLancementSort[0] = System.currentTimeMillis();
 				}
+			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
+			{
+				projectiles.add(new Projectile(pos, 1));
+				dateLancementSort[1] = System.currentTimeMillis();
+			}
+			if (event.getAction(2) && (System.currentTimeMillis() - dateLancementSort[2]) > 1000)
+			{
+				projectiles.add(new Projectile(pos, 2));
+				dateLancementSort[2] = System.currentTimeMillis();
+			}
+			if (event.getAction(3) && (System.currentTimeMillis() - dateLancementSort[3]) > 1000)
+			{
+				projectiles.add(new Projectile(pos, 3));
+				dateLancementSort[3] = System.currentTimeMillis();
+			}
 			int i;
 			for (i=0; i< projectiles.size(); i++)
 			{
@@ -106,11 +119,25 @@ public class Perso {
 		{
 			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0);
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
-			if (event.getAction(0))
+			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
 			{
-				Projectile projectile;
-				projectile = new Projectile(pos);
-				projectiles.add(projectile);
+				projectiles.add(new Projectile(pos, 0));
+				dateLancementSort[0] = System.currentTimeMillis();
+			}
+			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
+			{
+				projectiles.add(new Projectile(pos, 1));
+				dateLancementSort[1] = System.currentTimeMillis();
+			}
+			if (event.getAction(2) && (System.currentTimeMillis() - dateLancementSort[2]) > 1000)
+			{
+				projectiles.add(new Projectile(pos, 2));
+				dateLancementSort[2] = System.currentTimeMillis();
+			}
+			if (event.getAction(3) && (System.currentTimeMillis() - dateLancementSort[3]) > 1000)
+			{
+				projectiles.add(new Projectile(pos, 3));
+				dateLancementSort[3] = System.currentTimeMillis();
 			}
 		}
 		
@@ -133,7 +160,15 @@ public class Perso {
 			projectiles.get(i).deplacement();
 		}
 	}
-	
+	public void sortieEcranProjectile()
+	{
+		int i;
+		for (i=0; i < projectiles.size() ; i++)
+		{
+			if (projectiles.get(i).getPos().x > 1312)
+				projectiles.remove(i);
+		}
+	}
 	//Procèdure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
