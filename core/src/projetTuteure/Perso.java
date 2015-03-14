@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -43,7 +45,7 @@ public class Perso {
 		nbJoueurs++;
 	}
 	
-		private void init(Vector2 pos)
+	private void init(Vector2 pos)
 	{
 		this.pos = new Vector2();
 		deplacement = new Vector2();
@@ -74,7 +76,6 @@ public class Perso {
 	//Calcul du déplacement
 	public void update()
 	{
-		
 		if(event.getTypeController() == Event.CLAVIER)
 		{
 			if (event.getToucheDeplacement(Event.TOUCHE_HAUT))
@@ -103,6 +104,12 @@ public class Perso {
 		{
 			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0);
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
+			if (event.getAction(0))
+			{
+				Projectile projectile;
+				projectile = new Projectile(pos);
+				projectiles.add(projectile);
+			}
 		}
 		
 	}
