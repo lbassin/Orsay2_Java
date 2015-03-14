@@ -15,16 +15,26 @@ public class Projectile {
     protected float vitesse;
 
     //Constructeur de la classe
-    Projectile (Vector2 posPerso)
+    Projectile (Vector2 posPerso, int id)
     {
         pos = new Vector2();
         deplacement = new Vector2();
-        img = new Texture("carre.jpg");
+        switch (id)
+        {
+        	case 0 : img = new Texture("carreGreen.jpg"); break;
+        	case 1 : img = new Texture("carreRed.jpg"); break;
+        	case 2 : img = new Texture("carreBlue.jpg"); break;
+        	case 3 : img = new Texture("carreYellow.jpg"); break;
+        }
         vitesse = 10;
         this.pos.x = posPerso.x;
         this.pos.y = posPerso.y;
     }
 
+    public Vector2 getPos()
+    {
+    	return pos;
+    }
     //Procèdure de mise à jour
     public void update()
     {
