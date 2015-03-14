@@ -50,6 +50,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.update();
 		ennemi.update(perso);
 		
+		//Sortie de l'ecran du projectile
+		perso.sortieEcranProjectile();
+		
 		// Collision
 		
         //Deplacement
