@@ -21,11 +21,11 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		map = new Map("map.txt");
+		map = new Map("map.txt", "collision.txt");
 		
 		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 		{
-			// Si une manette est connectée, le perso est controllé avec la manette
+			// Si une manette est connectï¿½e, le perso est controllï¿½ avec la manette
 			if(Controllers.getControllers().size == 0)
 				perso = new Perso(new Vector2(0, 0));
 			else
@@ -54,6 +54,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.sortieEcranProjectile();
 		
 		// Collision
+		perso.collision(map);
 		
         //Deplacement
 		perso.deplacement();

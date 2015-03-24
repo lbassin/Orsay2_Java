@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
-	//Commentaire pour que j'ai le 69ème commit ahahahahaha
     //Déclaration des variables de la classe
     protected Vector2 pos;
     protected Vector2 deplacement;
@@ -49,7 +48,10 @@ public class Projectile {
     public void deplacement()
     {
         pos.x += deplacement.x;
+        pos.y += deplacement.y;
+        
         deplacement.x = 0;
+        deplacement.y = 0;
     }
 
     //Procèdure d'affichage

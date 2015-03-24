@@ -5,11 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
 public class Map {
@@ -20,15 +18,17 @@ public class Map {
 	private Vector2 tailleTile;
 	private String nomImg;
 	private ArrayList<Tile> tiles;
-	private int nb;
 	private Texture img;
+	private ArrayList<Integer> tilePassable;
+	private int nbTilePassable;
 	
-	Map(String nom)
+	Map(String nom, String nomCollision)
 	{
 		tailleMap = new Vector2();
 		tailleTile = new Vector2();
 		nomImg = new String();
 		tiles = new ArrayList<Tile>();
+		tilePassable = new ArrayList<Integer>();
 		
 		Scanner fichier;
 		
@@ -67,9 +67,17 @@ public class Map {
 					tiles.add(new Tile(
 								new Vector2(j*tailleTile.x, 
 										MyGdxGame.HAUTEUR_ECRAN - i*tailleTile.y - tailleTile.y),
-									new TextureRegion(img, (int)posTile.x, (int)posTile.y, (int)tailleTile.x, (int)tailleTile.y)));
+									new TextureRegion(img, (int)posTile.x, (int)posTile.y, (int)tailleTile.x, (int)tailleTile.y),
+										numTile));
 				}
 			}
+			
+			fichier = new Scanner(new File("../core/assets/"+nomCollision));
+			
+			nbTilePassable = fichier.nextInt();
+			
+			for(i = 0; i < nbTilePassable; i++)
+				tilePassable.add(fichier.nextInt());
 			
 		} 
 		catch (FileNotFoundException e) 
@@ -78,6 +86,54 @@ public class Map {
 			System.exit(4);
 		}	
 		
+	}
+	
+	public void collision(Perso perso)
+	{
+		Vector2 posPerso = new Vector2(perso.getPos());
+		
+		// Ajoute le deplacement pour anticiper la position
+		// Pour ne pas se retrouver dans le mur
+		posPerso.x += perso.getDeplacement().x;
+		posPerso.y += perso.getDeplacement().y;		
+		
+		Vector2 taillePerso = new Vector2(perso.getTaille());
+		
+		taillePerso.y /= 2;
+		
+		int cptTile = 0;
+		//Optimisation : while(tile.y < perso.y)
+		for(int i = 0; i < tailleMap.y; i++)
+		{
+			for(int j = 0; j < tailleMap.x; j++)
+			{
+				Vector2 posTile = new Vector2(tiles.get(cptTile).getPos());
+				// Test la collision de la hitbox du tile et du perso
+				
+				// collisions x
+				if((posTile.x < posPerso.x + taillePerso.x && posTile.x > posPerso.x) 
+					|| (posTile.x + tailleTile.x < posPerso.x + taillePerso.x && posTile.x + tailleTile.x > posPerso.x))
+				{
+					// collisions y
+					if((posTile.y < posPerso.y + taillePerso.y && posTile.y > posPerso.y) 
+					|| (posTile.y + tailleTile.y < posPerso.y + taillePerso.y && posTile.y + tailleTile.y > posPerso.y))
+					{
+						// TODO : Remplacer par dichotomie
+						int e = 0;
+						boolean tileTrouve = false;
+						while(e < tilePassable.size() && !tileTrouve)
+						{
+							tileTrouve = (tilePassable.get(e) == tiles.get(cptTile).getNum());
+							e++;
+						}
+						
+						if(!tileTrouve)
+							perso.setDeplacement(new Vector2(0, 0));
+					}
+				}
+				cptTile++;
+			}
+		}
 	}
 	
 	public void draw(SpriteBatch batch)

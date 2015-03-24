@@ -28,6 +28,9 @@ public class Perso {
 	
 	private long dateLancementSort[];
 	
+	private Vector2 taille;
+	
+	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
 	{
@@ -50,9 +53,12 @@ public class Perso {
 		this.pos = new Vector2();
 		deplacement = new Vector2();
 		img = new Texture("perso.png");
+		taille = new Vector2();
+		taille.x = img.getHeight();
+		taille.y = img.getWidth();
 		projectiles = new ArrayList <Projectile>();
 		this.pos = pos;
-		vitesse = 8;
+		vitesse = 12;
 		dateLancementSort = new long [4];
 	}
 	
@@ -89,6 +95,7 @@ public class Perso {
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 				deplacement.x+=vitesse;
 			//TODO Suppression du projectile
+			
 			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
 				{
 					projectiles.add(new Projectile(pos, 0));
@@ -140,10 +147,14 @@ public class Perso {
 				dateLancementSort[3] = System.currentTimeMillis();
 			}
 		}
-		
 	}
 	
 	//Procèdure de gestion de la collision
+	public void collision(Map map)
+	{
+		map.collision(this);
+	}
+	
 	
 	//Procèdure de déplacement
 	public void deplacement()
@@ -182,4 +193,15 @@ public class Perso {
 				projectiles.get(i).draw(batch);
 			}
 	}
+	
+	public Vector2 getTaille()
+	{ return taille; }
+	
+	public void setDeplacement(Vector2 deplacement)
+	{ 
+		this.deplacement = deplacement;
+	}
+
+	public Vector2 getDeplacement()
+	{ return new Vector2(deplacement); }
 }

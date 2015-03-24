@@ -72,12 +72,7 @@ public class Ennemi {
 			deplacement.y = (float) Math.sin(angle) * vitesse;			
 		else // Si il est en dessous on inverse deplacement en y car l'angle n'est pas dans sens trigo
 			deplacement.y = -(float) Math.sin(angle) * vitesse;	
-		
-		// TODO Quand perso va à 1 unité devant ennemi -> Division / zero
-		// TODO Erreur quand on va devant l'ennemi
-
-		System.out.println(Math.cos(angle) + " - " + Math.sin(angle));
-		
+			
 
 	}
 	
