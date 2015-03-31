@@ -8,15 +8,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Perso perso;
-
-	Map map;
 	
-	Ennemi ennemi;
-	
+	// Constante
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
+    public static final int NB_JOUEUR_MAX = 4;
+	
+	// TODO : Mettre attribut en private :o !
+	
+	SpriteBatch batch;
+	Map map;
+	Perso perso;
+	Ennemi ennemi;
+	
+	HUD hud;
 	
 	@Override
 	public void create () {
@@ -35,6 +40,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		ennemi = new Ennemi();
 		
+		hud = new HUD();
+		hud.addJoueur(perso);
 	}
 
 	@Override
@@ -54,7 +61,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.sortieEcranProjectile();
 		
 		// Collision
-		perso.collision(map);
+		///perso.collision(map);
 		
         //Deplacement
 		perso.deplacement();
@@ -66,6 +73,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			ennemi.afficher(batch);
 			perso.draw(batch);
 			perso.drawProjectile(batch);
+			hud.afficher(batch);
 		batch.end();
 	}
 }
