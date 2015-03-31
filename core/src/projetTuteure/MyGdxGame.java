@@ -61,7 +61,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.sortieEcranProjectile();
 		
 		// Collision
-		perso.collision(map);
+		map.collision(perso);
 		
         //Deplacement
 		perso.deplacement();

@@ -161,13 +161,6 @@ public class Perso {
 		}
 	}
 	
-	//Procèdure de gestion de la collision
-	public void collision(Map map)
-	{
-		map.collision(this);
-	}
-	
-	
 	//Procèdure de déplacement
 	public void deplacement()
 	{
