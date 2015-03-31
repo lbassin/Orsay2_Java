@@ -2,7 +2,11 @@ package projetTuteure;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -19,6 +23,7 @@ public class Perso {
 	private Vector2 deplacement;
 	
 	private Texture img;
+	private Texture portrait;
 	
 	private Event event;
 
@@ -30,6 +35,7 @@ public class Perso {
 	
 	private Vector2 taille;
 	
+		
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
@@ -53,6 +59,7 @@ public class Perso {
 		this.pos = new Vector2();
 		deplacement = new Vector2();
 		img = new Texture("perso.png");
+		portrait = new Texture("portrait.png");
 		taille = new Vector2();
 		taille.x = img.getHeight();
 		taille.y = img.getWidth();
@@ -185,6 +192,7 @@ public class Perso {
 	{
 		batch.draw(img, pos.x, pos.y);
 	}
+
 	public void drawProjectile(SpriteBatch batch)
 	{
 			int i;
@@ -204,4 +212,7 @@ public class Perso {
 
 	public Vector2 getDeplacement()
 	{ return new Vector2(deplacement); }
+	
+	public Texture getPortrait()
+	{ return portrait; }
 }
