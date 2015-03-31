@@ -8,8 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Perso {
 	
-	// Debug
-	
 	static final int NB_JOUEURS_MAX = 4;
 	static int nbJoueurs = 0;
 	
