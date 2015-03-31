@@ -35,12 +35,17 @@ public class Perso {
 	
 	private Vector2 taille;
 	
+	private int vie;
+	private int vieMax;
+	
+	private int manaMax;
+	private int mana;
 		
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
 	{
-			init(pos);
+		init(pos);
 		
 		event = new Event();
 		nbJoueurs++;
@@ -67,6 +72,12 @@ public class Perso {
 		this.pos = pos;
 		vitesse = 12;
 		dateLancementSort = new long [4];
+		
+		vie = 22;
+		vieMax = 100;
+		
+		manaMax = 100;
+		mana = 80;
 	}
 	
 	//Getteur de la position
@@ -215,4 +226,10 @@ public class Perso {
 	
 	public Texture getPortrait()
 	{ return portrait; }
+	
+	public float getPourcentageVieRestant()
+	{ return ((float)vie/(float)vieMax) * 100; }
+	
+	public float getPourcentageManaRestant()
+	{ return ((float)mana/(float)manaMax) * 100; }
 }
