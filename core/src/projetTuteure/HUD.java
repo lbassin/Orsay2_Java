@@ -69,15 +69,23 @@ public class HUD {
 	
 	public void addJoueur(Perso perso)
 	{
-		joueurs[nbJoueur++] = perso;
-		System.out.println("Perso ajoute : " + nbJoueur);
+		if(nbJoueur < MyGdxGame.NB_JOUEUR_MAX)
+		{
+			joueurs[nbJoueur++] = perso;
+			System.out.println("Perso ajoute : " + nbJoueur);
+		}
 	}
 	
 	public void afficher(SpriteBatch batch)
 	{
 		Vector2 pos = new Vector2(30, MyGdxGame.HAUTEUR_ECRAN - cadrePortrait.getHeight() - 20);
-		// TODO : Gerer affichage de plusieurs perso
-		afficherInfosPerso(batch, new Vector2(pos.x, pos.y), 0);
+		
+		int i;
+		for(i=0; i < nbJoueur; i++)
+		{
+			afficherInfosPerso(batch, new Vector2(pos.x, pos.y), i);
+			pos.x += 300;
+		}
 	}
 		
 	private void afficherInfosPerso(SpriteBatch batch, Vector2 pos, int numJoueur)
