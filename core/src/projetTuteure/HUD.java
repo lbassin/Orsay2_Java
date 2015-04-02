@@ -76,7 +76,7 @@ public class HUD {
 	public void afficher(SpriteBatch batch)
 	{
 		Vector2 pos = new Vector2(30, MyGdxGame.HAUTEUR_ECRAN - cadrePortrait.getHeight() - 20);
-		
+		// TODO : Gerer affichage de plusieurs perso
 		afficherInfosPerso(batch, new Vector2(pos.x, pos.y), 0);
 	}
 		

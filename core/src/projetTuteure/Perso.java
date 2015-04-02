@@ -67,7 +67,7 @@ public class Perso {
 		vitesse = 12;
 		dateLancementSort = new long [4];
 		
-		vie = 22;
+		vie = 70;
 		vieMax = 100;
 		
 		manaMax = 100;
