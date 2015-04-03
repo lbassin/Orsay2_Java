@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MyGdxGame extends ApplicationAdapter {
 	
+	// Desolé Bryan :/
+	
 	// Constante
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
