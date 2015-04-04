@@ -10,6 +10,7 @@ public class Ennemi {
 	
 	private Vector2 pos;
 	private Vector2 deplacement;
+	private Vector2 taille;
 	
 	private float vitesse;
 	
@@ -23,6 +24,10 @@ public class Ennemi {
 		vitesse = 5f;
 		
 		img = new Texture("../core/assets/ennemi.png");
+		
+		taille = new Vector2();
+		taille.x = img.getHeight();
+		taille.y = img.getWidth();
 		
 	}
 	
