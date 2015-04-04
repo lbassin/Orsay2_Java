@@ -56,7 +56,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 				
 		//Calcul le deplacement
-		perso.update();
+		perso.update(ennemi);
 		ennemi.update(perso);
 		
 		//Sortie de l'ecran du projectile
@@ -64,6 +64,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		// Collision
 		map.collision(perso);
+		
 		
         //Deplacement
 		perso.deplacement();
