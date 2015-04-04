@@ -26,6 +26,11 @@ public class Ennemi {
 		
 	}
 	
+	public Vector2 getPos() {
+		return pos;
+	}
+
+
 	public void update(Perso cible)
 	{
 		// Position du perso
