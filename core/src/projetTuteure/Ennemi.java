@@ -35,6 +35,10 @@ public class Ennemi {
 		return pos;
 	}
 
+	public Vector2 getDeplacement()
+	{
+		return deplacement;
+	}
 
 	public void update(Perso cible)
 	{
