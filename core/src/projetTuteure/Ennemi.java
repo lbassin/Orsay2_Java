@@ -40,6 +40,10 @@ public class Ennemi {
 		return deplacement;
 	}
 
+	public Vector2 getTaille()
+	{
+		return taille;
+	}
 	public void update(Perso cible)
 	{
 		// Position du perso
