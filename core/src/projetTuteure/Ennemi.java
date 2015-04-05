@@ -101,8 +101,6 @@ public class Ennemi {
 			deplacement.y = (float) Math.sin(angle) * vitesse;			
 		else // Si il est en dessous on inverse deplacement en y car l'angle n'est pas dans sens trigo
 			deplacement.y = -(float) Math.sin(angle) * vitesse;	
-			
-
 	}
 	
 	public void deplacement()
@@ -116,8 +114,7 @@ public class Ennemi {
 	
 	public void afficher(SpriteBatch batch)
 	{
-		
-		batch.draw(img, pos.x, pos.y);
+		if (!estMort)
+			batch.draw(img, pos.x, pos.y);
 	}
-
 }

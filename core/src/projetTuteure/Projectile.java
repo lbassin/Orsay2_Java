@@ -12,6 +12,7 @@ public class Projectile {
     protected Texture img;
 
     protected float vitesse;
+    protected Vector2 taille;
 
     //Constructeur de la classe
     Projectile (Vector2 posPerso, int id)
@@ -28,6 +29,9 @@ public class Projectile {
         vitesse = 10;
         this.pos.x = posPerso.x;
         this.pos.y = posPerso.y;
+        taille = new Vector2();
+        taille.x = img.getHeight();
+		taille.y = img.getWidth();
     }
 
     public Vector2 getPos()
@@ -40,7 +44,7 @@ public class Projectile {
         if (this.pos.x < 1315)
         {
             deplacement.x = +vitesse;
-            System.out.println(pos.x + "En Y :" + pos.y);
+            //System.out.println(pos.x + "En Y :" + pos.y);
         }
     }
 
@@ -59,4 +63,26 @@ public class Projectile {
     {
         batch.draw(img, pos.x, pos.y);
     }
+    
+   public void collision (Ennemi ennemi)
+   {
+	   Vector2 posEnnemi = new Vector2(ennemi.getPos());
+	   // Ajoute le deplacement pour anticiper la position
+	   // Pour ne pas se retrouver dans l'ennemi
+			posEnnemi.x += ennemi.getDeplacement().x;
+			posEnnemi.y += ennemi.getDeplacement().y;
+			
+		Vector2 tailleEnnemi = new Vector2(ennemi.getTaille());
+			
+		if ((pos.x < posEnnemi.x + tailleEnnemi.x && pos.x > posEnnemi.x) 
+				|| (pos.x + taille.x < posEnnemi.x + tailleEnnemi.x && pos.x + taille.x > posEnnemi.x))
+		{
+			if ((pos.y < posEnnemi.y + tailleEnnemi.y && pos.y > posEnnemi.y) 
+					|| (pos.y + taille.y < posEnnemi.y + tailleEnnemi.y && pos.y + taille.y > posEnnemi.y))
+			{
+				System.out.println("Collision");
+				ennemi.setMort(true);
+			}
+		}
+   }
 }
