@@ -15,6 +15,7 @@ public class Projectile {
 
     protected float vitesse;
     protected Vector2 taille;
+    protected boolean touche;
 
     //Constructeur de la classe
     Projectile (Vector2 posPerso, int id)
@@ -34,11 +35,16 @@ public class Projectile {
         taille = new Vector2();
         taille.x = img.getHeight();
 		taille.y = img.getWidth();
+		touche = false;
     }
 
     public Vector2 getPos()
     {
     	return pos;
+    }
+    public boolean aTouche()
+    {
+    	return touche;
     }
     //Procèdure de mise à jour
     public void update()
@@ -89,8 +95,8 @@ public class Projectile {
 				if ((pos.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y > posEnnemies.get(i).y) 
 						|| (pos.y + taille.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y + taille.y > posEnnemies.get(i).y))
 				{
-					System.out.println("Collision");
 					ennemis.get(i).setMort(true);
+					touche = true;
 				}
 			}
 	   }
