@@ -59,8 +59,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 				
 		//Calcul le deplacement
-		perso.update(ennemis.get(0));
-		ennemis.get(0).update(perso);
+		perso.update(ennemis);
 		
 		//Sortie de l'ecran du projectile
 		perso.sortieEcranProjectile();
@@ -70,23 +69,26 @@ public class MyGdxGame extends ApplicationAdapter {
 		
         //Deplacement
 		perso.deplacement();
-		ennemis.get(0).deplacement();
         
         //Affichages
 		batch.begin();
 			map.draw(batch);
-			ennemis.get(0).afficher(batch);
 			perso.draw(batch);
 			perso.drawProjectile(batch);
+			//Boucle pour l'ennemi
+			int i;
+			for(i=0; i<ennemis.size(); i++)
+			{
+				ennemis.get(i).update(perso);
+				ennemis.get(i).deplacement();
+				ennemis.get(i).afficher(batch);
+				//Mort
+				if (ennemis.get(i).getMort())
+				{
+					ennemis.remove(i);
+				}
+			}
 			hud.afficher(batch);
 		batch.end();
-		
-		System.out.println(ennemis.size());
-		
-		//Mort
-		if (ennemis.get(0).getMort())
-		{
-			ennemis.remove(0);
-		}
 	}
 }
