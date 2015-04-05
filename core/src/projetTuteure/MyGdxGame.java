@@ -69,24 +69,29 @@ public class MyGdxGame extends ApplicationAdapter {
 		
         //Deplacement
 		perso.deplacement();
-        
+		
+		//Boucle pour l'ennemi
+		int i;
+		for(i=0; i<ennemis.size(); i++)
+		{
+			ennemis.get(i).update(perso);
+			ennemis.get(i).deplacement();
+			//Mort
+			if (ennemis.get(i).getMort())
+			{
+				ennemis.remove(i);
+			}
+		}
+		
         //Affichages
 		batch.begin();
 			map.draw(batch);
 			perso.draw(batch);
 			perso.drawProjectile(batch);
 			//Boucle pour l'ennemi
-			int i;
 			for(i=0; i<ennemis.size(); i++)
 			{
-				ennemis.get(i).update(perso);
-				ennemis.get(i).deplacement();
 				ennemis.get(i).afficher(batch);
-				//Mort
-				if (ennemis.get(i).getMort())
-				{
-					ennemis.remove(i);
-				}
 			}
 			hud.afficher(batch);
 		batch.end();
