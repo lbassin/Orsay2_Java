@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -64,25 +66,33 @@ public class Projectile {
         batch.draw(img, pos.x, pos.y);
     }
     
-   public void collision (Ennemi ennemi)
+   public void collision (ArrayList <Ennemi>ennemis)
    {
-	   Vector2 posEnnemi = new Vector2(ennemi.getPos());
-	   // Ajoute le deplacement pour anticiper la position
-	   // Pour ne pas se retrouver dans l'ennemi
-			posEnnemi.x += ennemi.getDeplacement().x;
-			posEnnemi.y += ennemi.getDeplacement().y;
+	   int i;
+	   for (i=0; i<ennemis.size(); i++)
+	   {
+		   ArrayList <Vector2> posEnnemies = new ArrayList <Vector2>();
+		   posEnnemies.add(ennemis.get(i).getPos());
+		   
+		   // Ajoute le deplacement pour anticiper la position
+		   // Pour ne pas se retrouver dans l'ennemi
+				posEnnemies.get(i).x += ennemis.get(i).getDeplacement().x;
+				posEnnemies.get(i).y += ennemis.get(i).getDeplacement().y;
 			
-		Vector2 tailleEnnemi = new Vector2(ennemi.getTaille());
+			ArrayList <Vector2> tailleEnnemies = new ArrayList <Vector2>();
+			tailleEnnemies.add(ennemis.get(i).getTaille());
 			
-		if ((pos.x < posEnnemi.x + tailleEnnemi.x && pos.x > posEnnemi.x) 
-				|| (pos.x + taille.x < posEnnemi.x + tailleEnnemi.x && pos.x + taille.x > posEnnemi.x))
-		{
-			if ((pos.y < posEnnemi.y + tailleEnnemi.y && pos.y > posEnnemi.y) 
-					|| (pos.y + taille.y < posEnnemi.y + tailleEnnemi.y && pos.y + taille.y > posEnnemi.y))
+			
+			if ((pos.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x > posEnnemies.get(i).x) 
+					|| (pos.x + taille.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x + taille.x > posEnnemies.get(i).x))
 			{
-				System.out.println("Collision");
-				ennemi.setMort(true);
+				if ((pos.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y > posEnnemies.get(i).y) 
+						|| (pos.y + taille.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y + taille.y > posEnnemies.get(i).y))
+				{
+					System.out.println("Collision");
+					ennemis.get(i).setMort(true);
+				}
 			}
-		}
+	   }
    }
 }

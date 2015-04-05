@@ -93,7 +93,7 @@ public class Perso {
 	}
 	
 	//Calcul du déplacement
-	public void update(Ennemi ennemi)
+	public void update(ArrayList <Ennemi> ennemis)
 	{
 		if(event.getTypeController() == Event.CLAVIER)
 		{
@@ -132,7 +132,7 @@ public class Perso {
 			for (i=0; i< projectiles.size(); i++)
 			{
 				projectiles.get(i).update();
-				projectiles.get(i).collision(ennemi);
+				projectiles.get(i).collision(ennemis);
 			}
 		}
 		else if(event.getTypeController() == Event.MANETTE)
