@@ -15,6 +15,7 @@ public class Ennemi {
 	private float vitesse;
 	
 	private Texture img;
+	private boolean estMort;
 
 	Ennemi() {
 	
@@ -28,6 +29,8 @@ public class Ennemi {
 		taille = new Vector2();
 		taille.x = img.getHeight();
 		taille.y = img.getWidth();
+		
+		estMort = false;
 		
 	}
 	
@@ -43,6 +46,10 @@ public class Ennemi {
 	public Vector2 getTaille()
 	{
 		return taille;
+	}
+	public boolean getMort()
+	{
+		return estMort;
 	}
 	public void update(Perso cible)
 	{
