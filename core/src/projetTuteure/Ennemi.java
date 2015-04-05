@@ -51,6 +51,10 @@ public class Ennemi {
 	{
 		return estMort;
 	}
+	public void setMort(boolean mort)
+	{
+		this.estMort = mort;
+	}
 	public void update(Perso cible)
 	{
 		// Position du perso
