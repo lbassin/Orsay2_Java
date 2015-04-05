@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
@@ -21,7 +23,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Map map;
 	Perso perso;
-	Ennemi ennemi;
+	ArrayList <Ennemi> ennemis;
 	
 	HUD hud;
 	
@@ -40,7 +42,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		
 
-		ennemi = new Ennemi();
+		ennemis = new ArrayList<Ennemi>();
+		ennemis.add(new Ennemi());
 		
 		hud = new HUD();
 		hud.addJoueur(perso);
@@ -56,8 +59,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 				
 		//Calcul le deplacement
-		perso.update(ennemi);
-		ennemi.update(perso);
+		perso.update(ennemis.get(0));
+		ennemis.get(0).update(perso);
 		
 		//Sortie de l'ecran du projectile
 		perso.sortieEcranProjectile();
@@ -65,18 +68,25 @@ public class MyGdxGame extends ApplicationAdapter {
 		// Collision
 		map.collision(perso);
 		
-		
         //Deplacement
 		perso.deplacement();
-		ennemi.deplacement();
+		ennemis.get(0).deplacement();
         
         //Affichages
 		batch.begin();
 			map.draw(batch);
-			ennemi.afficher(batch);
+			ennemis.get(0).afficher(batch);
 			perso.draw(batch);
 			perso.drawProjectile(batch);
 			hud.afficher(batch);
 		batch.end();
+		
+		System.out.println(ennemis.size());
+		
+		//Mort
+		if (ennemis.get(0).getMort())
+		{
+			ennemis.remove(0);
+		}
 	}
 }
