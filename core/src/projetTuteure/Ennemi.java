@@ -114,7 +114,7 @@ public class Ennemi {
 	
 	public void afficher(SpriteBatch batch)
 	{
-		if (!estMort)
+		//if (!estMort)
 			batch.draw(img, pos.x, pos.y);
 	}
 }
