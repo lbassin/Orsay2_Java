@@ -11,21 +11,17 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MyGdxGame extends ApplicationAdapter {
 	
-	// Desolé Bryan :/
-	
 	// Constante
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
     public static final int NB_JOUEUR_MAX = 4;
 	
-	// TODO : Mettre attribut en private :o !
+	private SpriteBatch batch;
+	private Map map;
+	private Perso perso;
+	private ArrayList <Ennemi> ennemis;
 	
-	SpriteBatch batch;
-	Map map;
-	Perso perso;
-	ArrayList <Ennemi> ennemis;
-	
-	HUD hud;
+	private HUD hud;
 	
 	@Override
 	public void create () {
