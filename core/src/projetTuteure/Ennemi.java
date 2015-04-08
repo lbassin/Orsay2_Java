@@ -55,6 +55,7 @@ public class Ennemi {
 	{
 		this.estMort = mort;
 	}
+	
 	public void update(Perso cible)
 	{
 		// Position du perso
@@ -113,6 +114,16 @@ public class Ennemi {
 		if(Math.abs((this.pos.x + this.taille.x + deplacement.x ) - (posPerso.x + cible.getTaille().x)) < 4)
 			deplacement.x = 0;
 		
+		collision(cible);
+		
+	}
+	
+	public void collision(Perso cible)
+	{
+		if(cible.collision(this.pos, this.taille))
+		{
+			cible.subitAttaque(1, 120);
+		}
 	}
 	
 	public void deplacement()

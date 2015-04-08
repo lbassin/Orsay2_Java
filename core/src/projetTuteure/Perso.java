@@ -189,6 +189,23 @@ public class Perso {
 				projectiles.remove(i);
 		}
 	}
+	
+	public boolean collision(Vector2 pos, Vector2 taille)
+	{
+		if((pos.x < this.pos.x + this.taille.x && pos.x > this.pos.x) 
+				|| (pos.x + taille.x < this.pos.x + this.taille.x && pos.x + taille.x > this.pos.x))
+			{
+				// collisions y
+				if((pos.y < this.pos.y + this.taille.y/2 && pos.y > this.pos.y) 
+				|| (pos.y + taille.y < this.pos.y + this.taille.y/2 && pos.y + taille.y > this.pos.y))
+				{
+					return true;
+				}
+			}
+		
+		return false;
+	}
+	
 	//Procèdure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
@@ -202,6 +219,13 @@ public class Perso {
 			{
 				projectiles.get(i).draw(batch);
 			}
+	}
+	
+	
+	public void subitAttaque(int nbPv, int distanceRecul)
+	{
+		if(this.vie - nbPv >= 0)
+			this.vie -= nbPv;
 	}
 	
 	public Vector2 getTaille()
@@ -223,4 +247,6 @@ public class Perso {
 	
 	public float getPourcentageManaRestant()
 	{ return ((float)mana/(float)manaMax) * 100; }
+	
+
 }
