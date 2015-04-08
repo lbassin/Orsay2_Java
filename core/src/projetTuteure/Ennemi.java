@@ -67,10 +67,12 @@ public class Ennemi {
 		else if(this.pos.x < posPerso.x)
 			posPerso.x -= cible.getTaille().x;
 		
-		// Position devant le perso
-		Vector2 avantPerso = new Vector2();
-		avantPerso.x = this.pos.x + 1;
-		avantPerso.y = this.pos.y;
+		
+		
+		// Position devant l'ennemi
+		Vector2 avantEnnemi = new Vector2();
+		avantEnnemi.x = this.pos.x + 1;
+		avantEnnemi.y = this.pos.y;
 		
 		// Vecteur entre ennemi et le joueur
 		Vector2 ennemiPerso = new Vector2();
@@ -81,8 +83,8 @@ public class Ennemi {
 		// Vecteur entre ennemi et le point devant lui
 		Vector2 ennemiDevant = new Vector2();
 		
-		ennemiDevant.x = avantPerso.x - this.pos.x;
-		ennemiDevant.y = avantPerso.y - this.pos.y;
+		ennemiDevant.x = avantEnnemi.x - this.pos.x;
+		ennemiDevant.y = avantEnnemi.y - this.pos.y;
 		
 		// Produit scalaire
 		float prodScalaire = (ennemiPerso.x*ennemiDevant.x) + (ennemiPerso.y*ennemiDevant.y);
