@@ -60,6 +60,13 @@ public class Ennemi {
 		// Position du perso
 		Vector2 posPerso = cible.getPos();
 		
+		// S'arrete devant ou derriere le perso
+		// Ne lui rentre pas dedans
+		if(this.pos.x > posPerso.x)
+			posPerso.x += cible.getTaille().x;
+		else if(this.pos.x < posPerso.x)
+			posPerso.x -= cible.getTaille().x;
+		
 		// Position devant le perso
 		Vector2 avantPerso = new Vector2();
 		avantPerso.x = this.pos.x + 1;
