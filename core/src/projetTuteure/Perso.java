@@ -196,8 +196,8 @@ public class Perso {
 				|| (pos.x + taille.x < this.pos.x + this.taille.x && pos.x + taille.x > this.pos.x))
 			{
 				// collisions y
-				if((pos.y < this.pos.y + this.taille.y/2 && pos.y > this.pos.y) 
-				|| (pos.y + taille.y < this.pos.y + this.taille.y/2 && pos.y + taille.y > this.pos.y))
+				if((pos.y < this.pos.y + (this.taille.y/2) && pos.y > this.pos.y) 
+				|| (pos.y + taille.y < this.pos.y + (this.taille.y/2) && pos.y + taille.y > this.pos.y))
 				{
 					return true;
 				}
