@@ -60,10 +60,17 @@ public class Ennemi {
 		// Position du perso
 		Vector2 posPerso = cible.getPos();
 		
-		// Position devant le perso
-		Vector2 avantPerso = new Vector2();
-		avantPerso.x = this.pos.x + 1;
-		avantPerso.y = this.pos.y;
+		// S'arrete devant ou derriere le perso
+		// Ne lui rentre pas dedans
+		if(this.pos.x > posPerso.x)
+			posPerso.x += cible.getTaille().x;
+		else if(this.pos.x < posPerso.x)
+			posPerso.x -= cible.getTaille().x;
+		
+		// Position devant l'ennemi
+		Vector2 avantEnnemi = new Vector2();
+		avantEnnemi.x = this.pos.x + 1;
+		avantEnnemi.y = this.pos.y;
 		
 		// Vecteur entre ennemi et le joueur
 		Vector2 ennemiPerso = new Vector2();
@@ -74,8 +81,8 @@ public class Ennemi {
 		// Vecteur entre ennemi et le point devant lui
 		Vector2 ennemiDevant = new Vector2();
 		
-		ennemiDevant.x = avantPerso.x - this.pos.x;
-		ennemiDevant.y = avantPerso.y - this.pos.y;
+		ennemiDevant.x = avantEnnemi.x - this.pos.x;
+		ennemiDevant.y = avantEnnemi.y - this.pos.y;
 		
 		// Produit scalaire
 		float prodScalaire = (ennemiPerso.x*ennemiDevant.x) + (ennemiPerso.y*ennemiDevant.y);
@@ -101,6 +108,11 @@ public class Ennemi {
 			deplacement.y = (float) Math.sin(angle) * vitesse;			
 		else // Si il est en dessous on inverse deplacement en y car l'angle n'est pas dans sens trigo
 			deplacement.y = -(float) Math.sin(angle) * vitesse;	
+		
+		// Si l'ennemie est trop proche en x, on annule le deplacement pour eviter son mini harlem shake
+		if(Math.abs((this.pos.x + this.taille.x + deplacement.x ) - (posPerso.x + cible.getTaille().x)) < 5)
+			deplacement.x = 0;
+		
 	}
 	
 	public void deplacement()
