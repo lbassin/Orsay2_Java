@@ -112,10 +112,10 @@ public class Perso {
 			//TODO Suppression du projectile
 			
 			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
-				{
+			{
 					projectiles.add(new Projectile(pos, 0));
 					dateLancementSort[0] = System.currentTimeMillis();
-				}
+			}
 			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
 			{
 				projectiles.add(new Projectile(pos, 1));
