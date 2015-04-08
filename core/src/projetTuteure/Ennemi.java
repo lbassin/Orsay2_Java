@@ -63,9 +63,9 @@ public class Ennemi {
 		// S'arrete devant ou derriere le perso
 		// Ne lui rentre pas dedans
 		if(this.pos.x > posPerso.x)
-			posPerso.x += cible.getTaille().x;
+			posPerso.x += cible.getTaille().x/2 + 20;
 		else if(this.pos.x < posPerso.x)
-			posPerso.x -= cible.getTaille().x;
+			posPerso.x -= cible.getTaille().x/2 + 20;
 		
 		// Position devant l'ennemi
 		Vector2 avantEnnemi = new Vector2();
@@ -110,7 +110,7 @@ public class Ennemi {
 			deplacement.y = -(float) Math.sin(angle) * vitesse;	
 		
 		// Si l'ennemie est trop proche en x, on annule le deplacement pour eviter son mini harlem shake
-		if(Math.abs((this.pos.x + this.taille.x + deplacement.x ) - (posPerso.x + cible.getTaille().x)) < 5)
+		if(Math.abs((this.pos.x + this.taille.x + deplacement.x ) - (posPerso.x + cible.getTaille().x)) < 4)
 			deplacement.x = 0;
 		
 	}
