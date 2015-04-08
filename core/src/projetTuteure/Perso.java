@@ -80,6 +80,7 @@ public class Perso {
 		// Copie de protection
 		// Empeche de modifier sa pos n'importe comment
 		return new Vector2(pos);
+		
 	}
 	
 	//Getteur de la vitesse; 
