@@ -20,7 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	private Map map;
 	private Perso perso;
 	private ArrayList <Ennemi> ennemis;
-	
+	private Camera camera;
 	private HUD hud;
 	
 	@Override
@@ -43,6 +43,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		hud = new HUD();
 		hud.addJoueur(perso);
+		
+		camera = new Camera(batch, perso);
 	}
 
 	@Override
@@ -51,6 +53,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//Actualise la camera
+		camera.update();
+        
 		//Recup�ration des �v�nements
 		perso.updateEvent();
 				
