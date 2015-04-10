@@ -16,7 +16,10 @@ public class MyGdxGame extends ApplicationAdapter {
     public static final int HAUTEUR_ECRAN = 640;
     public static final int NB_JOUEUR_MAX = 4;
 	
-	private SpriteBatch batch;
+    private SpriteBatch batch;
+	private SpriteBatch batchHUD;
+	
+	
 	private Map map;
 	private Perso perso;
 	private ArrayList <Ennemi> ennemis;
@@ -26,15 +29,16 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		batchHUD = new SpriteBatch();
 		map = new Map("map.txt", "collision.txt");
 		
 		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 		{
 			// Si une manette est connect�e, le perso est controll� avec la manette
 			if(Controllers.getControllers().size == 0)
-				perso = new Perso(new Vector2(0, 0));
+				perso = new Perso(new Vector2(350, 0));
 			else
-				perso = new Perso(new Vector2(0,0), 0);
+				perso = new Perso(new Vector2(350,0), 0);
 		}
 		
 
@@ -94,7 +98,11 @@ public class MyGdxGame extends ApplicationAdapter {
 			{
 				ennemis.get(i).afficher(batch);
 			}
-			hud.afficher(batch);
 		batch.end();
+		
+		batchHUD.begin();
+			hud.afficher(batchHUD);
+		batchHUD.end();
+		
 	}
 }
