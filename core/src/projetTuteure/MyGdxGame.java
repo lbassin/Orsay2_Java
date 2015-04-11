@@ -53,56 +53,52 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		//Initialisation de la fen�tre
+		int i;
+		
+		//Initialisation de la fenetre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		//Actualise la camera
 		camera.update();
         
-		//Recup�ration des �v�nements
+		//Recuperation des evenements
 		perso.updateEvent();
 				
 		//Calcul le deplacement
 		perso.update(ennemis);
-		
-		//Sortie de l'ecran du projectile
-		perso.sortieEcranProjectile();
+		for(i=0; i<ennemis.size(); i++)
+			ennemis.get(i).update(perso);
 		
 		// Collision
 		map.collision(perso);
 		
         //Deplacement
 		perso.deplacement();
-		
-		//Boucle pour l'ennemi
-		int i;
 		for(i=0; i<ennemis.size(); i++)
-		{
-			ennemis.get(i).update(perso);
-			ennemis.get(i).deplacement();
-			//Mort
-			if (ennemis.get(i).getMort())
-			{
-				ennemis.remove(i);
-			}
-		}
+			ennemis.get(i).deplacement();		
 		
         //Affichages
-		batch.begin();
+		batch.begin(); // Batch avec matrice de la camera
 			map.draw(batch);
 			perso.draw(batch);
 			perso.drawProjectile(batch);
-			//Boucle pour l'ennemi
+			
 			for(i=0; i<ennemis.size(); i++)
-			{
 				ennemis.get(i).afficher(batch);
-			}
 		batch.end();
 		
-		batchHUD.begin();
+		batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
 			hud.afficher(batchHUD);
 		batchHUD.end();
+		
+		// Supprime les ennemis morts
+		for(i=0; i<ennemis.size(); i++)
+			if (ennemis.get(i).getMort())
+				ennemis.remove(i);
+		
+		// Supprime les projectiles sortie de l'ecran
+		perso.sortieEcranProjectile();
 		
 	}
 }
