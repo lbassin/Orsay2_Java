@@ -98,6 +98,8 @@ public class Perso {
 	//Calcul du déplacement
 	public void update(ArrayList <Ennemi> ennemis)
 	{
+		int i;
+		
 		if(event.getTypeController() == Event.CLAVIER)
 		{
 			if (event.getToucheDeplacement(Event.TOUCHE_HAUT))
@@ -131,7 +133,7 @@ public class Perso {
 				projectiles.add(new Projectile(pos, 3));
 				dateLancementSort[3] = System.currentTimeMillis();
 			}
-			int i;
+			
 			for (i=0; i< projectiles.size(); i++)
 			{
 				projectiles.get(i).update();
@@ -161,6 +163,24 @@ public class Perso {
 			{
 				projectiles.add(new Projectile(pos, 3));
 				dateLancementSort[3] = System.currentTimeMillis();
+			}
+		}
+		
+		for(i=0; i < ennemis.size(); i++)
+		{
+			// Si il y a une collision avec ennemi
+			if(collision(ennemis.get(i).getPos(), ennemis.get(i).getTaille()))
+			{
+				if(ennemis.get(i).getPos().x > this.pos.x) // Qu'il est devant le joueur
+				{
+					if(deplacement.x > 0) // Et que le joueur veut avancer
+						deplacement.x = 0; // On annule deplacement
+				}
+				else if(ennemis.get(i).getPos().x < this.pos.x) // Qu'il est derrière le joueur
+				{
+					if(deplacement.x < 0) // Et que le joueur veut reculer
+						deplacement.x = 0; // On annule deplacement
+				}
 			}
 		}
 	}
