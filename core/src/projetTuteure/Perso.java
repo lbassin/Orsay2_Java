@@ -183,6 +183,9 @@ public class Perso {
 				}
 			}
 		}
+		
+		if(pos.y + deplacement.y < 0)
+			deplacement.y = 0;
 	}
 	
 	//Procèdure de déplacement
