@@ -155,22 +155,22 @@ public class Perso {
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
 			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
 			{
-				projectiles.add(new Projectile(pos, 0));
+				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 0));
 				dateLancementSort[0] = System.currentTimeMillis();
 			}
 			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
 			{
-				projectiles.add(new Projectile(pos, 1));
+				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 1));
 				dateLancementSort[1] = System.currentTimeMillis();
 			}
 			if (event.getAction(2) && (System.currentTimeMillis() - dateLancementSort[2]) > 1000)
 			{
-				projectiles.add(new Projectile(pos, 2));
+				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 2));
 				dateLancementSort[2] = System.currentTimeMillis();
 			}
 			if (event.getAction(3) && (System.currentTimeMillis() - dateLancementSort[3]) > 1000)
 			{
-				projectiles.add(new Projectile(pos, 3));
+				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 3));
 				dateLancementSort[3] = System.currentTimeMillis();
 			}
 		}
