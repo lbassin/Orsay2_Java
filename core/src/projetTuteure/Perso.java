@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class Perso {
+	
+	static final int DROITE = 1;
+	static final int GAUCHE = 2;
 	
 	static final int NB_JOUEURS_MAX = 4;
 	static int nbJoueurs = 0;
@@ -34,6 +38,8 @@ public class Perso {
 	
 	private int manaMax;
 	private int mana;
+	
+	private int orientation;
 		
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
@@ -60,8 +66,8 @@ public class Perso {
 		img = new Texture("perso.png");
 		portrait = new Texture("portrait.png");
 		taille = new Vector2();
-		taille.x = img.getHeight();
-		taille.y = img.getWidth();
+		taille.x = 82;
+		taille.y = 96;
 		projectiles = new ArrayList <Projectile>();
 		this.pos = pos;
 		vitesse = 12;
@@ -72,6 +78,8 @@ public class Perso {
 		
 		manaMax = 100;
 		mana = 80;
+		
+		orientation = DROITE;
 	}
 	
 	//Getteur de la position
@@ -98,6 +106,7 @@ public class Perso {
 	//Calcul du déplacement
 	public void update(ArrayList <Ennemi> ennemis)
 	{
+		System.out.println(orientation);
 		int i;
 		
 		if(event.getTypeController() == Event.CLAVIER)
@@ -184,8 +193,10 @@ public class Perso {
 			}
 		}
 		
-		//if(pos.y + deplacement.y < 0)
-			//deplacement.y = 0;
+		if(deplacement.x > 0)
+			orientation = DROITE;
+		else if(deplacement.x < 0)
+			orientation = GAUCHE;
 	}
 	
 	//Procèdure de déplacement
@@ -232,7 +243,12 @@ public class Perso {
 	//Procèdure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
-		batch.draw(img, pos.x, pos.y);
+		if(orientation == DROITE)
+			batch.draw(new TextureRegion(img, 0, 0, (int)taille.x, (int)taille.y), pos.x, pos.y);
+		else
+			batch.draw(new TextureRegion(img, (int)taille.x, 0, (int)taille.x, (int)taille.y), pos.x, pos.y);
+		
+		System.out.println(taille);
 	}
 
 	public void drawProjectile(SpriteBatch batch)
@@ -270,6 +286,5 @@ public class Perso {
 	
 	public float getPourcentageManaRestant()
 	{ return ((float)mana/(float)manaMax) * 100; }
-	
 
 }
