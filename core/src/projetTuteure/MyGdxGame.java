@@ -66,7 +66,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 				
 		//Calcul le deplacement
-		perso.update(ennemis);
+		perso.update(ennemis, camera);
 		for(i=0; i<ennemis.size(); i++)
 			ennemis.get(i).update(perso);
 		
@@ -98,7 +98,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				ennemis.remove(i);
 		
 		// Supprime les projectiles sortie de l'ecran
-		perso.sortieEcranProjectile();
+		perso.sortieEcranProjectile(camera);
 		
 	}
 }

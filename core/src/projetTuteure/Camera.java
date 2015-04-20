@@ -43,4 +43,7 @@ public class Camera {
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();
 	}
+	
+	public Vector2 getDeplacementTotalCam()
+	{ return deplacementTotalCam;}
 }

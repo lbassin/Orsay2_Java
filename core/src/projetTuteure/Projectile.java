@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
     //Déclaration des variables de la classe
+	
+	// TODO : Pq protected ?
+	
     protected Vector2 pos;
     protected Vector2 deplacement;
 
@@ -16,9 +19,11 @@ public class Projectile {
     protected float vitesse;
     protected Vector2 taille;
     protected boolean touche;
+    
+    protected int orientation;
 
     //Constructeur de la classe
-    Projectile (Vector2 posPerso, int id)
+    Projectile (Vector2 posPerso, int id, int orientation)
     {
         pos = new Vector2();
         deplacement = new Vector2();
@@ -36,6 +41,7 @@ public class Projectile {
         taille.x = img.getHeight();
 		taille.y = img.getWidth();
 		touche = false;
+		this.orientation = orientation;
     }
 
     public Vector2 getPos()
@@ -47,13 +53,18 @@ public class Projectile {
     	return touche;
     }
     //Procèdure de mise à jour
-    public void update()
+    public void update(Camera camera)
     {
-        if (this.pos.x < 1315)
-        {
-            deplacement.x = +vitesse;
-            //System.out.println(pos.x + "En Y :" + pos.y);
-        }
+    	if(orientation == Perso.DROITE)
+    	{
+	        if (this.pos.x < 1315 + camera.getDeplacementTotalCam().x)
+	            deplacement.x = vitesse;
+    	}
+    	else if(orientation == Perso.GAUCHE)
+    	{
+    		if (this.pos.x > -35 + camera.getDeplacementTotalCam().x)
+	            deplacement.x = -vitesse;
+    	}
     }
 
     //Procèdure de déplacement du projectile
