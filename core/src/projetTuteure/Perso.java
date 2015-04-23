@@ -42,6 +42,7 @@ public class Perso {
 	private int mana;
 	
 	private int orientation;
+	private int ralentissementAnim;
 	
 		
 	
@@ -85,6 +86,7 @@ public class Perso {
 		
 		orientation = DROITE;
 		imgActuelle = 0;
+		ralentissementAnim = 3;
 	}
 	
 	//Getteur de la position
@@ -111,7 +113,6 @@ public class Perso {
 	//Calcul du déplacement
 	public void update(ArrayList <Ennemi> ennemis, Camera camera)
 	{
-		System.out.println(orientation);
 		int i;
 		
 		if(event.getTypeController() == Event.CLAVIER)
@@ -130,8 +131,9 @@ public class Perso {
 				deplacement.x+=vitesse;
 				
 				imgActuelle++;
-				if(imgActuelle >= nbImgParAnim)
+				if(imgActuelle >= nbImgParAnim*ralentissementAnim)
 					imgActuelle = 0;
+			
 			}
 				
 			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
@@ -258,10 +260,9 @@ public class Perso {
 	{
 		TextureRegion imgAffiche;
 		
-		if(orientation == DROITE)
-			imgAffiche = new TextureRegion(img, imgActuelle*((int)taille.x), 0, (int)taille.x, (int)taille.y);
-		else
-			imgAffiche = new TextureRegion(img, (int)taille.x, 0, (int)taille.x, (int)taille.y);
+		// Pour prendre en compte chaque orientation
+		// imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), orientation*(taille.y), (int)taille.x, (int)taille.y);
+		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), 0, (int)taille.x, (int)taille.y);
 		
 		if(imgAffiche != null)
 			batch.draw(imgAffiche, pos.x, pos.y);
