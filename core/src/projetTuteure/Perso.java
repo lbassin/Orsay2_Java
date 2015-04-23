@@ -303,4 +303,5 @@ public class Perso {
 	public float getPourcentageManaRestant()
 	{ return ((float)mana/(float)manaMax) * 100; }
 
+
 }

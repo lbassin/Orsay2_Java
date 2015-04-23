@@ -34,7 +34,7 @@ public class Projectile {
         	case 2 : img = new Texture("carreBlue.jpg"); break;
         	case 3 : img = new Texture("carreYellow.jpg"); break;
         }
-        vitesse = 10;
+        vitesse = 13;
         this.pos.x = posPerso.x;
         this.pos.y = posPerso.y;
         taille = new Vector2();
