@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Perso {
 	
-	static final int DROITE = 1;
-	static final int GAUCHE = 2;
+	static final int DROITE = 0;
+	static final int GAUCHE = 1;
 	
 	static final int NB_JOUEURS_MAX = 4;
 	static int nbJoueurs = 0;
@@ -21,6 +21,8 @@ public class Perso {
 	private Vector2 deplacement;
 	
 	private Texture img;
+	private int nbImgParAnim;
+	private int imgActuelle;
 	private Texture portrait;
 	
 	private Event event;
@@ -40,6 +42,7 @@ public class Perso {
 	private int mana;
 	
 	private int orientation;
+	
 		
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
@@ -64,13 +67,14 @@ public class Perso {
 		this.pos = new Vector2();
 		deplacement = new Vector2();
 		img = new Texture("perso.png");
+		nbImgParAnim = 8;
 		portrait = new Texture("portrait.png");
 		taille = new Vector2();
 		taille.x = 82;
 		taille.y = 96;
 		projectiles = new ArrayList <Projectile>();
 		this.pos = pos;
-		vitesse = 12;
+		vitesse = 10; // 12
 		dateLancementSort = new long [4];
 		
 		vie = 70;
@@ -80,6 +84,7 @@ public class Perso {
 		mana = 80;
 		
 		orientation = DROITE;
+		imgActuelle = 0;
 	}
 	
 	//Getteur de la position
@@ -117,10 +122,18 @@ public class Perso {
 				deplacement.y-=vitesse;
 	
 			if (event.getToucheDeplacement(Event.TOUCHE_GAUCHE))
+			{
 				deplacement.x-=vitesse;
+			}
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
+			{
 				deplacement.x+=vitesse;
-			
+				
+				imgActuelle++;
+				if(imgActuelle >= nbImgParAnim)
+					imgActuelle = 0;
+			}
+				
 			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
 			{
 					projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 0, orientation));
@@ -243,12 +256,15 @@ public class Perso {
 	//Procèdure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
-		if(orientation == DROITE)
-			batch.draw(new TextureRegion(img, 0, 0, (int)taille.x, (int)taille.y), pos.x, pos.y);
-		else
-			batch.draw(new TextureRegion(img, (int)taille.x, 0, (int)taille.x, (int)taille.y), pos.x, pos.y);
+		TextureRegion imgAffiche;
 		
-		System.out.println(taille);
+		if(orientation == DROITE)
+			imgAffiche = new TextureRegion(img, imgActuelle*((int)taille.x), 0, (int)taille.x, (int)taille.y);
+		else
+			imgAffiche = new TextureRegion(img, (int)taille.x, 0, (int)taille.x, (int)taille.y);
+		
+		if(imgAffiche != null)
+			batch.draw(imgAffiche, pos.x, pos.y);
 	}
 
 	public void drawProjectile(SpriteBatch batch)
