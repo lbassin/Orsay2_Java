@@ -1,9 +1,12 @@
 package projetTuteure;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.java_cup.internal.runtime.Scanner;
 
 public class Ennemi {
 	
@@ -34,7 +37,17 @@ public class Ennemi {
 		estMort = false;
 		
 		Scanner fichier;
-		
+		try
+		{
+			fichier = new Scanner (new File("../core/assets/"+nom));
+			pos.x = fichier.nextInt();
+			pos.y = fichier.nextInt();
+		}
+		catch (FileNotFoundException e)
+		{
+			System.err.println("Fichier d'ennemi non trouvé");
+			System.exit(5);
+		}
 	}
 	
 	public Vector2 getPos() {
