@@ -45,7 +45,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 
 		ennemis = new ArrayList<Ennemi>();
-		ennemis.add(new Ennemi());
+		ennemis.add(new Ennemi("initEnnemi"));
 		
 		hud = new HUD();
 		hud.addJoueur(perso);
