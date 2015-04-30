@@ -228,13 +228,13 @@ public class Perso {
 			projectiles.get(i).deplacement();
 		}
 	}
-	public void sortieEcranProjectile(Camera camera)
+	public void gestionProjectile(Camera camera)
 	{
 		int i;
 		for (i=0; i < projectiles.size() ; i++)
 		{
 			if ((projectiles.get(i).getPos().x > 1312 + camera.getDeplacementTotalCam().x) || 
-					(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x))
+					(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
 				projectiles.remove(i);
 		}
 	}
