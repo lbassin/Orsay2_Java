@@ -1,8 +1,5 @@
 package projetTuteure;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,9 +18,9 @@ public class Ennemi {
 	private Texture img;
 	private boolean estMort;
 
-	Ennemi(String nom) {
+	Ennemi(int posX, int posY) {
 	
-		this.pos = new Vector2(MyGdxGame.LARGEUR_ECRAN - 150, 50);
+		this.pos = new Vector2(posX, posY);
 		deplacement = new Vector2();
 		
 		vitesse = 5f;
@@ -35,19 +32,6 @@ public class Ennemi {
 		taille.y = img.getWidth();
 		
 		estMort = false;
-		
-		Scanner fichier;
-		try
-		{
-			fichier = new Scanner (new File("../core/assets/"+nom));
-			pos.x = fichier.nextInt();
-			pos.y = fichier.nextInt();
-		}
-		catch (FileNotFoundException e)
-		{
-			System.err.println("Fichier d'ennemi non trouvé");
-			System.exit(5);
-		}
 	}
 	
 	public Vector2 getPos() {
