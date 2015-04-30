@@ -100,7 +100,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				ennemis.remove(i);
 		
 		// Supprime les projectiles sortie de l'ecran
-		perso.sortieEcranProjectile(camera);
+		perso.gestionProjectile(camera);
 		
 	}
 }
