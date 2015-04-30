@@ -3,6 +3,7 @@ package projetTuteure;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.java_cup.internal.runtime.Scanner;
 
 public class Ennemi {
 	
@@ -17,7 +18,7 @@ public class Ennemi {
 	private Texture img;
 	private boolean estMort;
 
-	Ennemi() {
+	Ennemi(String nom) {
 	
 		this.pos = new Vector2(MyGdxGame.LARGEUR_ECRAN - 150, 50);
 		deplacement = new Vector2();
@@ -31,6 +32,8 @@ public class Ennemi {
 		taille.y = img.getWidth();
 		
 		estMort = false;
+		
+		Scanner fichier;
 		
 	}
 	
