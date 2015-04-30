@@ -1,7 +1,5 @@
 package projetTuteure;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
@@ -24,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	
 	private Map map;
 	private Perso perso;
-	private ArrayList <Ennemi> ennemis;
+	private GestionEnnemi ennemis;
 	private Camera camera;
 	private HUD hud;
 	
@@ -44,8 +42,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		
 
-		ennemis = new ArrayList<Ennemi>();
-		ennemis.add(new Ennemi("initEnnemi.txt"));
+		ennemis = new GestionEnnemi("initEnnemi.txt");
 		
 		hud = new HUD();
 		hud.addJoueur(perso);
@@ -55,7 +52,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		int i;
 		
 		//Initialisation de la fenetre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -68,26 +64,22 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 				
 		//Calcul le deplacement
-		perso.update(ennemis, camera);
-		for(i=0; i<ennemis.size(); i++)
-			ennemis.get(i).update(perso);
+		perso.update(ennemis.getListeEnnemis(), camera);
+		ennemis.update(perso);
 		
 		// Collision
 		map.collision(perso);
 		
         //Deplacement
 		perso.deplacement();
-		for(i=0; i<ennemis.size(); i++)
-			ennemis.get(i).deplacement();		
+		ennemis.deplacement();		
 		
         //Affichages
 		batch.begin(); // Batch avec matrice de la camera
 			map.draw(batch);
 			perso.draw(batch);
 			perso.drawProjectile(batch);
-			
-			for(i=0; i<ennemis.size(); i++)
-				ennemis.get(i).afficher(batch);
+			ennemis.draw(batch);
 		batch.end();
 		
 		batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
@@ -95,9 +87,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batchHUD.end();
 		
 		// Supprime les ennemis morts
-		for(i=0; i<ennemis.size(); i++)
-			if (ennemis.get(i).getMort())
-				ennemis.remove(i);
+		ennemis.suppressionEnnemi();
 		
 		// Supprime les projectiles sortie de l'ecran
 		perso.gestionProjectile(camera);
