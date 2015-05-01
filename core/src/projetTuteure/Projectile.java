@@ -84,11 +84,12 @@ public class Projectile {
     }
     
    public void collision (ArrayList <Ennemi>ennemis)
-   {
-	   int i;
-	   for (i=0; i<ennemis.size(); i++)
+   {   
+	   ArrayList <Vector2> posEnnemies = new ArrayList <Vector2>();
+	   ArrayList <Vector2> tailleEnnemies = new ArrayList <Vector2>();
+	   
+	   for (int i=0; i<ennemis.size(); i++)
 	   {
-		   ArrayList <Vector2> posEnnemies = new ArrayList <Vector2>();
 		   posEnnemies.add(ennemis.get(i).getPos());
 		   
 		   // Ajoute le deplacement pour anticiper la position
@@ -96,9 +97,7 @@ public class Projectile {
 				posEnnemies.get(i).x += ennemis.get(i).getDeplacement().x;
 				posEnnemies.get(i).y += ennemis.get(i).getDeplacement().y;
 			
-			ArrayList <Vector2> tailleEnnemies = new ArrayList <Vector2>();
 			tailleEnnemies.add(ennemis.get(i).getTaille());
-			
 			
 			if ((pos.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x > posEnnemies.get(i).x) 
 					|| (pos.x + taille.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x + taille.x > posEnnemies.get(i).x))
