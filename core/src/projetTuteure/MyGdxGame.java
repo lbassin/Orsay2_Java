@@ -29,15 +29,15 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		batchHUD = new SpriteBatch();
-		map = new Map("map.txt", "collision.txt");
+		map = new Map("map2.txt", "collision.txt");
 		
 		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 		{
 			// Si une manette est connect�e, le perso est controll� avec la manette
 			if(Controllers.getControllers().size == 0)
-				perso = new Perso(new Vector2(350, 0));
+				perso = new Perso(new Vector2(400, 200));
 			else
-				perso = new Perso(new Vector2(350,0), 0);
+				perso = new Perso(new Vector2(400, 200), 0);
 		}
 		
 

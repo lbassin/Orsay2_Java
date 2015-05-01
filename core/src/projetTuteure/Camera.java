@@ -29,7 +29,7 @@ public class Camera {
 	
 	public void update()
 	{
-		if(perso.getPos().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
+		if(perso.getPos().x + perso.getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
 		{
 			cam.translate(perso.getVitesse(), 0);
 			deplacementTotalCam.x += perso.getVitesse();
@@ -39,7 +39,18 @@ public class Camera {
 			cam.translate(-perso.getVitesse(), 0);
 			deplacementTotalCam.x -= perso.getVitesse();
 		}
-
+		
+		if(perso.getPos().y + perso.getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
+		{
+			cam.translate(0, perso.getVitesse());
+			deplacementTotalCam.y += perso.getVitesse();
+		}
+		else if(perso.getPos().y < deplacementTotalCam.y + 150)
+		{
+			cam.translate(0, -perso.getVitesse());
+			deplacementTotalCam.y -= perso.getVitesse();
+		}
+		
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();
 	}
