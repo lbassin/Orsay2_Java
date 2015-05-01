@@ -44,6 +44,8 @@ public class Perso {
 	private int orientation;
 	private int ralentissementAnim;
 	
+	private boolean finiLevel;
+	
 		
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
@@ -87,6 +89,8 @@ public class Perso {
 		orientation = DROITE;
 		imgActuelle = 0;
 		ralentissementAnim = 3;
+		
+		finiLevel = false;
 	}
 	
 	//Getteur de la position
@@ -111,7 +115,7 @@ public class Perso {
 	}
 	
 	//Calcul du déplacement
-	public void update(ArrayList <Ennemi> ennemis, Camera camera)
+	public void update(ArrayList <Ennemi> ennemis, Camera camera, Map map)
 	{
 		int i;
 		
@@ -211,6 +215,8 @@ public class Perso {
 			orientation = DROITE;
 		else if(deplacement.x < 0)
 			orientation = GAUCHE;
+		
+		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x - 434) && (pos.y <= -670));
 	}
 	
 	//Procèdure de déplacement
@@ -274,7 +280,6 @@ public class Perso {
 		}
 	}
 	
-	
 	public void subitAttaque(int nbPv, int distanceRecul)
 	{
 		if(this.vie - nbPv >= 0)
@@ -301,5 +306,9 @@ public class Perso {
 	public float getPourcentageManaRestant()
 	{ return ((float)mana/(float)manaMax) * 100; }
 
+	public boolean aFiniLevel()
+	{
+		return finiLevel;
+	}
 
 }
