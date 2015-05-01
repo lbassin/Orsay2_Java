@@ -221,17 +221,15 @@ public class Perso {
 		
 		deplacement.x = 0;
 		deplacement.y = 0;
-		
-		int i;
-		for (i=0; i < projectiles.size() ; i++)
+
+		for (int i=0; i < projectiles.size() ; i++)
 		{
 			projectiles.get(i).deplacement();
 		}
 	}
 	public void gestionProjectile(Camera camera)
 	{
-		int i;
-		for (i=0; i < projectiles.size() ; i++)
+		for (int i=0; i < projectiles.size() ; i++)
 		{
 			if ((projectiles.get(i).getPos().x > 1312 + camera.getDeplacementTotalCam().x) || 
 					(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
@@ -270,11 +268,10 @@ public class Perso {
 
 	public void drawProjectile(SpriteBatch batch)
 	{
-			int i;
-			for (i=0; i < projectiles.size() ; i++)
-			{
-				projectiles.get(i).draw(batch);
-			}
+		for (int i=0; i < projectiles.size() ; i++)
+		{
+			projectiles.get(i).draw(batch);
+		}
 	}
 	
 	
