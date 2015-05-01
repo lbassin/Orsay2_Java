@@ -32,7 +32,7 @@ public class Map {
 		
 		Scanner fichier;
 		
-		int i,j;
+		int i;
 		
 		try 
 		{
@@ -52,7 +52,7 @@ public class Map {
 			
 			for(i = 0; i < tailleMap.y; i++)
 			{
-				for(j = 0; j < tailleMap.x; j++)
+				for(int j = 0; j < tailleMap.x; j++)
 				{
 					// Recupere id du tile
 					int numTile = fichier.nextInt();
@@ -137,10 +137,8 @@ public class Map {
 	}
 	
 	public void draw(SpriteBatch batch)
-	{
-		int i;
-		
-		for(i = 0; i < tiles.size(); i++)
+	{		
+		for(int i = 0; i < tiles.size(); i++)
 		{
 			tiles.get(i).afficher(batch);
 		}

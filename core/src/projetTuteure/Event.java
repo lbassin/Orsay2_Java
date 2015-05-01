@@ -43,8 +43,6 @@ public class Event {
 	// Constructeur manette
 	Event(int numController)
 	{
-		int i;
-		
 		this.typeController = Event.MANETTE;
 		
 		if(numController < Controllers.getControllers().size)
@@ -53,7 +51,7 @@ public class Event {
 			System.exit(4);
 					
 		joystick = new Vector2[2];
-		for(i=0; i < 2; i++)
+		for(int i=0; i < 2; i++)
 			joystick[i] = new Vector2();
 		
 		action = new Boolean[4];

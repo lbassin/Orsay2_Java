@@ -80,8 +80,7 @@ public class HUD {
 	{
 		Vector2 pos = new Vector2(30, MyGdxGame.HAUTEUR_ECRAN - cadrePortrait.getHeight() - 20);
 		
-		int i;
-		for(i=0; i < nbJoueur; i++)
+		for(int i=0; i < nbJoueur; i++)
 		{
 			afficherInfosPerso(batch, new Vector2(pos.x, pos.y), i);
 			pos.x += 300;
