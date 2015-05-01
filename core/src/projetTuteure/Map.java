@@ -143,4 +143,8 @@ public class Map {
 			tiles.get(i).afficher(batch);
 		}
 	}
+	public Vector2 getTailleMap()
+	{
+		return tailleMap;
+	}
 }
