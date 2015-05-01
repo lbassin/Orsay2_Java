@@ -35,9 +35,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		{
 			// Si une manette est connect�e, le perso est controll� avec la manette
 			if(Controllers.getControllers().size == 0)
-				perso = new Perso(new Vector2(350, 0));
+				perso = new Perso(new Vector2(350, 150));
 			else
-				perso = new Perso(new Vector2(350,0), 0);
+				perso = new Perso(new Vector2(350, 150), 0);
 		}
 		
 
