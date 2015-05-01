@@ -29,7 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		batchHUD = new SpriteBatch();
-		map = new Map("map.txt", "collision.txt");
+		map = new Map("map2.txt", "collision.txt");
 		
 		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 		{
