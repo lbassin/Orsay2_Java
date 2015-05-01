@@ -60,6 +60,9 @@ public class GestionEnnemi {
 	{
 		for(int i=0; i<nbEnnemis; i++)
 			if (ennemis.get(i).getMort())
+			{
 				ennemis.remove(i);
+				nbEnnemis--;
+			}	
 	}
 }
