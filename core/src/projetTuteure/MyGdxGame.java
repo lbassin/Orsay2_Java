@@ -25,28 +25,56 @@ public class MyGdxGame extends ApplicationAdapter {
 	private Camera camera;
 	private HUD hud;
 	
+	private int niveau = 1;
+	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		batchHUD = new SpriteBatch();
-		map = new Map("map2.txt", "collision.txt");
-		
-		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
+		if (niveau == 1)
 		{
-			// Si une manette est connect�e, le perso est controll� avec la manette
-			if(Controllers.getControllers().size == 0)
-				perso = new Perso(new Vector2(400, 200));
-			else
-				perso = new Perso(new Vector2(400, 200), 0);
+			batch = new SpriteBatch();
+			batchHUD = new SpriteBatch();
+			map = new Map("map2.txt", "collision.txt");
+			
+			if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
+			{
+				// Si une manette est connect�e, le perso est controll� avec la manette
+				if(Controllers.getControllers().size == 0)
+					perso = new Perso(new Vector2(400, 200));
+				else
+					perso = new Perso(new Vector2(400, 200), 0);
+			}
+			
+	
+			ennemis = new GestionEnnemi("initEnnemi.txt");
+			
+			hud = new HUD();
+			hud.addJoueur(perso);
+			
+			camera = new Camera(batch, perso);
 		}
-		
-
-		ennemis = new GestionEnnemi("initEnnemi.txt");
-		
-		hud = new HUD();
-		hud.addJoueur(perso);
-		
-		camera = new Camera(batch, perso);
+		else if (niveau == 2)
+		{
+			batch = new SpriteBatch();
+			batchHUD = new SpriteBatch();
+			map = new Map("map3.txt", "collision.txt");
+			
+			if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
+			{
+				// Si une manette est connect�e, le perso est controll� avec la manette
+				if(Controllers.getControllers().size == 0)
+					perso = new Perso(new Vector2(400, 200));
+				else
+					perso = new Perso(new Vector2(400, 200), 0);
+			}
+			
+	
+			ennemis = new GestionEnnemi("initEnnemi.txt");
+			
+			hud = new HUD();
+			hud.addJoueur(perso);
+			
+			camera = new Camera(batch, perso);
+		}
 	}
 
 	@Override
@@ -63,7 +91,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.updateEvent();
 				
 		//Calcul le deplacement
-		perso.update(ennemis.getListeEnnemis(), camera);
+		perso.update(ennemis.getListeEnnemis(), camera, map);
 		ennemis.update(perso);
 		
 		// Collision
@@ -73,6 +101,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		perso.deplacement();
 		ennemis.deplacement();		
 		
+		//Si le joueur fini le niveau
+		if (perso.aFiniLevel())
+		{
+			niveau++;
+			create();
+		}
         //Affichages
 		batch.begin(); // Batch avec matrice de la camera
 			map.draw(batch);
