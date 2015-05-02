@@ -35,17 +35,17 @@ public class Ennemi {
 	}
 	
 	public Vector2 getPos() {
-		return pos;
+		return new Vector2(pos);
 	}
 
 	public Vector2 getDeplacement()
 	{
-		return deplacement;
+		return new Vector2(deplacement);
 	}
 
 	public Vector2 getTaille()
 	{
-		return taille;
+		return new Vector2(taille);
 	}
 	public boolean getMort()
 	{
