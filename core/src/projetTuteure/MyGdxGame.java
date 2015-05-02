@@ -18,22 +18,14 @@ public class MyGdxGame extends ApplicationAdapter {
     private SpriteBatch batch;
 	private SpriteBatch batchHUD;
 	
-	
-	private Map map;
 	private Perso perso;
-	private GestionEnnemi ennemis;
-	private Camera camera;
 	private HUD hud;
-	
-	private int niveau = 1;
+	private Niveau niveau;
 	
 	@Override
 	public void create () {
-		if (niveau == 1)
-		{
 			batch = new SpriteBatch();
 			batchHUD = new SpriteBatch();
-			map = new Map("map2.txt", "collision.txt");
 			
 			if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 			{
@@ -44,37 +36,9 @@ public class MyGdxGame extends ApplicationAdapter {
 					perso = new Perso(new Vector2(400, 200), 0);
 			}
 			
-	
-			ennemis = new GestionEnnemi("initEnnemi.txt");
-			
 			hud = new HUD();
 			hud.addJoueur(perso);
-			
-			camera = new Camera(batch, perso);
-		}
-		else if (niveau == 2)
-		{
-			batch = new SpriteBatch();
-			batchHUD = new SpriteBatch();
-			map = new Map("map3.txt", "collision.txt");
-			
-			if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
-			{
-				// Si une manette est connect�e, le perso est controll� avec la manette
-				if(Controllers.getControllers().size == 0)
-					perso = new Perso(new Vector2(400, 200));
-				else
-					perso = new Perso(new Vector2(400, 200), 0);
-			}
-			
-	
-			ennemis = new GestionEnnemi("initEnnemi.txt");
-			
-			hud = new HUD();
-			hud.addJoueur(perso);
-			
-			camera = new Camera(batch, perso);
-		}
+			niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 	}
 
 	@Override
@@ -85,34 +49,24 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		//Actualise la camera
-		camera.update();
-        
-		//Recuperation des evenements
-		perso.updateEvent();
-				
+		//Recuperation des evenements		
 		//Calcul le deplacement
-		perso.update(ennemis.getListeEnnemis(), camera, map);
-		ennemis.update(perso);
+		niveau.niveauUpdate();
 		
-		// Collision
-		map.collision(perso);
+		// Collision sur le niveau
+		niveau.collision();
 		
-        //Deplacement
-		perso.deplacement();
-		ennemis.deplacement();		
+        //Deplacement sur le niveau
+		niveau.deplacement();	
 		
 		//Si le joueur fini le niveau
 		if (perso.aFiniLevel())
 		{
-			niveau++;
-			create();
+			niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 		}
         //Affichages
 		batch.begin(); // Batch avec matrice de la camera
-			map.draw(batch);
-			perso.draw(batch);
-			perso.drawProjectile(batch);
-			ennemis.draw(batch);
+			niveau.draw(batch);
 		batch.end();
 		
 		batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
@@ -120,10 +74,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		batchHUD.end();
 		
 		// Supprime les ennemis morts
-		ennemis.suppressionEnnemi();
-		
 		// Supprime les projectiles sortie de l'ecran
-		perso.gestionProjectile(camera);
+		niveau.gestionNiveau();
 		
 	}
 }
