@@ -114,17 +114,28 @@ public class Ennemi {
 		if(Math.abs((this.pos.x + this.taille.x + deplacement.x ) - (posPerso.x + cible.getTaille().x)) < 4)
 			deplacement.x = 0;
 		
-		collision(cible);
-		
 	}
 	
-	public void collision(Perso cible)
+	public boolean collision(Vector2 pos, Vector2 taille)
 	{
-		if(cible.collision(this.pos, this.taille))
-		{
-			cible.subitAttaque(1, 120);
-		}
+		System.out.println("test");
+		if((pos.x < this.pos.x + this.taille.x && pos.x > this.pos.x) 
+				|| (pos.x + taille.x < this.pos.x + this.taille.x && pos.x + taille.x > this.pos.x))
+			{
+			System.out.println("valide");
+				if((pos.y < this.pos.y + this.taille.y && pos.y > this.pos.y) 
+				|| (pos.y + taille.y < this.pos.y + this.taille.y && pos.y + taille.y > this.pos.y))
+				{
+					System.out.println("This : " + this.pos + " - " + this.taille);
+					System.out.println("Test : " + pos + " - " + taille);
+					return true;
+				}
+			}
+		
+		return false;
 	}
+	
+	
 	
 	public void deplacement()
 	{
@@ -138,5 +149,9 @@ public class Ennemi {
 	public void afficher(SpriteBatch batch)
 	{
 			batch.draw(img, pos.x, pos.y);
+	}
+
+	public void setDeplacement(Vector2 deplacement) {
+		this.deplacement = new Vector2(deplacement);
 	}
 }

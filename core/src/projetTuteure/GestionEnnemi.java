@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class GestionEnnemi {
 	private ArrayList <Ennemi> ennemis;
@@ -29,7 +30,7 @@ public class GestionEnnemi {
 		}
 		catch (FileNotFoundException e)
 		{
-			System.err.println("Fichier d'ennemi non trouvé");
+			System.err.println("Fichier d'ennemi non trouvï¿½");
 			System.exit(5);
 		}
 	}
@@ -45,6 +46,26 @@ public class GestionEnnemi {
 	{
 		for(int i=0; i<nbEnnemis; i++)
 			ennemis.get(i).update(cible);
+		
+		// Test collision entre ennemis
+		int i, e;
+		for(i=0; i<ennemis.size(); i++)
+		{
+			for(e=0; e<ennemis.size(); e++) // e = i + 1 pour ne pas tester avec lui mÃªme
+			{
+				// Test entre i et e
+				// (+ test entre e et i ?)
+				if(i != e)
+				{
+					if(ennemis.get(i).collision(ennemis.get(e).getPos(), ennemis.get(e).getTaille()))
+					{
+						System.out.println("Touche");
+						ennemis.get(i).setDeplacement(Vector2.Zero);
+					}
+				}
+			}
+			
+		}
 	}
 	public void deplacement ()
 	{
