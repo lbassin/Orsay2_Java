@@ -311,4 +311,11 @@ public class Perso {
 		return finiLevel;
 	}
 
+	public void resetPerso()
+	{
+		pos.x = 400;
+		pos.y = 200;
+		vie = 70;
+		mana = 80;
+	}
 }
