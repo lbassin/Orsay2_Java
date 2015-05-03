@@ -1,6 +1,8 @@
 package projetTuteure;
 
 
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -17,6 +19,9 @@ public class Ennemi {
 	
 	private Texture img;
 	private boolean estMort;
+	
+	private Texture cadreVie;
+	private Texture barreVie;
 
 	Ennemi(int posX, int posY) {
 	
@@ -32,6 +37,26 @@ public class Ennemi {
 		taille.y = img.getHeight();
 		
 		estMort = false;
+		
+		// Genere img pour cadre jauge
+		Vector2 tailleCadre = new Vector2(this.taille.x, 14);
+		int tailleBordure = 2;
+		
+		Pixmap carreJaugeTmp = new Pixmap((int)tailleCadre.x , (int)tailleCadre.y, Format.RGBA8888);
+		carreJaugeTmp.setColor(0.61f, 0.46f, 0.24f, 1);
+		
+		// Colorie les 4 lignes qui font le contour
+		carreJaugeTmp.fillRectangle(0, 0, (int)tailleCadre.x, tailleBordure);
+		carreJaugeTmp.fillRectangle(0, 0, tailleBordure, (int)tailleCadre.y);
+		carreJaugeTmp.fillRectangle((int)tailleCadre.x - tailleBordure, 0, tailleBordure, (int)tailleCadre.y);
+		carreJaugeTmp.fillRectangle(0, (int)tailleCadre.y - tailleBordure, (int)tailleCadre.x, tailleBordure);
+		
+		// Colorie le milieu en transparant
+		carreJaugeTmp.setColor(1f, 1f, 1f, 0.2f);
+		carreJaugeTmp.fillRectangle(tailleBordure, tailleBordure, (int)tailleCadre.x - tailleBordure*2, (int)tailleCadre.y - tailleBordure*2);
+		
+		cadreVie = new Texture(carreJaugeTmp);
+		
 	}
 	
 	public Vector2 getPos() {
@@ -111,6 +136,7 @@ public class Ennemi {
 	public void afficher(SpriteBatch batch)
 	{
 		batch.draw(img, pos.x, pos.y);
+		batch.draw(cadreVie, pos.x, pos.y + taille.y + 10);
 	}
 
 	public void setDeplacement(Vector2 deplacement) {
