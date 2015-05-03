@@ -31,14 +31,14 @@ public class MyGdxGame extends ApplicationAdapter {
 			{
 				// Si une manette est connect�e, le perso est controll� avec la manette
 				if(Controllers.getControllers().size == 0)
-					perso = new Perso(new Vector2(400, 200));
+					perso = new Perso(new Vector2(400, 000));
 				else
 					perso = new Perso(new Vector2(400, 200), 0);
 			}
 			
 			hud = new HUD();
 			hud.addJoueur(perso);
-			niveau = new Niveau (new Vector2(200, 200), "map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		//Si le joueur fini le niveau
 		if (perso.aFiniLevel())
 		{
-			niveau = new Niveau (new Vector2(200, 200), "map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 		}
         //Affichages
 		batch.begin(); // Batch avec matrice de la camera

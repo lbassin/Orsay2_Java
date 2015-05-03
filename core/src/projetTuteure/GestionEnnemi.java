@@ -57,6 +57,7 @@ public class GestionEnnemi {
 				// Test entre e et i
 				if(i != e) // Ne pas tester avec soit même
 				{
+					// Si l'autre ennemis est dans une direction et qu'il se dirige vers l'autre ennemis, on empeche deplacement
 					if(ennemis.get(i).collision(ennemis.get(e).getPos().add(ennemis.get(e).getDeplacement()), ennemis.get(e).getTaille()))
 					{
 						// Test sur l'axe x
@@ -76,7 +77,6 @@ public class GestionEnnemi {
 						if((ennemis.get(e).getPos().y + ennemis.get(e).getTaille().y <= ennemis.get(i).getPos().y) && // e est en dessous de i
 								(ennemis.get(i).getDeplacement().y < 0)) // et i vas vers le bas (vers e)
 							ennemis.get(i).setDeplacement(new Vector2(ennemis.get(i).getDeplacement().x, 0)); // i se deplace pas
-							
 					}
 				}
 			}

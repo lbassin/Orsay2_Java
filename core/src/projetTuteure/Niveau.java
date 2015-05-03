@@ -9,13 +9,13 @@ public class Niveau {
 	private GestionEnnemi ennemis;
 	private Camera camera;
 	
-	Niveau(Vector2 pos, String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
+	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
 	{
 		map = new Map(nomMap,nomFichierCollision);
 		this.perso = perso;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
 		camera = new Camera (batch, this.perso);
-		perso.resetPerso(pos);
+		perso.resetPerso();
 	}
 	public void niveauUpdate()
 	{

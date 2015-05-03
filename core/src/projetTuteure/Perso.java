@@ -309,7 +309,7 @@ public class Perso {
 		return finiLevel;
 	}
 
-	public void resetPerso(Vector2 pos)
+	public void resetPerso()
 	{
 		pos = new Vector2(400, 200);
 		vie = 70;
