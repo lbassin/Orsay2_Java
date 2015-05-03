@@ -75,6 +75,7 @@ public class Ennemi {
 		deplacement = ennemiToPerso; // Definit le deplacement
 		
 		// Test collision avec joueurs :
+		// TODO : Boucle pour tous les joueurs
 		
 		if(cible.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
 		{
@@ -84,20 +85,19 @@ public class Ennemi {
 	
 	public boolean collision(Vector2 pos, Vector2 taille)
 	{
-		if((pos.x < this.pos.x + this.taille.x && pos.x > this.pos.x) 
-				|| (pos.x + taille.x < this.pos.x + this.taille.x && pos.x + taille.x > this.pos.x))
+		if((pos.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x >= this.pos.x + this.deplacement.x) 
+				|| (pos.x + taille.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x + taille.x >= this.pos.x + this.deplacement.x))
 			{
-				if((pos.y < this.pos.y + this.taille.y && pos.y > this.pos.y) 
-				|| (pos.y + taille.y < this.pos.y + this.taille.y && pos.y + taille.y > this.pos.y))
+				// collisions y
+				if((pos.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
+				|| (pos.y + taille.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + taille.y >= this.pos.y + this.deplacement.y ))
 				{
 					return true;
 				}
 			}
 		
 		return false;
-	}
-	
-	
+	}	
 	
 	public void deplacement()
 	{
