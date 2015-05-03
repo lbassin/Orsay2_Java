@@ -59,11 +59,11 @@ public class GestionEnnemi {
 				{
 					if(ennemis.get(i).collision(ennemis.get(e).getPos().add(ennemis.get(e).getDeplacement()), ennemis.get(e).getTaille()))
 					{
-						if((ennemis.get(e).getPos().y >= ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y) || // Si le joueur est dessous ou dessus
+						if((ennemis.get(e).getPos().y >= ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y) || // Si i est dessous ou dessus de e
 								(ennemis.get(e).getPos().y + ennemis.get(e).getTaille().y <= ennemis.get(i).getPos().y))
 							ennemis.get(i).setDeplacement(new Vector2(ennemis.get(i).getDeplacement().x, 0));
 							
-						if((ennemis.get(e).getPos().x >= ennemis.get(i).getPos().x + ennemis.get(i).getTaille().x) || // Si le joueur est à gauche ou à droite
+						if((ennemis.get(e).getPos().x >= ennemis.get(i).getPos().x + ennemis.get(i).getTaille().x) || // Si i est à gauche ou à droite de e
 								(ennemis.get(e).getPos().x + ennemis.get(e).getTaille().x < ennemis.get(i).getPos().x))
 							ennemis.get(i).setDeplacement(new Vector2(0, ennemis.get(i).getDeplacement().y));
 					}
