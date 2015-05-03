@@ -29,7 +29,7 @@ public class GestionEnnemi {
 		}
 		catch (FileNotFoundException e)
 		{
-			System.err.println("Fichier d'ennemi non trouvé");
+			System.err.println("Fichier d'ennemi non trouvï¿½");
 			System.exit(5);
 		}
 	}
@@ -45,6 +45,22 @@ public class GestionEnnemi {
 	{
 		for(int i=0; i<nbEnnemis; i++)
 			ennemis.get(i).update(cible);
+		
+		// Test collision entre ennemis
+		int i, e;
+		for(i=0; i<ennemis.size(); i++)
+		{
+			for(e=0; e<ennemis.size(); e++) 
+			{
+				// Test entre i et e
+				// Test entre e et i
+				if(i != e) // Ne pas tester avec soit mÃªme
+				{
+					// TODO : Test collision entre 2 ennemis
+				}
+			}
+			
+		}
 	}
 	public void deplacement ()
 	{

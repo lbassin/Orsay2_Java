@@ -15,7 +15,7 @@ public class Perso {
 	static final int NB_JOUEURS_MAX = 4;
 	static int nbJoueurs = 0;
 	
-	//Déclaration des variables de la classe
+	//Dï¿½claration des variables de la classe
 	
 	private Vector2 pos;
 	private Vector2 deplacement;
@@ -79,7 +79,7 @@ public class Perso {
 		this.pos = pos;
 		vitesse = 10; // 12
 		dateLancementSort = new long [4];
-		
+		System.out.println(pos);
 		vie = 70;
 		vieMax = 100;
 		
@@ -108,13 +108,13 @@ public class Perso {
 		return vitesse;
 	}
 	
-	//Mise à jour des événements
+	//Mise ï¿½ jour des ï¿½vï¿½nements
 	public void updateEvent()
 	{
 		event.update();
 	}
 	
-	//Calcul du déplacement
+	//Calcul du dï¿½placement
 	public void update(ArrayList <Ennemi> ennemis, Camera camera, Map map)
 	{
 		int i;
@@ -196,18 +196,15 @@ public class Perso {
 		for(i=0; i < ennemis.size(); i++)
 		{
 			// Si il y a une collision avec ennemi
-			if(collision(ennemis.get(i).getPos(), ennemis.get(i).getTaille()))
+			if(collision(ennemis.get(i).getPos().add(ennemis.get(i).getDeplacement()), ennemis.get(i).getTaille()))
 			{
-				if(ennemis.get(i).getPos().x > this.pos.x) // Qu'il est devant le joueur
-				{
-					if(deplacement.x > 0) // Et que le joueur veut avancer
-						deplacement.x = 0; // On annule deplacement
-				}
-				else if(ennemis.get(i).getPos().x < this.pos.x) // Qu'il est derrière le joueur
-				{
-					if(deplacement.x < 0) // Et que le joueur veut reculer
-						deplacement.x = 0; // On annule deplacement
-				}
+				if((ennemis.get(i).getPos().y >= this.pos.y + this.taille.y) || // Si le joueur est dessous ou dessus
+						(ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y <= this.pos.y))
+					deplacement.y = 0; // Il peut toujours se deplacer en x
+					
+				if((ennemis.get(i).getPos().x >= this.pos.x + this.taille.x) || // Si le joueur est Ã  gauche ou Ã  droite
+						(ennemis.get(i).getPos().x + ennemis.get(i).getTaille().x < this.pos.x))
+					deplacement.x = 0; // Il peut toujours se deplacer en y
 			}
 		}
 		
@@ -217,9 +214,10 @@ public class Perso {
 			orientation = GAUCHE;
 		
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x - 434) && (pos.y <= -670));
+	
 	}
 	
-	//Procèdure de déplacement
+	//Procï¿½dure de dï¿½placement
 	public void deplacement()
 	{
 		pos.x += deplacement.x;
@@ -245,12 +243,12 @@ public class Perso {
 	
 	public boolean collision(Vector2 pos, Vector2 taille)
 	{
-		if((pos.x < this.pos.x + this.taille.x && pos.x > this.pos.x) 
-				|| (pos.x + taille.x < this.pos.x + this.taille.x && pos.x + taille.x > this.pos.x))
+		if((pos.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x >= this.pos.x + this.deplacement.x) 
+				|| (pos.x + taille.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x + taille.x >= this.pos.x + this.deplacement.x))
 			{
 				// collisions y
-				if((pos.y < this.pos.y + this.taille.y && pos.y > this.pos.y) 
-				|| (pos.y + taille.y < this.pos.y + this.taille.y && pos.y + taille.y > this.pos.y))
+				if((pos.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
+				|| (pos.y + taille.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + taille.y >= this.pos.y + this.deplacement.y ))
 				{
 					return true;
 				}
@@ -259,7 +257,7 @@ public class Perso {
 		return false;
 	}
 	
-	//Procèdure d'affichage du personnage
+	//Procï¿½dure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
 		TextureRegion imgAffiche;
@@ -287,7 +285,7 @@ public class Perso {
 	}
 	
 	public Vector2 getTaille()
-	{ return taille; }
+	{ return new Vector2(taille); }
 	
 	public void setDeplacement(Vector2 deplacement)
 	{ 
@@ -311,10 +309,9 @@ public class Perso {
 		return finiLevel;
 	}
 
-	public void resetPerso()
+	public void resetPerso(Vector2 pos)
 	{
-		pos.x = 400;
-		pos.y = 200;
+		pos = new Vector2(400, 200);
 		vie = 70;
 		mana = 80;
 	}
