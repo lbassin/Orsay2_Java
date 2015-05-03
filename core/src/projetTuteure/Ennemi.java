@@ -1,6 +1,8 @@
 package projetTuteure;
 
 
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -17,9 +19,16 @@ public class Ennemi {
 	
 	private Texture img;
 	private boolean estMort;
+	
+	private Texture cadreVie;
+	private Texture barreVie;
+	
+	private int vie;
+	private int vieMax;
+	private Vector2 tailleBarreVie;
 
 	Ennemi(int posX, int posY) {
-	
+		
 		this.pos = new Vector2(posX, posY);
 		deplacement = new Vector2();
 		
@@ -32,6 +41,36 @@ public class Ennemi {
 		taille.y = img.getHeight();
 		
 		estMort = false;
+		
+		vieMax = 150;
+		vie = 100;
+		
+		// Genere img pour cadre jauge
+		Vector2 tailleCadre = new Vector2(this.taille.x, 14);
+		int tailleBordure = 2;
+		
+		Pixmap carreJaugeTmp = new Pixmap((int)tailleCadre.x , (int)tailleCadre.y, Format.RGBA8888);
+		carreJaugeTmp.setColor(0.61f, 0.46f, 0.24f, 1);
+		
+		// Colorie les 4 lignes qui font le contour
+		carreJaugeTmp.fillRectangle(0, 0, (int)tailleCadre.x, tailleBordure);
+		carreJaugeTmp.fillRectangle(0, 0, tailleBordure, (int)tailleCadre.y);
+		carreJaugeTmp.fillRectangle((int)tailleCadre.x - tailleBordure, 0, tailleBordure, (int)tailleCadre.y);
+		carreJaugeTmp.fillRectangle(0, (int)tailleCadre.y - tailleBordure, (int)tailleCadre.x, tailleBordure);
+		
+		// Colorie le milieu en transparant
+		carreJaugeTmp.setColor(1f, 1f, 1f, 0.2f);
+		carreJaugeTmp.fillRectangle(tailleBordure, tailleBordure, (int)tailleCadre.x - tailleBordure*2, (int)tailleCadre.y - tailleBordure*2);
+		
+		// Genere img barreVie
+		tailleBarreVie = new Vector2(tailleCadre.x-tailleBordure, tailleCadre.y-tailleBordure*2);
+		Pixmap barreVieTmp = new Pixmap((int)tailleBarreVie.x , (int)tailleBarreVie.y, Format.RGBA8888);
+		barreVieTmp.setColor(0f, 0f, 0.3f, 1);
+		barreVieTmp.fillRectangle(0, 0, (int)tailleBarreVie.x - tailleBordure, (int)tailleBarreVie.y);
+		
+		cadreVie = new Texture(carreJaugeTmp);
+		barreVie = new Texture(barreVieTmp);
+		
 	}
 	
 	public Vector2 getPos() {
@@ -80,6 +119,7 @@ public class Ennemi {
 		if(cible.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
 		{
 			deplacement = new Vector2(0, 0);
+			cible.subitAttaque(1, 0);
 		}
 	}
 	
@@ -110,10 +150,27 @@ public class Ennemi {
 	
 	public void afficher(SpriteBatch batch)
 	{
+		int tailleBarreVieRestant = (int) ((getPourcentageVieRestant() * tailleBarreVie.x) / 100);
+		
 		batch.draw(img, pos.x, pos.y);
+		batch.draw(cadreVie, pos.x, pos.y + taille.y + 10);
+		batch.draw(barreVie, pos.x+2, pos.y + taille.y + 10 + 2, 0, 0, tailleBarreVieRestant, (int)tailleBarreVie.y);	
 	}
 
 	public void setDeplacement(Vector2 deplacement) {
 		this.deplacement = new Vector2(deplacement);
 	}
+	
+	public float getPourcentageVieRestant()
+	{ return ((float)vie/(float)vieMax) * 100; }
+
+	public void enleverVie(int degat) {
+		this.vie -= degat;
+		
+		if(this.vie < 0)
+			this.vie = 0;
+	}
+	
+	public int getVieRestant()
+	{ return vie; }
 }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
-    //Déclaration des variables de la classe
+    //Dï¿½claration des variables de la classe
 	
 	// TODO : Pq protected ?
 	
@@ -21,6 +21,8 @@ public class Projectile {
     protected boolean touche;
     
     protected int orientation;
+    
+    protected int degat;
 
     //Constructeur de la classe
     Projectile (Vector2 posPerso, int id, int orientation)
@@ -42,6 +44,7 @@ public class Projectile {
 		taille.y = img.getWidth();
 		touche = false;
 		this.orientation = orientation;
+		degat = 25;
     }
 
     public Vector2 getPos()
@@ -52,7 +55,7 @@ public class Projectile {
     {
     	return touche;
     }
-    //Procèdure de mise à jour
+    //Procï¿½dure de mise ï¿½ jour
     public void update(Camera camera)
     {
     	if(orientation == Perso.DROITE)
@@ -67,7 +70,7 @@ public class Projectile {
     	}
     }
 
-    //Procèdure de déplacement du projectile
+    //Procï¿½dure de dï¿½placement du projectile
     public void deplacement()
     {
         pos.x += deplacement.x;
@@ -77,7 +80,7 @@ public class Projectile {
         deplacement.y = 0;
     }
 
-    //Procèdure d'affichage
+    //Procï¿½dure d'affichage
     public void draw(SpriteBatch batch)
     {
         batch.draw(img, pos.x, pos.y);
@@ -105,7 +108,11 @@ public class Projectile {
 				if ((pos.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y > posEnnemies.get(i).y) 
 						|| (pos.y + taille.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y + taille.y > posEnnemies.get(i).y))
 				{
-					ennemis.get(i).setMort(true);
+					ennemis.get(i).enleverVie(degat);
+					
+					if(ennemis.get(i).getVieRestant() <= 0)
+						ennemis.get(i).setMort(true);
+					
 					touche = true;
 				}
 			}
