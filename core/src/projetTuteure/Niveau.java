@@ -1,6 +1,7 @@
 package projetTuteure;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Niveau {
 	private Map map;
@@ -8,13 +9,13 @@ public class Niveau {
 	private GestionEnnemi ennemis;
 	private Camera camera;
 	
-	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
+	Niveau(Vector2 pos, String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
 	{
 		map = new Map(nomMap,nomFichierCollision);
 		this.perso = perso;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
 		camera = new Camera (batch, this.perso);
-		perso.resetPerso();
+		perso.resetPerso(pos);
 	}
 	public void niveauUpdate()
 	{

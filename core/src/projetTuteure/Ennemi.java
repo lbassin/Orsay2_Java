@@ -58,14 +58,21 @@ public class Ennemi {
 	
 	public void update(Perso cible)
 	{
+		Vector2 posCible = cible.getPos();
 		Vector2 ennemiToPerso = new Vector2();
 		
-		ennemiToPerso = cible.getPos().sub(this.pos); // Calcul vecteur entre ennemi et le joueur
+		if(this.pos.x + this.taille.x <= cible.getPos().x)
+			posCible.x -= 66;
+		
+		System.out.println("Taille Enn : " + this.taille);
+		System.out.println("Taille Perso : " + cible.getTaille());
+		
+		ennemiToPerso = posCible.sub(this.pos); // Calcul vecteur entre ennemi et le joueur
 		
 		ennemiToPerso.nor(); // Normalize le vecteur ( 0 < vec < 1 )
 		ennemiToPerso.scl(vitesse); // Multiplie par la vitesse dans 2 axes
 		
-		//deplacement = ennemiToPerso; // Definit le deplacement
+		deplacement = ennemiToPerso; // Definit le deplacement
 		
 		if(cible.getPos().sub(this.pos).len2() < 25) // S'il est proche de la destination
 			deplacement = Vector2.Zero; // On arrete pour eviter le harlem shake

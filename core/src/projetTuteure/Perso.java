@@ -79,7 +79,7 @@ public class Perso {
 		this.pos = pos;
 		vitesse = 10; // 12
 		dateLancementSort = new long [4];
-		
+		System.out.println(pos);
 		vie = 70;
 		vieMax = 100;
 		
@@ -196,12 +196,12 @@ public class Perso {
 		for(i=0; i < ennemis.size(); i++)
 		{
 			// Si il y a une collision avec ennemi
-			if(collision(ennemis.get(i).getPos(), ennemis.get(i).getTaille()))
+			if(collision(ennemis.get(i).getPos().add(ennemis.get(i).getDeplacement()), ennemis.get(i).getTaille()))
 			{
 				if((ennemis.get(i).getPos().y >= this.pos.y + this.taille.y) || // Si le joueur est dessous ou dessus
 						(ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y <= this.pos.y))
 					deplacement.y = 0; // Il peut toujours se deplacer en x
-				
+					
 				if((ennemis.get(i).getPos().x >= this.pos.x + this.taille.x) || // Si le joueur est à gauche ou à droite
 						(ennemis.get(i).getPos().x + ennemis.get(i).getTaille().x < this.pos.x))
 					deplacement.x = 0; // Il peut toujours se deplacer en y
@@ -214,6 +214,7 @@ public class Perso {
 			orientation = GAUCHE;
 		
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x - 434) && (pos.y <= -670));
+	
 	}
 	
 	//Proc�dure de d�placement
@@ -308,10 +309,9 @@ public class Perso {
 		return finiLevel;
 	}
 
-	public void resetPerso()
+	public void resetPerso(Vector2 pos)
 	{
-		pos.x = 400;
-		pos.y = 200;
+		pos = new Vector2(pos);
 		vie = 70;
 		mana = 80;
 	}
