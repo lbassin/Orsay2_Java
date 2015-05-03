@@ -38,7 +38,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			hud = new HUD();
 			hud.addJoueur(perso);
-			niveau = new Niveau (new Vector2(400, 200), "map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			niveau = new Niveau (new Vector2(200, 200), "map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		//Si le joueur fini le niveau
 		if (perso.aFiniLevel())
 		{
-			niveau = new Niveau (new Vector2(400, 200), "map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			niveau = new Niveau (new Vector2(200, 200), "map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 		}
         //Affichages
 		batch.begin(); // Batch avec matrice de la camera

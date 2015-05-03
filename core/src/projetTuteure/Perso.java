@@ -285,7 +285,7 @@ public class Perso {
 	}
 	
 	public Vector2 getTaille()
-	{ return taille; }
+	{ return new Vector2(taille); }
 	
 	public void setDeplacement(Vector2 deplacement)
 	{ 
@@ -311,7 +311,7 @@ public class Perso {
 
 	public void resetPerso(Vector2 pos)
 	{
-		pos = new Vector2(pos);
+		pos = new Vector2(400, 200);
 		vie = 70;
 		mana = 80;
 	}
