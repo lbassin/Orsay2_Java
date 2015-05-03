@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 public class GestionEnnemi {
 	private ArrayList <Ennemi> ennemis;
@@ -51,17 +50,13 @@ public class GestionEnnemi {
 		int i, e;
 		for(i=0; i<ennemis.size(); i++)
 		{
-			for(e=0; e<ennemis.size(); e++) // e = i + 1 pour ne pas tester avec lui même
+			for(e=0; e<ennemis.size(); e++) 
 			{
 				// Test entre i et e
-				// (+ test entre e et i ?)
-				if(i != e)
+				// Test entre e et i
+				if(i != e) // Ne pas tester avec soit même
 				{
-					if(ennemis.get(i).collision(ennemis.get(e).getPos(), ennemis.get(e).getTaille()))
-					{
-						System.out.println("Touche");
-						ennemis.get(i).setDeplacement(Vector2.Zero);
-					}
+					// TODO : Test collision entre 2 ennemis
 				}
 			}
 			

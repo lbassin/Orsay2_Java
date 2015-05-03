@@ -28,8 +28,8 @@ public class Ennemi {
 		img = new Texture("../core/assets/ennemi.png");
 		
 		taille = new Vector2();
-		taille.x = img.getHeight();
-		taille.y = img.getWidth();
+		taille.x = img.getWidth();
+		taille.y = img.getHeight();
 		
 		estMort = false;
 	}
@@ -58,76 +58,27 @@ public class Ennemi {
 	
 	public void update(Perso cible)
 	{
-		// Position du perso
-		Vector2 posPerso = cible.getPos();
+		Vector2 ennemiToPerso = new Vector2();
 		
-		// S'arrete devant ou derriere le perso
-		// Ne lui rentre pas dedans
-		if(this.pos.x > posPerso.x)
-			posPerso.x += cible.getTaille().x/2 + 20;
-		else if(this.pos.x < posPerso.x)
-			posPerso.x -= cible.getTaille().x/2 + 20;
+		ennemiToPerso = cible.getPos().sub(this.pos); // Calcul vecteur entre ennemi et le joueur
 		
-		// Position devant l'ennemi
-		Vector2 avantEnnemi = new Vector2();
-		avantEnnemi.x = this.pos.x + 1;
-		avantEnnemi.y = this.pos.y;
+		ennemiToPerso.nor(); // Normalize le vecteur ( 0 < vec < 1 )
+		ennemiToPerso.scl(vitesse); // Multiplie par la vitesse dans 2 axes
 		
-		// Vecteur entre ennemi et le joueur
-		Vector2 ennemiPerso = new Vector2();
+		//deplacement = ennemiToPerso; // Definit le deplacement
 		
-		ennemiPerso.x = posPerso.x - this.pos.x;
-		ennemiPerso.y = posPerso.y - this.pos.y;
-		
-		// Vecteur entre ennemi et le point devant lui
-		Vector2 ennemiDevant = new Vector2();
-		
-		ennemiDevant.x = avantEnnemi.x - this.pos.x;
-		ennemiDevant.y = avantEnnemi.y - this.pos.y;
-		
-		// Produit scalaire
-		float prodScalaire = (ennemiPerso.x*ennemiDevant.x) + (ennemiPerso.y*ennemiDevant.y);
-		
-		double prodNormes = Math.sqrt(ennemiPerso.x*ennemiPerso.x + ennemiPerso.y*ennemiPerso.y);
-		prodNormes *= Math.sqrt(ennemiDevant.x*ennemiDevant.x + ennemiDevant.y*ennemiDevant.y);
-		
-		double angle = (prodScalaire/prodNormes);
-		
-		// Domaine depart arcCos : [-1;1]
-		// Erreur si hors du domaine
-		if(angle > 1)
-			angle = 1;
-		else if(angle < -1)
-			angle = -1;
-		
-		angle = Math.acos(angle);		
-
-		deplacement.x = (float) Math.cos(angle) * vitesse;
-		
-		// Si le perso est au dessus de l'ennemi 
-		if(posPerso.y > this.pos.y)
-			deplacement.y = (float) Math.sin(angle) * vitesse;			
-		else // Si il est en dessous on inverse deplacement en y car l'angle n'est pas dans sens trigo
-			deplacement.y = -(float) Math.sin(angle) * vitesse;	
-		
-		// Si l'ennemie est trop proche en x, on annule le deplacement pour eviter son mini harlem shake
-		if(Math.abs((this.pos.x + this.taille.x + deplacement.x ) - (posPerso.x + cible.getTaille().x)) < 4)
-			deplacement.x = 0;
-		
+		if(cible.getPos().sub(this.pos).len2() < 25) // S'il est proche de la destination
+			deplacement = Vector2.Zero; // On arrete pour eviter le harlem shake
 	}
 	
 	public boolean collision(Vector2 pos, Vector2 taille)
 	{
-		System.out.println("test");
 		if((pos.x < this.pos.x + this.taille.x && pos.x > this.pos.x) 
 				|| (pos.x + taille.x < this.pos.x + this.taille.x && pos.x + taille.x > this.pos.x))
 			{
-			System.out.println("valide");
 				if((pos.y < this.pos.y + this.taille.y && pos.y > this.pos.y) 
 				|| (pos.y + taille.y < this.pos.y + this.taille.y && pos.y + taille.y > this.pos.y))
 				{
-					System.out.println("This : " + this.pos + " - " + this.taille);
-					System.out.println("Test : " + pos + " - " + taille);
 					return true;
 				}
 			}
@@ -148,7 +99,7 @@ public class Ennemi {
 	
 	public void afficher(SpriteBatch batch)
 	{
-			batch.draw(img, pos.x, pos.y);
+		batch.draw(img, pos.x, pos.y);
 	}
 
 	public void setDeplacement(Vector2 deplacement) {
