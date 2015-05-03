@@ -22,9 +22,13 @@ public class Ennemi {
 	
 	private Texture cadreVie;
 	private Texture barreVie;
+	
+	private int vie;
+	private int vieMax;
+	private Vector2 tailleBarreVie;
 
 	Ennemi(int posX, int posY) {
-	
+		
 		this.pos = new Vector2(posX, posY);
 		deplacement = new Vector2();
 		
@@ -37,6 +41,9 @@ public class Ennemi {
 		taille.y = img.getHeight();
 		
 		estMort = false;
+		
+		vieMax = 150;
+		vie = 100;
 		
 		// Genere img pour cadre jauge
 		Vector2 tailleCadre = new Vector2(this.taille.x, 14);
@@ -55,7 +62,14 @@ public class Ennemi {
 		carreJaugeTmp.setColor(1f, 1f, 1f, 0.2f);
 		carreJaugeTmp.fillRectangle(tailleBordure, tailleBordure, (int)tailleCadre.x - tailleBordure*2, (int)tailleCadre.y - tailleBordure*2);
 		
+		// Genere img barreVie
+		tailleBarreVie = new Vector2(tailleCadre.x-tailleBordure, tailleCadre.y-tailleBordure*2);
+		Pixmap barreVieTmp = new Pixmap((int)tailleBarreVie.x , (int)tailleBarreVie.y, Format.RGBA8888);
+		barreVieTmp.setColor(0f, 0f, 0.3f, 1);
+		barreVieTmp.fillRectangle(0, 0, (int)tailleBarreVie.x - tailleBordure, (int)tailleBarreVie.y);
+		
 		cadreVie = new Texture(carreJaugeTmp);
+		barreVie = new Texture(barreVieTmp);
 		
 	}
 	
@@ -135,11 +149,27 @@ public class Ennemi {
 	
 	public void afficher(SpriteBatch batch)
 	{
+		int tailleBarreVieRestant = (int) ((getPourcentageVieRestant() * tailleBarreVie.x) / 100);
+		
 		batch.draw(img, pos.x, pos.y);
 		batch.draw(cadreVie, pos.x, pos.y + taille.y + 10);
+		batch.draw(barreVie, pos.x+2, pos.y + taille.y + 10 + 2, 0, 0, tailleBarreVieRestant, (int)tailleBarreVie.y);	
 	}
 
 	public void setDeplacement(Vector2 deplacement) {
 		this.deplacement = new Vector2(deplacement);
 	}
+	
+	public float getPourcentageVieRestant()
+	{ return ((float)vie/(float)vieMax) * 100; }
+
+	public void enleverVie(int degat) {
+		this.vie -= degat;
+		
+		if(this.vie < 0)
+			this.vie = 0;
+	}
+	
+	public int getVieRestant()
+	{ return vie; }
 }
