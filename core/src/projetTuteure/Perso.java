@@ -263,8 +263,7 @@ public class Perso {
 		TextureRegion imgAffiche;
 		
 		// Pour prendre en compte chaque orientation
-		// imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), orientation*(taille.y), (int)taille.x, (int)taille.y);
-		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), 0, (int)taille.x, (int)taille.y);
+		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y)), (int)taille.x, (int)taille.y);
 		
 		if(imgAffiche != null)
 			batch.draw(imgAffiche, pos.x, pos.y);
