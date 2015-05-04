@@ -129,10 +129,13 @@ public class Perso {
 			if (event.getToucheDeplacement(Event.TOUCHE_GAUCHE))
 			{
 				deplacement.x-=vitesse;
+				orientation = GAUCHE;
 			}
 			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
 			{
 				deplacement.x+=vitesse;
+				orientation = DROITE;
+
 				
 				imgActuelle++;
 				if(imgActuelle >= nbImgParAnim*ralentissementAnim)
@@ -142,8 +145,8 @@ public class Perso {
 				
 			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
 			{
-					projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 0, orientation));
-					dateLancementSort[0] = System.currentTimeMillis();
+				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 0, orientation));
+				dateLancementSort[0] = System.currentTimeMillis();
 			}
 			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
 			{
@@ -207,11 +210,6 @@ public class Perso {
 					deplacement.x = 0; // Il peut toujours se deplacer en y
 			}
 		}
-		
-		if(deplacement.x > 0)
-			orientation = DROITE;
-		else if(deplacement.x < 0)
-			orientation = GAUCHE;
 		
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x - 434) && (pos.y <= -670));
 	
