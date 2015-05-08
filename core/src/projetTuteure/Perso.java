@@ -45,6 +45,7 @@ public class Perso {
 	private int ralentissementAnim;
 	
 	private boolean finiLevel;
+	private boolean estMort;
 	
 		
 	
@@ -91,6 +92,7 @@ public class Perso {
 		ralentissementAnim = 3;
 		
 		finiLevel = false;
+		estMort = false;
 	}
 	
 	//Getteur de la position
