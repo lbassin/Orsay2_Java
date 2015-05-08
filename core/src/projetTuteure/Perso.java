@@ -46,6 +46,7 @@ public class Perso {
 	
 	private boolean finiLevel;
 	private boolean mort;
+	private boolean dejaMort;
 	
 		
 	
@@ -93,6 +94,7 @@ public class Perso {
 		
 		finiLevel = false;
 		mort = false;
+		dejaMort = false;
 	}
 	
 	//Getteur de la position
@@ -318,6 +320,16 @@ public class Perso {
 	}
 	public boolean estMort()
 	{
-		return mort;
+		if (!dejaMort)
+		{
+			dejaMort = mort;
+			return mort;
+		}
+		else
+			return false;
+	}
+	public boolean dejaMort()
+	{
+		return dejaMort;
 	}
 }
