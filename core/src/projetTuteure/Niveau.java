@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Niveau {
@@ -22,7 +24,7 @@ public class Niveau {
 		perso.updateEvent();
 		perso.update(ennemis.getListeEnnemis(), camera, map);
 		ennemis.update(perso);
-	}
+	}	
 	public void collision()
 	{
 		map.collision(perso);
@@ -43,5 +45,10 @@ public class Niveau {
 	{
 		ennemis.suppressionEnnemi();
 		perso.gestionProjectile(camera);
+	}
+	public void mortPerso()
+	{
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
+		sound.play();
 	}
 }
