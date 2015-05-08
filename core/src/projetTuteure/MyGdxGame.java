@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -29,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 			{
-				// Si une manette est connect�e, le perso est controll� avec la manette
+				// Si une manette est connecte, le perso est controlle avec la manette
 				if(Controllers.getControllers().size == 0)
 					perso = new Perso(new Vector2(400, 000));
 				else
@@ -64,9 +65,19 @@ public class MyGdxGame extends ApplicationAdapter {
 		{
 			niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 		}
-        //Affichages
+		
+		//Si le perso est mort
+		if (perso.estMort())
+		{
+			niveau.mortPerso();
+		}
+        
+		//Affichages
 		batch.begin(); // Batch avec matrice de la camera
-			niveau.draw(batch);
+			if(perso.dejaMort())
+				batch.draw(new Texture("../core/assets/imgMort.jpg"), 0, 0);
+			else
+				niveau.draw(batch);
 		batch.end();
 		
 		batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
