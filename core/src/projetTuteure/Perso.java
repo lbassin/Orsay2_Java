@@ -45,7 +45,7 @@ public class Perso {
 	private int ralentissementAnim;
 	
 	private boolean finiLevel;
-	private boolean estMort;
+	private boolean mort;
 	
 		
 	
@@ -92,7 +92,7 @@ public class Perso {
 		ralentissementAnim = 3;
 		
 		finiLevel = false;
-		estMort = false;
+		mort = false;
 	}
 	
 	//Getteur de la position
@@ -216,7 +216,7 @@ public class Perso {
 			orientation = GAUCHE;
 		
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x - 434) && (pos.y <= -670));
-	
+		mort = (vie == 0);
 	}
 	
 	//Proc�dure de d�placement
@@ -315,5 +315,9 @@ public class Perso {
 		pos = new Vector2(400, 200);
 		vie = 70;
 		mana = 80;
+	}
+	public boolean estMort()
+	{
+		return mort;
 	}
 }
