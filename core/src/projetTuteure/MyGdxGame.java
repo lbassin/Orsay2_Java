@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MyGdxGame extends ApplicationAdapter {
 	
-	// Commentaire pour Merge
 	// Constante
 	public static final int LARGEUR_ECRAN = 1312;
     public static final int HAUTEUR_ECRAN = 640;
@@ -48,45 +47,45 @@ public class MyGdxGame extends ApplicationAdapter {
 		//Initialisation de la fenetre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		//Actualise la camera
-		//Recuperation des evenements		
-		//Calcul le deplacement
-		niveau.niveauUpdate();
-		
-		// Collision sur le niveau
-		niveau.collision();
-		
-        //Deplacement sur le niveau
-		niveau.deplacement();	
-		
-		//Si le joueur fini le niveau
-		if (perso.aFiniLevel())
-		{
-			niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
-		}
-		
-		//Si le perso est mort
 		if (perso.estMort())
 		{
 			niveau.mortPerso();
+			//Affichage seulement de l'image si le perso est mort
+			batch.begin();
+					batch.draw(new Texture("../core/assets/imgMort.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
+			batch.end();
 		}
-        
-		//Affichages
-		batch.begin(); // Batch avec matrice de la camera
-			if(perso.dejaMort())
-				batch.draw(new Texture("../core/assets/imgMort.jpg"), 0, 0);
-			else
+		else
+		{
+			//Actualise la camera
+			//Recuperation des evenements		
+			//Calcul le deplacement
+			niveau.niveauUpdate();
+			
+			// Collision sur le niveau
+			niveau.collision();
+			
+	        //Deplacement sur le niveau
+			niveau.deplacement();	
+			
+			//Si le joueur fini le niveau
+			if (perso.aFiniLevel())
+			{
+				niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			}
+	        
+			//Affichages
+			batch.begin(); // Batch avec matrice de la camera
 				niveau.draw(batch);
-		batch.end();
-		
-		batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
-			hud.afficher(batchHUD);
-		batchHUD.end();
-		
-		// Supprime les ennemis morts
-		// Supprime les projectiles sortie de l'ecran
-		niveau.gestionNiveau();
-		
+			batch.end();
+			
+			batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
+				hud.afficher(batchHUD);
+			batchHUD.end();
+			
+			// Supprime les ennemis morts
+			// Supprime les projectiles sortie de l'ecran
+			niveau.gestionNiveau();
+		}
 	}
 }
