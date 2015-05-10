@@ -3,12 +3,14 @@ package projetTuteure;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Niveau {
 	private Map map;
 	private Perso perso;
 	private GestionEnnemi ennemis;
 	private Camera camera;
+	private boolean musique;
 	
 	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
 	{
@@ -17,6 +19,7 @@ public class Niveau {
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
 		camera = new Camera (batch, this.perso);
 		perso.resetPerso();
+		musique = false;
 	}
 	public void niveauUpdate()
 	{
@@ -48,7 +51,18 @@ public class Niveau {
 	}
 	public void mortPerso()
 	{
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
-		sound.play();
+		ennemis.supprimerToutEnnemis();
+		map = null;
+		perso = null;
+		if(!musique)
+		{
+			Sound sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
+			sound.play();
+			musique = true;
+		}
+	}
+	public Vector2 getCameraDeplacement()
+	{
+		return camera.getDeplacementTotalCam();
 	}
 }
