@@ -102,4 +102,9 @@ public class GestionEnnemi {
 				nbEnnemis--;
 			}	
 	}
+	public void supprimerToutEnnemis()
+	{
+		ennemis.removeAll(ennemis);
+		nbEnnemis = 0;
+	}
 }
