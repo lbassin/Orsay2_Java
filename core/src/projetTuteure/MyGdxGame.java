@@ -47,10 +47,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		//Initialisation de la fenetre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//Affichage seulement de l'image si le perso est mort
 		if (perso.estMort())
 		{
 			niveau.mortPerso();
-			//Affichage seulement de l'image si le perso est mort
+			
 			batch.begin();
 					batch.draw(new Texture("../core/assets/imgMort.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
 			batch.end();
