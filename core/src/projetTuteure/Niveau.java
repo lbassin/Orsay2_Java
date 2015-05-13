@@ -51,11 +51,12 @@ public class Niveau {
 	}
 	public void mortPerso()
 	{
-		ennemis.supprimerToutEnnemis();
-		map = null;
-		perso = null;
 		if(!musique)
 		{
+			ennemis.supprimerToutEnnemis();
+			map = null;
+			perso = null;
+		
 			Sound sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
 			sound.play();
 			musique = true;
