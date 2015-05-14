@@ -21,6 +21,7 @@ public class Niveau {
 		perso.resetPerso();
 		musique = false;
 	}
+	
 	public void niveauUpdate()
 	{
 		camera.update();
@@ -28,15 +29,18 @@ public class Niveau {
 		perso.update(ennemis.getListeEnnemis(), camera, map);
 		ennemis.update(perso);
 	}	
+	
 	public void collision()
 	{
 		map.collision(perso);
 	}
+	
 	public void deplacement()
 	{
 		perso.deplacement();
 		ennemis.deplacement();	
 	}
+	
 	public void draw(SpriteBatch batch)
 	{
 		map.draw(batch);
@@ -44,11 +48,13 @@ public class Niveau {
 		perso.drawProjectile(batch);
 		ennemis.draw(batch);
 	}
+	
 	public void gestionNiveau()
 	{
 		ennemis.suppressionEnnemi();
 		perso.gestionProjectile(camera);
 	}
+	
 	public void mortPerso()
 	{
 		if(!musique)
@@ -62,6 +68,7 @@ public class Niveau {
 			musique = true;
 		}
 	}
+	
 	public Vector2 getCameraDeplacement()
 	{
 		return camera.getDeplacementTotalCam();

@@ -8,46 +8,47 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class Perso {
-	
+	//Variables pour l'orientation du personnage
 	static final int DROITE = 0;
 	static final int GAUCHE = 1;
 	
+	//Variables pour la gestion du nombre de joueurs
 	static final int NB_JOUEURS_MAX = 4;
 	static int nbJoueurs = 0;
 	
-	//D�claration des variables de la classe
-	
+	//Variables caracteristiques du personnage
 	private Vector2 pos;
 	private Vector2 deplacement;
+	private float vitesse;
+	private Vector2 taille;
 	
+	//Variables pour la gestion de l'image
 	private Texture img;
 	private int nbImgParAnim;
 	private int imgActuelle;
 	private Texture portrait;
 	
+	//Variable pour la gestion des evenements
 	private Event event;
-
-	private float vitesse;
 	
+	//Varaibles pour la gestion des projectiles
 	private ArrayList <Projectile> projectiles;
-	
 	private long dateLancementSort[];
 	
-	private Vector2 taille;
-	
+	//Variables pour la gestion de la vie et du mana
 	private int vie;
 	private int vieMax;
 	
 	private int manaMax;
 	private int mana;
 	
+	//Variables pour l'orientation
 	private int orientation;
 	private int ralentissementAnim;
 	
+	//Booleens pour gerer la mort et la fin d'un niveau
 	private boolean finiLevel;
 	private boolean mort;
-	
-		
 	
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
@@ -66,20 +67,26 @@ public class Perso {
 		nbJoueurs++;
 	}
 	
+	//Variable d'initialisation du perso
 	private void init(Vector2 pos)
 	{
 		this.pos = new Vector2();
+		this.pos = pos;
 		deplacement = new Vector2();
+		vitesse = 10; // 12
+		
 		img = new Texture("perso.png");
 		nbImgParAnim = 8;
 		portrait = new Texture("portrait.png");
+		imgActuelle = 0;
+		
 		taille = new Vector2();
 		taille.x = 82;
 		taille.y = 96;
+		
 		projectiles = new ArrayList <Projectile>();
-		this.pos = pos;
-		vitesse = 10; // 12
 		dateLancementSort = new long [4];
+		
 		System.out.println(pos);
 		vie = 70;
 		vieMax = 100;
@@ -88,35 +95,20 @@ public class Perso {
 		mana = 80;
 		
 		orientation = DROITE;
-		imgActuelle = 0;
+		
 		ralentissementAnim = 3;
 		
 		finiLevel = false;
 		mort = false;
 	}
 	
-	//Getteur de la position
-	public Vector2 getPos()
-	{
-		// Copie de protection
-		// Empeche de modifier sa pos n'importe comment
-		return new Vector2(pos);
-		
-	}
-	
-	//Getteur de la vitesse; 
-	public float getVitesse()
-	{
-		return vitesse;
-	}
-	
-	//Mise � jour des �v�nements
+	//Mise a jour des evenements
 	public void updateEvent()
 	{
 		event.update();
 	}
 	
-	//Calcul du d�placement
+	//Calcul du deplacement
 	public void update(ArrayList <Ennemi> ennemis, Camera camera, Map map)
 	{
 		int i;
@@ -217,7 +209,7 @@ public class Perso {
 		mort = (vie == 0);
 	}
 	
-	//Proc�dure de d�placement
+	//Procedure de deplacement
 	public void deplacement()
 	{
 		pos.x += deplacement.x;
@@ -231,16 +223,8 @@ public class Perso {
 			projectiles.get(i).deplacement();
 		}
 	}
-	public void gestionProjectile(Camera camera)
-	{
-		for (int i=0; i < projectiles.size() ; i++)
-		{
-			if ((projectiles.get(i).getPos().x > 1312 + camera.getDeplacementTotalCam().x) || 
-					(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
-				projectiles.remove(i);
-		}
-	}
-	
+
+	//Calcul de la collision
 	public boolean collision(Vector2 pos, Vector2 taille)
 	{
 		if((pos.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x >= this.pos.x + this.deplacement.x) 
@@ -257,7 +241,27 @@ public class Perso {
 		return false;
 	}
 	
-	//Proc�dure d'affichage du personnage
+	//Procedure de gestion du projectile (s'il sort de l'ecran ou il touche un ennemi)
+	public void gestionProjectile(Camera camera)
+	{
+		for (int i=0; i < projectiles.size() ; i++)
+		{
+			if ((projectiles.get(i).getPos().x > 1312 + camera.getDeplacementTotalCam().x) || 
+					(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
+				projectiles.remove(i);
+		}
+	}
+	
+	public void subitAttaque(int nbPv, int distanceRecul)
+	{
+		if(this.vie - nbPv >= 0)
+			this.vie -= nbPv;
+	}
+	
+	public void resetPerso()
+	{ init(new Vector2(400, 200)); }
+	
+	//Procedure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
 		TextureRegion imgAffiche;
@@ -269,6 +273,7 @@ public class Perso {
 			batch.draw(imgAffiche, pos.x, pos.y);
 	}
 
+	//Procedure d'affichage du personnage
 	public void drawProjectile(SpriteBatch batch)
 	{
 		for (int i=0; i < projectiles.size() ; i++)
@@ -276,20 +281,22 @@ public class Perso {
 			projectiles.get(i).draw(batch);
 		}
 	}
-	
-	public void subitAttaque(int nbPv, int distanceRecul)
+
+	public Vector2 getPos()
 	{
-		if(this.vie - nbPv >= 0)
-			this.vie -= nbPv;
+		// Copie de protection
+		// Empeche de modifier sa pos n'importe comment
+		return new Vector2(pos);	
 	}
+	
+	public float getVitesse()
+	{ return vitesse; }
 	
 	public Vector2 getTaille()
 	{ return new Vector2(taille); }
 	
 	public void setDeplacement(Vector2 deplacement)
-	{ 
-		this.deplacement = deplacement;
-	}
+	{ this.deplacement = deplacement; }
 
 	public Vector2 getDeplacement()
 	{ return new Vector2(deplacement); }
@@ -302,20 +309,10 @@ public class Perso {
 	
 	public float getPourcentageManaRestant()
 	{ return ((float)mana/(float)manaMax) * 100; }
-
-	public boolean aFiniLevel()
-	{
-		return finiLevel;
-	}
-
-	public void resetPerso()
-	{
-		pos = new Vector2(400, 200);
-		vie = 70;
-		mana = 80;
-	}
+	
 	public boolean estMort()
-	{
-		return mort;
-	}
+	{ return mort; }
+	
+	public boolean aFiniLevel()
+	{ return finiLevel; }
 }

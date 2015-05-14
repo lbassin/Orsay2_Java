@@ -71,14 +71,14 @@ public class Event {
 			toucheDeplacement[Event.TOUCHE_GAUCHE] = Gdx.input.isKeyPressed(Keys.LEFT);
 			toucheDeplacement[Event.TOUCHE_DROITE] = Gdx.input.isKeyPressed(Keys.RIGHT);
 			
-			// Mise a jour de la souri
+			// Mise a jour de la souris
 			posSouri.x = Gdx.input.getX();
 			posSouri.y = Gdx.input.getY();
 			
-			// Mise a jour btn souri
+			// Mise a jour btn souris
 			/// A Faire (Laurent)\\\
 			
-			// Miise a jour touches action
+			// Mise a jour touches action
 			action[0] = Gdx.input.isKeyPressed(Keys.A);
 			action[1] = Gdx.input.isKeyPressed(Keys.Z);
 			action[2] = Gdx.input.isKeyPressed(Keys.E);
@@ -115,21 +115,15 @@ public class Event {
 	
 	// Verifie appui sur une touche de déplacement
 	public boolean getToucheDeplacement(int id)
-	{
-		return toucheDeplacement[id];
-	}
+	{ return toucheDeplacement[id]; }
 	
 	//Vérifie l'appui d'une touche d'action 
 	public boolean getAction (int id)
-	{
-		return action[id];
-	}
+	{ return action[id]; }
 	
 	// Recupere si manette ou clavier
 	public int getTypeController()
-	{
-		return typeController;
-	}
+	{ return typeController; }
 	
 	// Recupere valeur joystick
 	public float getValJoystick(int joystick, int axe)

@@ -7,17 +7,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
-    //D�claration des variables de la classe
+    //Declaration des variables de la classe
 	
 	// TODO : Pq protected ?
 	
     protected Vector2 pos;
     protected Vector2 deplacement;
-
-    protected Texture img;
-
     protected float vitesse;
     protected Vector2 taille;
+    
+    protected Texture img;
+
     protected boolean touche;
     
     protected int orientation;
@@ -28,7 +28,10 @@ public class Projectile {
     Projectile (Vector2 posPerso, int id, int orientation)
     {
         pos = new Vector2();
+        this.pos.x = posPerso.x;
+        this.pos.y = posPerso.y;
         deplacement = new Vector2();
+        vitesse = 13;
         switch (id)
         {
         	case 0 : img = new Texture("carreGreen.jpg"); break;
@@ -36,26 +39,21 @@ public class Projectile {
         	case 2 : img = new Texture("carreBlue.jpg"); break;
         	case 3 : img = new Texture("carreYellow.jpg"); break;
         }
-        vitesse = 13;
-        this.pos.x = posPerso.x;
-        this.pos.y = posPerso.y;
         taille = new Vector2();
         taille.x = img.getHeight();
 		taille.y = img.getWidth();
+		
 		touche = false;
+		
 		this.orientation = orientation;
+		
 		degat = 25;
     }
 
     public Vector2 getPos()
-    {
-    	return pos;
-    }
-    public boolean aTouche()
-    {
-    	return touche;
-    }
-    //Proc�dure de mise � jour
+    { return pos; }
+
+    //Procedure de mise a jour
     public void update(Camera camera)
     {
     	if(orientation == Perso.DROITE)
@@ -70,7 +68,7 @@ public class Projectile {
     	}
     }
 
-    //Proc�dure de d�placement du projectile
+    //Procedure de deplacement du projectile
     public void deplacement()
     {
         pos.x += deplacement.x;
@@ -79,43 +77,47 @@ public class Projectile {
         deplacement.x = 0;
         deplacement.y = 0;
     }
-
-    //Proc�dure d'affichage
+    
+    //Gestion de la collision
+    public void collision (ArrayList <Ennemi>ennemis)
+    {   
+ 	   ArrayList <Vector2> posEnnemies = new ArrayList <Vector2>();
+ 	   ArrayList <Vector2> tailleEnnemies = new ArrayList <Vector2>();
+ 	   
+ 	   for (int i=0; i<ennemis.size(); i++)
+ 	   {
+ 		   posEnnemies.add(ennemis.get(i).getPos());
+ 		   
+ 		   // Ajoute le deplacement pour anticiper la position
+ 		   // Pour ne pas se retrouver dans l'ennemi
+ 				posEnnemies.get(i).x += ennemis.get(i).getDeplacement().x;
+ 				posEnnemies.get(i).y += ennemis.get(i).getDeplacement().y;
+ 			
+ 			tailleEnnemies.add(ennemis.get(i).getTaille());
+ 			
+ 			if ((pos.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x > posEnnemies.get(i).x) 
+ 					|| (pos.x + taille.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x + taille.x > posEnnemies.get(i).x))
+ 			{
+ 				if ((pos.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y > posEnnemies.get(i).y) 
+ 						|| (pos.y + taille.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y + taille.y > posEnnemies.get(i).y))
+ 				{
+ 					ennemis.get(i).enleverVie(degat);
+ 					
+ 					if(ennemis.get(i).getVieRestant() <= 0)
+ 						ennemis.get(i).setMort(true);
+ 					
+ 					touche = true;
+ 				}
+ 			}
+ 	   }
+    }
+    
+    //Procedure d'affichage
     public void draw(SpriteBatch batch)
     {
         batch.draw(img, pos.x, pos.y);
     }
     
-   public void collision (ArrayList <Ennemi>ennemis)
-   {   
-	   ArrayList <Vector2> posEnnemies = new ArrayList <Vector2>();
-	   ArrayList <Vector2> tailleEnnemies = new ArrayList <Vector2>();
-	   
-	   for (int i=0; i<ennemis.size(); i++)
-	   {
-		   posEnnemies.add(ennemis.get(i).getPos());
-		   
-		   // Ajoute le deplacement pour anticiper la position
-		   // Pour ne pas se retrouver dans l'ennemi
-				posEnnemies.get(i).x += ennemis.get(i).getDeplacement().x;
-				posEnnemies.get(i).y += ennemis.get(i).getDeplacement().y;
-			
-			tailleEnnemies.add(ennemis.get(i).getTaille());
-			
-			if ((pos.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x > posEnnemies.get(i).x) 
-					|| (pos.x + taille.x < posEnnemies.get(i).x + tailleEnnemies.get(i).x && pos.x + taille.x > posEnnemies.get(i).x))
-			{
-				if ((pos.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y > posEnnemies.get(i).y) 
-						|| (pos.y + taille.y < posEnnemies.get(i).y + tailleEnnemies.get(i).y && pos.y + taille.y > posEnnemies.get(i).y))
-				{
-					ennemis.get(i).enleverVie(degat);
-					
-					if(ennemis.get(i).getVieRestant() <= 0)
-						ennemis.get(i).setMort(true);
-					
-					touche = true;
-				}
-			}
-	   }
-   }
+    public boolean aTouche()
+    { return touche; }
 }

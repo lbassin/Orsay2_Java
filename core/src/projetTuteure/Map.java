@@ -16,17 +16,23 @@ public class Map {
 	
 	private Vector2 tailleMap;
 	private Vector2 tailleTile;
+	
 	private String nomImg;
+	
 	private ArrayList<Tile> tiles;
-	private Texture img;
 	private ArrayList<Integer> tilePassable;
 	private int nbTilePassable;
+	
+	private Texture img;
+
 	
 	Map(String nom, String nomCollision)
 	{
 		tailleMap = new Vector2();
 		tailleTile = new Vector2();
+		
 		nomImg = new String();
+		
 		tiles = new ArrayList<Tile>();
 		tilePassable = new ArrayList<Integer>();
 		
@@ -143,8 +149,7 @@ public class Map {
 			tiles.get(i).afficher(batch);
 		}
 	}
+	
 	public Vector2 getTailleMap()
-	{
-		return tailleMap;
-	}
+	{ return tailleMap; }
 }
