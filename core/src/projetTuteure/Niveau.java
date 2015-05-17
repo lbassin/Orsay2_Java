@@ -76,5 +76,8 @@ public class Niveau {
 	}
 	
 	public void stopMusique()
-	{ sound.stop(); }
+	{ 
+		sound.stop(); 
+		musique = false;
+	}
 }
