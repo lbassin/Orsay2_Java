@@ -258,9 +258,6 @@ public class Perso {
 			this.vie -= nbPv;
 	}
 	
-	public void resetPerso()
-	{ init(new Vector2(400, 200)); }
-	
 	//Procedure d'affichage du personnage
 	public void draw(SpriteBatch batch)
 	{
