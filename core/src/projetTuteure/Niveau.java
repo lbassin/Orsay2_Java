@@ -61,7 +61,7 @@ public class Niveau {
 	{
 		if(!musique)
 		{
-			ennemis.supprimerToutEnnemis();
+			ennemis.supprimerTousEnnemis();
 			map = null;
 			perso = null;
 		
