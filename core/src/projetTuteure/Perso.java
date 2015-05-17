@@ -68,7 +68,7 @@ public class Perso {
 	}
 	
 	//Variable d'initialisation du perso
-	private void init(Vector2 pos)
+	public void init(Vector2 pos)
 	{
 		this.pos = new Vector2();
 		this.pos = pos;
