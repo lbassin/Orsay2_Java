@@ -18,7 +18,7 @@ public class Niveau {
 		this.perso = perso;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
 		camera = new Camera (batch, this.perso);
-		perso.resetPerso();
+		perso.init(new Vector2(400, 200));
 		musique = false;
 	}
 	
