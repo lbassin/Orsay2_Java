@@ -21,6 +21,7 @@ public class Niveau {
 		camera = new Camera (batch, this.perso);
 		perso.init(new Vector2(400, 200));
 		musique = false;
+		sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
 	}
 	
 	public void niveauUpdate()
@@ -64,7 +65,6 @@ public class Niveau {
 			map = null;
 			perso = null;
 		
-			sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
 			sound.play();
 			musique = true;
 		}
