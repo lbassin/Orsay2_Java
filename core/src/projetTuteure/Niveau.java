@@ -74,4 +74,7 @@ public class Niveau {
 	{
 		return camera.getDeplacementTotalCam();
 	}
+	
+	public void stopMusique()
+	{ sound.stop(); }
 }
