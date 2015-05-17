@@ -2,6 +2,7 @@ package projetTuteure;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -51,6 +52,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (perso.estMort())
 		{
 			niveau.mortPerso();
+			
+			if(Gdx.input.isKeyJustPressed(Keys.G))
+				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 			
 			batch.begin();
 					batch.draw(new Texture("../core/assets/imgMort.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
