@@ -11,6 +11,7 @@ public class Niveau {
 	private GestionEnnemi ennemis;
 	private Camera camera;
 	private boolean musique;
+	private Sound sound;
 	
 	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
 	{
@@ -63,7 +64,7 @@ public class Niveau {
 			map = null;
 			perso = null;
 		
-			Sound sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
+			sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
 			sound.play();
 			musique = true;
 		}
