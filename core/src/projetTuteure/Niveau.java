@@ -18,7 +18,7 @@ public class Niveau {
 		map = new Map(nomMap,nomFichierCollision);
 		this.perso = perso;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
-		camera = new Camera (batch, this.perso);
+		camera = new Camera (batch, this.perso, ennemis);
 		perso.init(new Vector2(400, 200));
 		musique = false;
 		sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
@@ -26,10 +26,10 @@ public class Niveau {
 	
 	public void niveauUpdate()
 	{
-		camera.update();
 		perso.updateEvent();
 		perso.update(ennemis.getListeEnnemis(), camera, map);
 		ennemis.update(perso);
+		camera.update();
 	}	
 	
 	public void collision()
