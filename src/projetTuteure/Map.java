@@ -158,4 +158,6 @@ public class Map {
 	
 	public Vector2 getTailleMap()
 	{ return tailleMap; }
+	public Vector2 getTailleTile()
+	{ return tailleTile; }
 }

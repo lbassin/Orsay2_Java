@@ -13,6 +13,9 @@ public class Perso {
 	static final int DROITE = 0;
 	static final int GAUCHE = 1;
 	
+	public static final int LARGEUR_ECRAN = 1312;
+    public static final int HAUTEUR_ECRAN = 640;
+    
 	//Variables pour la gestion du nombre de joueurs
 	static final int NB_JOUEURS_MAX = 4;
 	static int nbJoueurs = 0;
@@ -205,8 +208,7 @@ public class Perso {
 					deplacement.x = 0; // Il peut toujours se deplacer en y
 			}
 		}
-		
-		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x - 500) && (pos.y <= 200));
+		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x * map.getTailleTile().x - 500) && (pos.y <= -(map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300));
 		mort = (vie == 0);
 	}
 	
