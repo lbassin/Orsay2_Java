@@ -71,7 +71,8 @@ public class Niveau {
 			map = null;
 			perso = null;
 		
-			sound.get(0).play();
+			long idSound = sound.get(0).play();
+			sound.get(0).setLooping(idSound, true);
 			musique = true;
 		}
 	}
@@ -84,7 +85,8 @@ public class Niveau {
 			map = null;
 			perso = null;
 			
-			sound.get(1).play();
+			long idSound = sound.get(1).play();
+			sound.get(1).setLooping(idSound, true);
 			musique = true;
 		}
 	}
