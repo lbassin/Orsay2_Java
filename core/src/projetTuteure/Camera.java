@@ -34,7 +34,6 @@ public class Camera {
 	{
 		if (!presenceEnnemis())
 		{
-			System.out.println("Pas la");
 			if(perso.getPos().x + perso.getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
 			{
 				cam.translate(perso.getVitesse(), 0);

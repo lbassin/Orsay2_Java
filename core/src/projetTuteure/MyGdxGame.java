@@ -22,6 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	private Perso perso;
 	private HUD hud;
 	private Niveau niveau;
+	private boolean fin;
 	
 	@Override
 	public void create () {
@@ -63,7 +64,22 @@ public class MyGdxGame extends ApplicationAdapter {
 					batch.draw(new Texture("../core/assets/imgMort.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
 			batch.end();
 		}
-		else
+		//Affichage seulement si le perso gagné
+		else if (fin)
+		{
+			niveau.victoirePerso();
+			
+			if(Gdx.input.isKeyJustPressed(Keys.G))
+			{
+				niveau.stopMusique();
+				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			}
+			
+			batch.begin();
+					batch.draw(new Texture("../core/assets/imgFin.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
+			batch.end();
+		}
+		else 
 		{
 			//Actualise la camera
 			//Recuperation des evenements		
@@ -74,14 +90,18 @@ public class MyGdxGame extends ApplicationAdapter {
 			niveau.collision();
 			
 	        //Deplacement sur le niveau
-			niveau.deplacement();	
+			niveau.deplacement();
+			
+			//Determine si le perso a gagné
+			fin=(perso.aFiniLevel() && niveau.getMap().estMapFinale());
+			
 			
 			//Si le joueur fini le niveau
-			if (perso.aFiniLevel())
+			if (perso.aFiniLevel() && !niveau.getMap().estMapFinale())
 			{
 				niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 			}
-	        
+			
 			//Affichages
 			batch.begin(); // Batch avec matrice de la camera
 				niveau.draw(batch);
@@ -94,6 +114,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			// Supprime les ennemis morts
 			// Supprime les projectiles sortie de l'ecran
 			niveau.gestionNiveau();
-		}
+			}
+		
 	}
 }

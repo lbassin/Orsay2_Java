@@ -12,10 +12,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Map {
 	
+    public static final int NB_MAP = 3;
+	
 	private Vector2 tailleMap;
 	private Vector2 tailleTile;
 	
 	private String nomImg;
+	private int num;
 	
 	private ArrayList<Tile> tiles;
 	private ArrayList<Integer> tilePassable;
@@ -23,7 +26,6 @@ public class Map {
 	
 	private Texture img;
 
-	
 	Map(String nom, String nomCollision)
 	{
 		tailleMap = new Vector2();
@@ -42,6 +44,7 @@ public class Map {
 		{
 			fichier = new Scanner(new File("../core/assets/"+nom));
 			
+			num = fichier.nextInt();
 			tailleMap.x = fichier.nextInt();
 			tailleMap.y = fichier.nextInt();
 			tailleTile.x = fichier.nextInt();
@@ -140,6 +143,11 @@ public class Map {
 		}
 	}
 	
+	public boolean estMapFinale()
+	{
+		return (num == NB_MAP);
+	}
+	
 	public void draw(SpriteBatch batch)
 	{		
 		for(int i = 0; i < tiles.size(); i++)
@@ -150,4 +158,6 @@ public class Map {
 	
 	public Vector2 getTailleMap()
 	{ return tailleMap; }
+	public Vector2 getTailleTile()
+	{ return tailleTile; }
 }

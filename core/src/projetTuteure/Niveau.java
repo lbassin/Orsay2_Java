@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,8 +12,9 @@ public class Niveau {
 	private Perso perso;
 	private GestionEnnemi ennemis;
 	private Camera camera;
+	private int nbMusique;
 	private boolean musique;
-	private Sound sound;
+	private ArrayList<Sound> sound;
 	
 	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
 	{
@@ -20,8 +23,11 @@ public class Niveau {
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
 		camera = new Camera (batch, this.perso, ennemis);
 		perso.init(new Vector2(400, 200));
+		nbMusique = 2;
 		musique = false;
-		sound = Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3"));
+		sound = new ArrayList<Sound>();
+		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3")));
+		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/fin.mp3")));
 	}
 	
 	public void niveauUpdate()
@@ -65,7 +71,20 @@ public class Niveau {
 			map = null;
 			perso = null;
 		
-			sound.play();
+			sound.get(0).play();
+			musique = true;
+		}
+	}
+	
+	public void victoirePerso()
+	{
+		if(!musique)
+		{
+			ennemis.supprimerTousEnnemis();
+			map = null;
+			perso = null;
+			
+			sound.get(1).play();
 			musique = true;
 		}
 	}
@@ -77,7 +96,13 @@ public class Niveau {
 	
 	public void stopMusique()
 	{ 
-		sound.stop(); 
+		for(int i=0; i < nbMusique; i++)
+			sound.get(i).stop(); 
 		musique = false;
+	}
+	
+	public Map getMap()
+	{
+		return map;
 	}
 }
