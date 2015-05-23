@@ -69,6 +69,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		{
 			niveau.victoirePerso();
 			
+			if(Gdx.input.isKeyJustPressed(Keys.G))
+			{
+				niveau.stopMusique();
+				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			}
+			
 			batch.begin();
 					batch.draw(new Texture("../core/assets/imgFin.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
 			batch.end();
