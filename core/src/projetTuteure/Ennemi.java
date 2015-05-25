@@ -129,8 +129,8 @@ public class Ennemi {
 				|| (pos.x + taille.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x + taille.x >= this.pos.x + this.deplacement.x))
 			{
 				// collisions y
-				if((pos.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
-				|| (pos.y + taille.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + taille.y >= this.pos.y + this.deplacement.y ))
+				if((pos.y <= this.pos.y + (this.taille.y / 2) + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
+				|| (pos.y + (taille.y/2) <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + (taille.y/2) >= this.pos.y + this.deplacement.y ))
 				{
 					return true;
 				}
