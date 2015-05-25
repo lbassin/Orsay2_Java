@@ -64,7 +64,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					batch.draw(new Texture("../core/assets/imgMort.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
 			batch.end();
 		}
-		//Affichage seulement si le perso gagné
+		//Affichage seulement si le perso gagnï¿½
 		else if (fin)
 		{
 			niveau.victoirePerso();
@@ -92,7 +92,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	        //Deplacement sur le niveau
 			niveau.deplacement();
 			
-			//Determine si le perso a gagné
+			//Determine si le perso a gagnï¿½
 			fin=(perso.aFiniLevel() && niveau.getMap().estMapFinale());
 			
 			

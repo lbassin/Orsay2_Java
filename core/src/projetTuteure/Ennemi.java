@@ -95,7 +95,7 @@ public class Ennemi {
 		this.estMort = mort;
 	}
 	
-	public void update(Perso cible)
+	public void update(Perso cible, Camera cam)
 	{
 		Vector2 posCible = cible.getPos();
 		Vector2 posEnnemi = new Vector2(this.pos);
@@ -119,7 +119,7 @@ public class Ennemi {
 		if(cible.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
 		{
 			deplacement = new Vector2(0, 0);
-			cible.subitAttaque(1, 0);
+			//cible.subitAttaque(1, 0);
 		}
 	}
 	
@@ -129,8 +129,8 @@ public class Ennemi {
 				|| (pos.x + taille.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x + taille.x >= this.pos.x + this.deplacement.x))
 			{
 				// collisions y
-				if((pos.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
-				|| (pos.y + taille.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + taille.y >= this.pos.y + this.deplacement.y ))
+				if((pos.y <= this.pos.y + (this.taille.y / 2) + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
+				|| (pos.y + (taille.y/2) <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + (taille.y/2) >= this.pos.y + this.deplacement.y ))
 				{
 					return true;
 				}
@@ -141,6 +141,7 @@ public class Ennemi {
 	
 	public void deplacement()
 	{
+		
 		pos.x += deplacement.x;
 		pos.y += deplacement.y;
 		
