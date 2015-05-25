@@ -111,7 +111,15 @@ public class Ennemi {
 		ennemiToPerso.nor(); // Normalize le vecteur ( 0 < vec < 1 )
 		ennemiToPerso.scl(vitesse); // Multiplie par la vitesse dans 2 axes
 		
-		deplacement = ennemiToPerso; // Definit le deplacement
+		// Applique le deplacement seulement s'il est visible sur l'ecran (dans la zone de la camera)
+		if(pos.x >= cam.getDeplacementTotalCam().x && pos.x <= cam.getDeplacementTotalCam().x + MyGdxGame.LARGEUR_ECRAN)
+		{
+			System.err.println("x");
+			if(pos.y >= cam.getDeplacementTotalCam().y && pos.y <= cam.getDeplacementTotalCam().y + MyGdxGame.HAUTEUR_ECRAN)
+			{
+				deplacement = ennemiToPerso; // Definit le deplacement
+			}
+		}
 		
 		// Test collision avec joueurs :
 		// TODO : Boucle pour tous les joueurs
