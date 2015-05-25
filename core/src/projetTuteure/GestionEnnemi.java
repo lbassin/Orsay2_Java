@@ -63,18 +63,22 @@ public class GestionEnnemi {
 								(ennemis.get(i).getDeplacement().x > 0)) // et i vas à droite (vers e)
 							ennemis.get(i).setDeplacement(new Vector2(0, ennemis.get(i).getDeplacement().y)); // i se deplace pas
 						
-						if((ennemis.get(e).getPos().x + ennemis.get(e).getTaille().x < ennemis.get(i).getPos().x) && // e est à gauche de i
+						else if((ennemis.get(e).getPos().x + ennemis.get(e).getTaille().x < ennemis.get(i).getPos().x) && // e est à gauche de i
 								(ennemis.get(i).getDeplacement().x < 0)) // et i vas à gauche (vers e)
 							ennemis.get(i).setDeplacement(new Vector2(0, ennemis.get(i).getDeplacement().y)); // i se deplace pas
 						
 						// Test sur l'axe y
-						if((ennemis.get(e).getPos().y >= ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y) && // e est au dessus de i
+						else if((ennemis.get(e).getPos().y >= ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y) && // e est au dessus de i
 								(ennemis.get(i).getDeplacement().y > 0)) // et i vas vers le haut (vers e)
 							ennemis.get(i).setDeplacement(new Vector2(ennemis.get(i).getDeplacement().x, 0)); // i se deplace pas
 						
-						if((ennemis.get(e).getPos().y + ennemis.get(e).getTaille().y <= ennemis.get(i).getPos().y) && // e est en dessous de i
+						else if((ennemis.get(e).getPos().y + ennemis.get(e).getTaille().y <= ennemis.get(i).getPos().y) && // e est en dessous de i
 								(ennemis.get(i).getDeplacement().y < 0)) // et i vas vers le bas (vers e)
 							ennemis.get(i).setDeplacement(new Vector2(ennemis.get(i).getDeplacement().x, 0)); // i se deplace pas
+						
+						// Si aucun des cas, on annule tout (evite emboitage)
+						else
+							ennemis.get(i).setDeplacement(new Vector2(0,0));
 					}
 				}
 			}
