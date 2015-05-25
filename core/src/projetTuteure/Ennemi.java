@@ -127,7 +127,7 @@ public class Ennemi {
 		if(cible.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
 		{
 			deplacement = new Vector2(0, 0);
-			//cible.subitAttaque(1, 0);
+			cible.subitAttaque(1, 0);
 		}
 	}
 	
