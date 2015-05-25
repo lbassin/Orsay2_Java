@@ -10,12 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GestionEnnemi {
 	private ArrayList <Ennemi> ennemis;
-	private Camera cam;
 	
-	GestionEnnemi(String nom, Camera cam)
+	GestionEnnemi(String nom)
 	{
-		this.cam = cam;
-		
 		ennemis = new ArrayList <Ennemi>();
 		Scanner fichier;
 		int posX, posY;
@@ -43,7 +40,7 @@ public class GestionEnnemi {
 		return ennemis;
 	}
 	
-	public void update(Perso cible)
+	public void update(Perso cible, Camera cam)
 	{
 		
 		for(int i=0; i<ennemis.size(); i++)
