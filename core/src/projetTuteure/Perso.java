@@ -198,14 +198,12 @@ public class Perso {
 		{
 			// Si il y a une collision avec ennemi
 			if(collision(ennemis.get(i).getPos().add(ennemis.get(i).getDeplacement()), ennemis.get(i).getTaille()))
-			{
-				if((ennemis.get(i).getPos().y >= this.pos.y + this.taille.y) || // Si le joueur est dessous ou dessus
-						(ennemis.get(i).getPos().y + ennemis.get(i).getTaille().y <= this.pos.y))
-					deplacement.y = 0; // Il peut toujours se deplacer en x
-					
-				if((ennemis.get(i).getPos().x >= this.pos.x + this.taille.x) || // Si le joueur est à gauche ou à droite
-						(ennemis.get(i).getPos().x + ennemis.get(i).getTaille().x < this.pos.x))
-					deplacement.x = 0; // Il peut toujours se deplacer en y
+			{		
+				if(pos.x + deplacement.x >= ennemis.get(i).getPos().x || pos.x + deplacement.x<= ennemis.get(i).getPos().x)
+					deplacement.x = 0;
+				
+				if(pos.y <= ennemis.get(i).getPos().y || pos.y >= ennemis.get(i).getPos().y)
+					deplacement.y = 0;
 			}
 		}
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x * map.getTailleTile().x - 500) && (pos.y <= -(map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300));
@@ -234,8 +232,8 @@ public class Perso {
 				|| (pos.x + taille.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x + taille.x >= this.pos.x + this.deplacement.x))
 			{
 				// collisions y
-				if((pos.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
-				|| (pos.y + taille.y <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + taille.y >= this.pos.y + this.deplacement.y ))
+				if((pos.y <= this.pos.y + (this.taille.y / 2) + this.deplacement.y && pos.y >= this.pos.y + this.deplacement.y ) 
+				|| (pos.y + (taille.y/2) <= this.pos.y + this.taille.y + this.deplacement.y && pos.y + (taille.y/2) >= this.pos.y + this.deplacement.y ))
 				{
 					return true;
 				}
