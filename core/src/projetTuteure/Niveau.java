@@ -20,7 +20,7 @@ public class Niveau {
 	{
 		map = new Map(nomMap,nomFichierCollision);
 		this.perso = perso;
-		ennemis = new GestionEnnemi (nomFichierEnnemi);
+		ennemis = new GestionEnnemi (nomFichierEnnemi, camera);
 		camera = new Camera (batch, this.perso, ennemis);
 		perso.init(new Vector2(400, 200));
 		nbMusique = 2;
@@ -32,6 +32,9 @@ public class Niveau {
 	
 	public void niveauUpdate()
 	{
+
+		System.out.println(new Vector2(perso.getPos()).add(camera.getDeplacementTotalCam()));
+		
 		perso.updateEvent();
 		perso.update(ennemis.getListeEnnemis(), camera, map);
 		ennemis.update(perso);

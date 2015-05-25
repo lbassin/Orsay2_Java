@@ -95,7 +95,7 @@ public class Ennemi {
 		this.estMort = mort;
 	}
 	
-	public void update(Perso cible)
+	public void update(Perso cible, Camera cam)
 	{
 		Vector2 posCible = cible.getPos();
 		Vector2 posEnnemi = new Vector2(this.pos);
