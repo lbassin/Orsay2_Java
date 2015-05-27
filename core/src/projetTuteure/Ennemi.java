@@ -26,6 +26,8 @@ public class Ennemi {
 	private int vie;
 	private int vieMax;
 	private Vector2 tailleBarreVie;
+	
+	private int type;
 
 	Ennemi(int posX, int posY) {
 		
@@ -182,4 +184,7 @@ public class Ennemi {
 	
 	public int getVieRestant()
 	{ return vie; }
+	
+	public int getType()
+	{ return type; }
 }
