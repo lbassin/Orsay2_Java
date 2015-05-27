@@ -34,7 +34,6 @@ public class Niveau {
 	{
 
 		System.out.println(new Vector2(perso.getPos()).add(camera.getDeplacementTotalCam()));
-		
 		perso.updateEvent();
 		perso.update(ennemis.getListeEnnemis(), camera, map);
 		ennemis.update(perso, camera);

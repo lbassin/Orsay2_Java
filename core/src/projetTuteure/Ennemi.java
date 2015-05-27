@@ -31,21 +31,54 @@ public class Ennemi {
 		
 		this.pos = new Vector2(posX, posY);
 		deplacement = new Vector2();
-		
-		vitesse = 5f;
-		
-		img = new Texture("../core/assets/ennemi.png");
-		
-		taille = new Vector2();
-		taille.x = img.getWidth();
-		taille.y = img.getHeight();
-		
-		estMort = false;
-		
-		vieMax = 150;
-		vie = 100;
-		
 		this.type= type;
+		switch (this.type)
+		{
+		case "Tank" :
+			vitesse = 2f;
+			
+			img = new Texture("../core/assets/ennemiTank.png");
+			
+			taille = new Vector2();
+			taille.x = img.getWidth();
+			taille.y = img.getHeight();
+			
+			estMort = false;
+			
+			vieMax = 250;
+			vie = 200;
+			break;
+		case "Rapide" :
+			vitesse = 7f;
+			
+			img = new Texture("../core/assets/ennemi.png");
+			
+			taille = new Vector2();
+			taille.x = img.getWidth();
+			taille.y = img.getHeight();
+			
+			estMort = false;
+			
+			vieMax = 100;
+			vie = 75;
+			break;
+		case "Normal" :	
+			vitesse = 5f;
+			
+			img = new Texture("../core/assets/ennemi.png");
+			
+			taille = new Vector2();
+			taille.x = img.getWidth();
+			taille.y = img.getHeight();
+			
+			estMort = false;
+			
+			vieMax = 150;
+			vie = 100;
+			break;
+		}
+		
+		
 		
 		// Genere img pour cadre jauge
 		Vector2 tailleCadre = new Vector2(this.taille.x, 14);
@@ -73,28 +106,6 @@ public class Ennemi {
 		cadreVie = new Texture(carreJaugeTmp);
 		barreVie = new Texture(barreVieTmp);
 		
-	}
-	
-	public Vector2 getPos() {
-		return new Vector2(pos);
-	}
-
-	public Vector2 getDeplacement()
-	{
-		return new Vector2(deplacement);
-	}
-
-	public Vector2 getTaille()
-	{
-		return new Vector2(taille);
-	}
-	public boolean getMort()
-	{
-		return estMort;
-	}
-	public void setMort(boolean mort)
-	{
-		this.estMort = mort;
 	}
 	
 	public void update(Perso cible, Camera cam)
@@ -182,6 +193,27 @@ public class Ennemi {
 			this.vie = 0;
 	}
 	
+	public Vector2 getPos() {
+		return new Vector2(pos);
+	}
+
+	public Vector2 getDeplacement()
+	{
+		return new Vector2(deplacement);
+	}
+
+	public Vector2 getTaille()
+	{
+		return new Vector2(taille);
+	}
+	public boolean getMort()
+	{
+		return estMort;
+	}
+	public void setMort(boolean mort)
+	{
+		this.estMort = mort;
+	}
 	public int getVieRestant()
 	{ return vie; }
 	
