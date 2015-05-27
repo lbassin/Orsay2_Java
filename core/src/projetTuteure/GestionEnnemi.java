@@ -17,6 +17,7 @@ public class GestionEnnemi {
 		Scanner fichier;
 		int posX, posY;
 		int nbEnnemis;
+		String typeEnnemi;
 		try
 		{
 			fichier = new Scanner (new File("../core/assets/"+nom));
@@ -25,7 +26,8 @@ public class GestionEnnemi {
 			{
 				posX = fichier.nextInt();
 				posY = fichier.nextInt();
-				ennemis.add(new Ennemi(posX, posY));
+				typeEnnemi= fichier.next();
+				ennemis.add(new Ennemi(posX, posY, typeEnnemi));
 			}
 		}
 		catch (FileNotFoundException e)
