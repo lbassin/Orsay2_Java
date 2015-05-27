@@ -9,8 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Ennemi {
 	
-	// Debug
-	
 	private Vector2 pos;
 	private Vector2 deplacement;
 	private Vector2 taille;
@@ -29,7 +27,7 @@ public class Ennemi {
 	
 	private String type;
 
-	Ennemi(int posX, int posY) {
+	Ennemi(int posX, int posY, String type) {
 		
 		this.pos = new Vector2(posX, posY);
 		deplacement = new Vector2();
@@ -46,6 +44,8 @@ public class Ennemi {
 		
 		vieMax = 150;
 		vie = 100;
+		
+		this.type= type;
 		
 		// Genere img pour cadre jauge
 		Vector2 tailleCadre = new Vector2(this.taille.x, 14);
