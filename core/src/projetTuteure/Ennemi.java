@@ -125,10 +125,9 @@ public class Ennemi {
 		ennemiToPerso.scl(vitesse); // Multiplie par la vitesse dans 2 axes
 		
 		// Applique le deplacement seulement s'il est visible sur l'ecran (dans la zone de la camera)
-		if(pos.x >= cam.getDeplacementTotalCam().x && pos.x <= cam.getDeplacementTotalCam().x + MyGdxGame.LARGEUR_ECRAN)
+		if(pos.x >= cam.getDeplacementTotalCam().x && pos.x + taille.x <= cam.getDeplacementTotalCam().x + MyGdxGame.LARGEUR_ECRAN)
 		{
-			System.err.println("x");
-			if(pos.y >= cam.getDeplacementTotalCam().y && pos.y <= cam.getDeplacementTotalCam().y + MyGdxGame.HAUTEUR_ECRAN)
+			if(pos.y + taille.y >= cam.getDeplacementTotalCam().y && pos.y <= cam.getDeplacementTotalCam().y + MyGdxGame.HAUTEUR_ECRAN)
 			{
 				deplacement = ennemiToPerso; // Definit le deplacement
 			}
