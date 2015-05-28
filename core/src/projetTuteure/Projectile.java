@@ -33,10 +33,10 @@ public class Projectile {
         orientation = perso.getOrientation();
         switch (id)
         {
-        	case 0 : img = new Texture("carreGreen.jpg"); coutMana = 5; break;
-        	case 1 : img = new Texture("carreRed.jpg"); coutMana = 10; break;
-        	case 2 : img = new Texture("carreBlue.jpg"); coutMana = 20; break;
-        	case 3 : img = new Texture("carreYellow.jpg"); coutMana = 50; break;
+        	case 0 : img = new Texture("carreGreen.jpg"); coutMana = 5; degat = 10; break;
+        	case 1 : img = new Texture("carreRed.jpg"); coutMana = 10; degat = 25;break;
+        	case 2 : img = new Texture("carreBlue.jpg"); coutMana = 20; degat = 50;break;
+        	case 3 : img = new Texture("carreYellow.jpg"); coutMana = 50; degat = 100;break;
         }
         taille = new Vector2();
         taille.x = img.getHeight();
@@ -57,7 +57,7 @@ public class Projectile {
        
 		touche = false;
 		
-		degat = 25;
+		
 		
     }
 
