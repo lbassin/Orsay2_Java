@@ -140,28 +140,14 @@ public class Perso {
 					imgActuelle = 0;
 			
 			}
-				
-			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
+			for (i=0; i<4; i++)
 			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 0, orientation));
-				dateLancementSort[0] = System.currentTimeMillis();
+				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 1000)
+				{
+					projectiles.add(new Projectile(this, i));
+					dateLancementSort[i] = System.currentTimeMillis();
+				}
 			}
-			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
-			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 1, orientation));
-				dateLancementSort[1] = System.currentTimeMillis();
-			}
-			if (event.getAction(2) && (System.currentTimeMillis() - dateLancementSort[2]) > 1000)
-			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 2, orientation));
-				dateLancementSort[2] = System.currentTimeMillis();
-			}
-			if (event.getAction(3) && (System.currentTimeMillis() - dateLancementSort[3]) > 1000)
-			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 3, orientation));
-				dateLancementSort[3] = System.currentTimeMillis();
-			}
-			
 			for (i=0; i< projectiles.size(); i++)
 			{
 				projectiles.get(i).update(camera);
@@ -172,25 +158,13 @@ public class Perso {
 		{
 			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0);
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
-			if (event.getAction(0) && (System.currentTimeMillis() - dateLancementSort[0]) > 1000)
+			for (i=0; i<4; i++)
 			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 0, orientation));
-				dateLancementSort[0] = System.currentTimeMillis();
-			}
-			if (event.getAction(1) && (System.currentTimeMillis() - dateLancementSort[1]) > 1000)
-			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 1, orientation));
-				dateLancementSort[1] = System.currentTimeMillis();
-			}
-			if (event.getAction(2) && (System.currentTimeMillis() - dateLancementSort[2]) > 1000)
-			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 2, orientation));
-				dateLancementSort[2] = System.currentTimeMillis();
-			}
-			if (event.getAction(3) && (System.currentTimeMillis() - dateLancementSort[3]) > 1000)
-			{
-				projectiles.add(new Projectile(new Vector2(pos.x + taille.x, pos.y), 3, orientation));
-				dateLancementSort[3] = System.currentTimeMillis();
+				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 1000)
+				{
+					projectiles.add(new Projectile(this, i));
+					dateLancementSort[i] = System.currentTimeMillis();
+				}
 			}
 		}
 		
@@ -315,4 +289,6 @@ public class Perso {
 	
 	public boolean aFiniLevel()
 	{ return finiLevel; }
+	public int getOrientation()
+	{ return orientation; }
 }

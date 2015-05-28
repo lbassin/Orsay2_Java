@@ -25,13 +25,10 @@ public class Projectile {
     protected int degat;
 
     //Constructeur de la classe
-    Projectile (Vector2 posPerso, int id, int orientation)
+    Projectile (Perso perso, int id)
     {
         pos = new Vector2();
-        this.pos.x = posPerso.x;
-        this.pos.y = posPerso.y;
-        deplacement = new Vector2();
-        vitesse = 13;
+        orientation = perso.getOrientation();
         switch (id)
         {
         	case 0 : img = new Texture("carreGreen.jpg"); break;
@@ -43,11 +40,23 @@ public class Projectile {
         taille.x = img.getHeight();
 		taille.y = img.getWidth();
 		
+        if (orientation == Perso.DROITE)
+        {
+            this.pos.x = perso.getPos().x + perso.getTaille().x;
+            this.pos.y = perso.getPos().y;
+        }
+        else
+        {
+            this.pos.x = perso.getPos().x - taille.x;
+            this.pos.y = perso.getPos().y;
+        }
+        deplacement = new Vector2();
+        vitesse = 13;
+       
 		touche = false;
 		
-		this.orientation = orientation;
-		
 		degat = 25;
+		
     }
 
     public Vector2 getPos()
@@ -58,7 +67,7 @@ public class Projectile {
     {
     	if(orientation == Perso.DROITE)
     	{
-	        if (this.pos.x < 1315 + camera.getDeplacementTotalCam().x)
+	        if (this.pos.x < MyGdxGame.LARGEUR_ECRAN + 35 + camera.getDeplacementTotalCam().x)
 	            deplacement.x = vitesse;
     	}
     	else if(orientation == Perso.GAUCHE)
