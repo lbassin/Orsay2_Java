@@ -84,7 +84,7 @@ public class Niveau {
 		if(!musique)
 		{
 			ennemis.supprimerTousEnnemis();
-			map = null;
+			//map = null;
 			perso = null;
 			
 			long idSound = sound.get(1).play();
@@ -105,8 +105,8 @@ public class Niveau {
 		musique = false;
 	}
 	
-	public Map getMap()
+	public boolean lastLevel()
 	{
-		return map;
+		return map.getNum()== Map.NB_MAP;
 	}
 }

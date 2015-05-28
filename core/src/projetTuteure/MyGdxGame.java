@@ -60,12 +60,12 @@ public class MyGdxGame extends ApplicationAdapter {
 				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 			}
 				
-			batch.begin();
-					batch.draw(new Texture("../core/assets/imgMort.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
-			batch.end();
+			batchHUD.begin();
+				batchHUD.draw(new Texture("../core/assets/imgMort.jpg"), 0, 0);
+			batchHUD.end();
 		}
 		//Affichage seulement si le perso gagn�
-		else if (fin)
+		else if (perso.aFiniLevel() && niveau.lastLevel())
 		{
 			niveau.victoirePerso();
 			
@@ -75,9 +75,9 @@ public class MyGdxGame extends ApplicationAdapter {
 				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 			}
 			
-			batch.begin();
-					batch.draw(new Texture("../core/assets/imgFin.jpg"), niveau.getCameraDeplacement().x, niveau.getCameraDeplacement().y);
-			batch.end();
+			batchHUD.begin();
+				batchHUD.draw(new Texture("../core/assets/imgFin.jpg"), 0, 0);
+			batchHUD.end();
 		}
 		else 
 		{
@@ -93,11 +93,10 @@ public class MyGdxGame extends ApplicationAdapter {
 			niveau.deplacement();
 			
 			//Determine si le perso a gagn�
-			fin=(perso.aFiniLevel() && niveau.getMap().estMapFinale());
 			
 			
 			//Si le joueur fini le niveau
-			if (perso.aFiniLevel() && !niveau.getMap().estMapFinale())
+			if (perso.aFiniLevel() && !niveau.lastLevel())
 			{
 				niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 			}

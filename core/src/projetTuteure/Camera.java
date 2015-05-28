@@ -3,6 +3,7 @@ package projetTuteure;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Camera {
 
@@ -91,4 +92,5 @@ public class Camera {
 	
 	public Vector2 getDeplacementTotalCam()
 	{ return deplacementTotalCam;}
+
 }
