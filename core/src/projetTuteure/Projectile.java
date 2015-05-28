@@ -23,6 +23,8 @@ public class Projectile {
     protected int orientation;
     
     protected int degat;
+    
+    protected int coutMana;
 
     //Constructeur de la classe
     Projectile (Perso perso, int id)
@@ -31,10 +33,10 @@ public class Projectile {
         orientation = perso.getOrientation();
         switch (id)
         {
-        	case 0 : img = new Texture("carreGreen.jpg"); break;
-        	case 1 : img = new Texture("carreRed.jpg"); break;
-        	case 2 : img = new Texture("carreBlue.jpg"); break;
-        	case 3 : img = new Texture("carreYellow.jpg"); break;
+        	case 0 : img = new Texture("carreGreen.jpg"); coutMana = 5; break;
+        	case 1 : img = new Texture("carreRed.jpg"); coutMana = 10; break;
+        	case 2 : img = new Texture("carreBlue.jpg"); coutMana = 20; break;
+        	case 3 : img = new Texture("carreYellow.jpg"); coutMana = 50; break;
         }
         taille = new Vector2();
         taille.x = img.getHeight();
@@ -119,6 +121,11 @@ public class Projectile {
  				}
  			}
  	   }
+    }
+    
+    public int getCoutMana()
+    {
+    	return (coutMana);
     }
     
     //Procedure d'affichage

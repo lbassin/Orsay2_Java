@@ -90,13 +90,12 @@ public class Perso {
 		
 		projectiles = new ArrayList <Projectile>();
 		dateLancementSort = new long [4];
-		
-		System.out.println(pos);
+ 
 		vie = 70;
 		vieMax = 100;
 		
 		manaMax = 100;
-		mana = 80;
+		mana = 100;
 		
 		orientation = DROITE;
 		
@@ -150,8 +149,14 @@ public class Perso {
 			{
 				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 1000)
 				{
-					projectiles.add(new Projectile(this, i));
-					dateLancementSort[i] = System.currentTimeMillis();
+					Projectile p = new Projectile(this, i);
+					
+					if (mana - p.getCoutMana() >= 0)
+					{
+						mana-=p.getCoutMana();
+						projectiles.add(p);
+						dateLancementSort[i] = System.currentTimeMillis();
+					}
 				}
 			}
 			for (i=0; i< projectiles.size(); i++)
@@ -248,7 +253,7 @@ public class Perso {
 		
 		// Pour prendre en compte chaque orientation
 		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y)), (int)taille.x, (int)taille.y);
-		System.out.println(new Vector2( (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y))));
+		
 		if(imgAffiche != null)
 			batch.draw(imgAffiche, pos.x, pos.y);
 	}
