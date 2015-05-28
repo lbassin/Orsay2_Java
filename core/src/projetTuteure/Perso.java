@@ -80,7 +80,7 @@ public class Perso {
 		vitesse = 10; // 12
 		
 		img = new Texture("perso.png");
-		nbImgParAnim = 8;
+		nbImgParAnim = 4;
 		portrait = new Texture("portrait.png");
 		imgActuelle = 0;
 		
@@ -100,7 +100,7 @@ public class Perso {
 		
 		orientation = DROITE;
 		
-		ralentissementAnim = 3;
+		ralentissementAnim = 5;
 		
 		finiLevel = false;
 		mort = false;
@@ -133,13 +133,19 @@ public class Perso {
 			{
 				deplacement.x+=vitesse;
 				orientation = DROITE;
-
+			}
+			
+			if(!deplacement.isZero())
+			{
 				
 				imgActuelle++;
 				if(imgActuelle >= nbImgParAnim*ralentissementAnim)
 					imgActuelle = 0;
-			
 			}
+			else
+				imgActuelle = 0;
+
+			
 			for (i=0; i<4; i++)
 			{
 				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 1000)
@@ -242,7 +248,7 @@ public class Perso {
 		
 		// Pour prendre en compte chaque orientation
 		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y)), (int)taille.x, (int)taille.y);
-		
+		System.out.println(new Vector2( (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y))));
 		if(imgAffiche != null)
 			batch.draw(imgAffiche, pos.x, pos.y);
 	}
