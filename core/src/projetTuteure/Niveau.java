@@ -12,7 +12,6 @@ public class Niveau {
 	private Perso perso;
 	private GestionEnnemi ennemis;
 	private Camera camera;
-	private int nbMusique;
 	private boolean musique;
 	private ArrayList<Sound> sound;
 	
@@ -23,11 +22,16 @@ public class Niveau {
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
 		camera = new Camera (batch, this.perso, ennemis);
 		perso.init(new Vector2(400, 200));
-		nbMusique = 2;
+		
 		musique = false;
 		sound = new ArrayList<Sound>();
 		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/mort.mp3")));
 		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/fin.mp3")));
+		
+		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/inGame.mp3")));
+		
+		long soundId = sound.get(2).play();
+		sound.get(2).setLooping(soundId, true);
 	}
 	
 	public void niveauUpdate()
@@ -72,6 +76,7 @@ public class Niveau {
 			map = null;
 			perso = null;
 		
+			sound.get(2).stop();
 			long idSound = sound.get(0).play();
 			sound.get(0).setLooping(idSound, true);
 			musique = true;
@@ -86,6 +91,7 @@ public class Niveau {
 			//map = null;
 			perso = null;
 			
+			sound.get(2).stop();
 			long idSound = sound.get(1).play();
 			sound.get(1).setLooping(idSound, true);
 			musique = true;
@@ -99,7 +105,7 @@ public class Niveau {
 	
 	public void stopMusique()
 	{ 
-		for(int i=0; i < nbMusique; i++)
+		for(int i=0; i < sound.size(); i++)
 			sound.get(i).stop(); 
 		musique = false;
 	}

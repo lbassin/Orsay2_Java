@@ -94,8 +94,8 @@ public class Perso {
 		vie = 70;
 		vieMax = 100;
 		
-		manaMax = 100;
-		mana = 100;
+		manaMax = 1000;
+		mana = 1000;
 		
 		orientation = DROITE;
 		
