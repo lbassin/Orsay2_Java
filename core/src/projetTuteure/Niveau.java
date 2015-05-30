@@ -42,7 +42,7 @@ public class Niveau {
 		imgFin[0] = new Texture("../core/assets/imgFin1.png");
 		imgFin[1] = new Texture("../core/assets/imgFin2.png");
 		imgFinActuelle = 0;
-		ralentiAnimFin = 15;
+		ralentiAnimFin = 27; // 130 BPM
 	}
 	
 	public void niveauUpdate()
