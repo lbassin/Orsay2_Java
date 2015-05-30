@@ -22,7 +22,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	private Perso perso;
 	private HUD hud;
 	private Niveau niveau;
-	private boolean fin;
 	
 	@Override
 	public void create () {
@@ -98,6 +97,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			//Si le joueur fini le niveau
 			if (perso.aFiniLevel() && !niveau.lastLevel())
 			{
+				niveau.stopMusique();
 				niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 			}
 			
