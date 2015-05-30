@@ -75,7 +75,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 			
 			batchHUD.begin();
-				batchHUD.draw(new Texture("../core/assets/imgFin.jpg"), 0, 0);
+				niveau.afficheImgFin(batchHUD);
 			batchHUD.end();
 		}
 		else 

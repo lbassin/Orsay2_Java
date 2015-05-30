@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -14,6 +15,10 @@ public class Niveau {
 	private Camera camera;
 	private boolean musique;
 	private ArrayList<Sound> sound;
+	
+	private Texture imgFin[];
+	private int imgFinActuelle;
+	private int ralentiAnimFin;
 	
 	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
 	{
@@ -32,6 +37,12 @@ public class Niveau {
 		
 		long soundId = sound.get(2).play();
 		sound.get(2).setLooping(soundId, true);
+		
+		imgFin = new Texture[2];
+		imgFin[0] = new Texture("../core/assets/imgFin1.png");
+		imgFin[1] = new Texture("../core/assets/imgFin2.png");
+		imgFinActuelle = 0;
+		ralentiAnimFin = 15;
 	}
 	
 	public void niveauUpdate()
@@ -113,5 +124,15 @@ public class Niveau {
 	public boolean lastLevel()
 	{
 		return map.getNum()== Map.NB_MAP;
+	}
+	
+	public void afficheImgFin(SpriteBatch batch)
+	{		
+		batch.draw(imgFin[imgFinActuelle/ralentiAnimFin], 0, 0);
+		imgFinActuelle += 1;
+		
+		if(imgFinActuelle >= 2*ralentiAnimFin)
+			imgFinActuelle = 0;
+		
 	}
 }

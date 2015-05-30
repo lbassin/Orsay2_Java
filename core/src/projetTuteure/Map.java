@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Map {
 	
-    public static final int NB_MAP = 3;
+    public static final int NB_MAP = 2;
 	
 	private Vector2 tailleMap;
 	private Vector2 tailleTile;
