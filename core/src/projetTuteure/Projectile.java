@@ -16,6 +16,8 @@ public class Projectile {
     protected float vitesse;
     protected Vector2 taille;
     
+    protected int id;
+    
     protected Texture img;
 
     protected boolean touche;
@@ -31,12 +33,13 @@ public class Projectile {
     {
         pos = new Vector2();
         orientation = perso.getOrientation();
+        this.id=id;
         switch (id)
         {
         	case 0 : img = new Texture("carreGreen.jpg"); coutMana = 5; degat = 10; break;
-        	case 1 : img = new Texture("carreRed.jpg"); coutMana = 10; degat = 25;break;
-        	case 2 : img = new Texture("carreBlue.jpg"); coutMana = 20; degat = 50;break;
-        	case 3 : img = new Texture("carreYellow.jpg"); coutMana = 50; degat = 100;break;
+        	case 1 : img = new Texture("carreRed.jpg"); coutMana = 15; degat = 25;break;
+        	case 2 : img = new Texture("carreBlue.jpg"); coutMana = 35; degat = 50;break;
+        	case 3 : img = new Texture("carreYellow.jpg"); coutMana = 65; degat = 30;break;
         }
         taille = new Vector2();
         taille.x = img.getHeight();
@@ -67,15 +70,45 @@ public class Projectile {
     //Procedure de mise a jour
     public void update(Camera camera)
     {
-    	if(orientation == Perso.DROITE)
-    	{
-	        if (this.pos.x < MyGdxGame.LARGEUR_ECRAN + 35 + camera.getDeplacementTotalCam().x)
-	            deplacement.x = vitesse;
+    	if(id == 0){
+	    	if(orientation == Perso.DROITE)
+	    	{
+	    		taille.x = vitesse;
+	    	}
+	    	else if(orientation == Perso.GAUCHE)
+	    	{
+	    		taille.x = -vitesse;
+	    	}
     	}
-    	else if(orientation == Perso.GAUCHE)
-    	{
-    		if (this.pos.x > -35 + camera.getDeplacementTotalCam().x)
-	            deplacement.x = -vitesse;
+    	else if(id == 1){
+	    	if(orientation == Perso.DROITE)
+	    	{
+		        deplacement.x = vitesse;
+	    	}
+	    	else if(orientation == Perso.GAUCHE)
+	    	{
+	    		deplacement.x = -vitesse;
+	    	}
+    	}
+    	else if(id == 2){
+	    	if(orientation == Perso.DROITE)
+	    	{
+		        deplacement.x = vitesse;
+	    	}
+	    	else if(orientation == Perso.GAUCHE)
+	    	{
+	    		deplacement.x = -vitesse;
+	    	}
+    	}
+    	else if(id == 3){
+	    	if(orientation == Perso.DROITE)
+	    	{
+	    		taille.x += vitesse*2;
+	    	}
+	    	else if(orientation == Perso.GAUCHE)
+	    	{
+	    		taille.x += -vitesse*2;
+	    	}
     	}
     }
 
@@ -123,15 +156,25 @@ public class Projectile {
  	   }
     }
     
+    public int getId()
+    {
+    	return (id);
+    }
+    
     public int getCoutMana()
     {
     	return (coutMana);
     }
     
+    public Vector2 getTaille()
+    {
+    	return (taille);
+    }
+    
     //Procedure d'affichage
     public void draw(SpriteBatch batch)
     {
-        batch.draw(img, pos.x, pos.y);
+        batch.draw(img, pos.x, pos.y, taille.x, taille.y);
     }
     
     public boolean aTouche()

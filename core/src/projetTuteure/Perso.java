@@ -158,6 +158,9 @@ public class Perso {
 						mana-=p.getCoutMana();
 						projectiles.add(p);
 						dateLancementSort[i] = System.currentTimeMillis();
+						/*if(i == 3){
+							deplacement = new Vector2(0,0);
+						}*/
 					}
 				}
 			}
@@ -173,10 +176,16 @@ public class Perso {
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
 			for (i=0; i<4; i++)
 			{
-				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 1000)
+				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
 				{
-					projectiles.add(new Projectile(this, i));
-					dateLancementSort[i] = System.currentTimeMillis();
+					Projectile p = new Projectile(this, i);
+					
+					if (mana - p.getCoutMana() >= 0)
+					{
+						mana-=p.getCoutMana();
+						projectiles.add(p);
+						dateLancementSort[i] = System.currentTimeMillis();
+					}
 				}
 			}
 		}
@@ -241,9 +250,26 @@ public class Perso {
 	{
 		for (int i=0; i < projectiles.size() ; i++)
 		{
-			if ((projectiles.get(i).getPos().x > 1312 + camera.getDeplacementTotalCam().x) || 
-					(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
-				projectiles.remove(i);
+			if(projectiles.get(i).getId() == 0){
+				if ((projectiles.get(i).getPos().x + projectiles.get(i).getTaille().x> pos.x + taille.x + 50 + camera.getDeplacementTotalCam().x) || 
+						(projectiles.get(i).getPos().x + projectiles.get(i).getTaille().x < pos.x - 50 + camera.getDeplacementTotalCam().x))
+					projectiles.remove(i);
+			}
+			else if(projectiles.get(i).getId() == 1){
+				if ((projectiles.get(i).getPos().x > 1312 + camera.getDeplacementTotalCam().x) || 
+						(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
+					projectiles.remove(i);
+			}
+			else if(projectiles.get(i).getId() == 2){
+				if ((projectiles.get(i).getPos().x > MyGdxGame.LARGEUR_ECRAN + camera.getDeplacementTotalCam().x) || 
+						(projectiles.get(i).getPos().x < -35 + camera.getDeplacementTotalCam().x) || projectiles.get(i).aTouche())
+					projectiles.remove(i);
+			}
+			else if(projectiles.get(i).getId() == 3){
+				if ((projectiles.get(i).getPos().x + projectiles.get(i).getTaille().x > MyGdxGame.LARGEUR_ECRAN + camera.getDeplacementTotalCam().x) || 
+						(projectiles.get(i).getPos().x + projectiles.get(i).getTaille().x < camera.getDeplacementTotalCam().x))
+					projectiles.remove(i);
+			}
 		}
 	}
 	
