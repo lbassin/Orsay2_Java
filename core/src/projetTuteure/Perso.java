@@ -45,6 +45,7 @@ public class Perso {
 	
 	private int manaMax;
 	private int mana;
+	private long RegenMana;
 	
 	//Variables pour l'orientation
 	private int orientation;
@@ -94,8 +95,9 @@ public class Perso {
 		vie = 70;
 		vieMax = 100;
 		
-		manaMax = 1000;
-		mana = 1000;
+		manaMax = 100;
+		mana = 100;
+		RegenMana = System.currentTimeMillis();
 		
 		orientation = DROITE;
 		
@@ -147,7 +149,7 @@ public class Perso {
 			
 			for (i=0; i<4; i++)
 			{
-				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 1000)
+				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
 				{
 					Projectile p = new Projectile(this, i);
 					
@@ -195,6 +197,11 @@ public class Perso {
 		}
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x * map.getTailleTile().x - 500) && (pos.y <= -(map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300));
 		mort = (vie == 0);
+		if((System.currentTimeMillis() - RegenMana) > 50)
+		{
+			mana+=1;
+			RegenMana = System.currentTimeMillis();
+		}
 	}
 	
 	//Procedure de deplacement
