@@ -17,10 +17,10 @@ public class MyGdxGame extends ApplicationAdapter {
     public static final int NB_JOUEUR_MAX = 4;
 	
     private SpriteBatch batch;
-	private SpriteBatch batchHUD;
+    private SpriteBatch batchHUD;
+    
 	
 	private Perso perso;
-	private HUD hud;
 	private Niveau niveau;
 	
 	@Override
@@ -37,8 +37,6 @@ public class MyGdxGame extends ApplicationAdapter {
 					perso = new Perso(new Vector2(400, 200), 0);
 			}
 			
-			hud = new HUD();
-			hud.addJoueur(perso);
 			niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
 	}
 
@@ -106,8 +104,8 @@ public class MyGdxGame extends ApplicationAdapter {
 				niveau.draw(batch);
 			batch.end();
 			
-			batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
-				hud.afficher(batchHUD);
+			batchHUD.begin();
+				niveau.afficherHUD(batchHUD);
 			batchHUD.end();
 			
 			// Supprime les ennemis morts

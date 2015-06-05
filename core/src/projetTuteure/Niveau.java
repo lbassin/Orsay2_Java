@@ -13,6 +13,8 @@ public class Niveau {
 	private Perso perso;
 	private GestionEnnemi ennemis;
 	private Camera camera;
+	private HUD hud;
+	
 	private boolean musique;
 	private ArrayList<Sound> sound;
 	
@@ -34,15 +36,19 @@ public class Niveau {
 		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/fin.mp3")));
 		
 		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/inGame.mp3")));
-		
+		/*
 		long soundId = sound.get(2).play();
 		sound.get(2).setLooping(soundId, true);
-		
+		*/
 		imgFin = new Texture[2];
 		imgFin[0] = new Texture("../core/assets/imgFin1.png");
 		imgFin[1] = new Texture("../core/assets/imgFin2.png");
 		imgFinActuelle = 0;
 		ralentiAnimFin = 27; // 130 BPM
+		
+		
+		hud = new HUD();
+		hud.addJoueur(perso);
 	}
 	
 	public void niveauUpdate()
@@ -134,5 +140,9 @@ public class Niveau {
 		if(imgFinActuelle >= 2*ralentiAnimFin)
 			imgFinActuelle = 0;
 		
+	}
+
+	public void afficherHUD(SpriteBatch batchHUD) {
+		hud.afficher(batchHUD);
 	}
 }
