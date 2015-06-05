@@ -116,7 +116,7 @@ public class Perso {
 	//Calcul du deplacement
 	public void update(ArrayList <Ennemi> ennemis, Camera camera, Map map)
 	{
-		int i;
+int i;
 		
 		if(event.getTypeController() == Event.CLAVIER)
 		{
@@ -146,48 +146,48 @@ public class Perso {
 			else
 				imgActuelle = 0;
 
-			
-			for (i=0; i<4; i++)
-			{
-				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
-				{
-					Projectile p = new Projectile(this, i);
-					
-					if (mana - p.getCoutMana() >= 0)
-					{
-						mana-=p.getCoutMana();
-						projectiles.add(p);
-						dateLancementSort[i] = System.currentTimeMillis();
-						/*if(i == 3){
-							deplacement = new Vector2(0,0);
-						}*/
-					}
-				}
-			}
-			for (i=0; i< projectiles.size(); i++)
-			{
-				projectiles.get(i).update(camera);
-				projectiles.get(i).collision(ennemis);
-			}
 		}
 		else if(event.getTypeController() == Event.MANETTE)
 		{
-			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0);
-			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
-			for (i=0; i<4; i++)
+			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1);
+			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0));
+			
+			if (deplacement.x > 0)
+				orientation = DROITE;
+			else if (deplacement.x < 0)
+				orientation = GAUCHE;
+			
+			if(!deplacement.isZero())
 			{
-				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
+				
+				imgActuelle++;
+				if(imgActuelle >= nbImgParAnim*ralentissementAnim)
+					imgActuelle = 0;
+			}
+			else
+				imgActuelle = 0;
+			
+		}
+		
+		for (i=0; i<4; i++)
+		{
+			if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
+			{
+				Projectile p = new Projectile(this, i);
+				
+				if (mana - p.getCoutMana() >= 0)
 				{
-					Projectile p = new Projectile(this, i);
-					
-					if (mana - p.getCoutMana() >= 0)
-					{
-						mana-=p.getCoutMana();
-						projectiles.add(p);
-						dateLancementSort[i] = System.currentTimeMillis();
-					}
+					mana-=p.getCoutMana();
+					projectiles.add(p);
+					dateLancementSort[i] = System.currentTimeMillis();
 				}
 			}
+		}
+		
+		for (i=0; i< projectiles.size(); i++)
+		{
+			projectiles.get(i).update(camera);
+			projectiles.get(i).collision(ennemis);
 		}
 		
 		for(i=0; i < ennemis.size(); i++)

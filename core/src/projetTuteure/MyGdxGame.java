@@ -37,7 +37,8 @@ public class MyGdxGame extends ApplicationAdapter {
 				if(Controllers.getControllers().size == 0)
 					persos.add(new Perso(new Vector2(400, 000)));
 				else
-					persos.add(new Perso(new Vector2(400, 200), 0));
+					persos.add(new Perso(new Vector2(0, 0), 0)); // Cette position ne sert à rien, direct reinit dans niveau
+				persos.add(new Perso(new Vector2(0, 0)));
 			}
 			
 			niveau = new Niveau ("map2.txt", "collision.txt", persos, "initEnnemi.txt", batch);
@@ -45,7 +46,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		
+		System.out.println(persos.get(0).getPos());
 		//Initialisation de la fenetre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -27,6 +27,8 @@ public class Event {
 	private Boolean[] toucheDeplacement;
 	private Boolean[] action;
 	
+	private float margeErreur;
+	
 	// Constructeur clavier
 	Event()
 	{
@@ -55,12 +57,14 @@ public class Event {
 			joystick[i] = new Vector2();
 		
 		action = new Boolean[4];
-		posSouri = new Vector2();		
+		posSouri = new Vector2();	
+		
+		margeErreur = 0.2f;
 		
 		System.out.println("Manette");
 	}
 	
-	// Mise à jour des evenements
+	// Mise ï¿½ jour des evenements
 	public void update()
 	{
 		if(typeController == Event.CLAVIER)
@@ -92,13 +96,13 @@ public class Event {
 			joystick[JOYSTICK_DROIT].x = controller.getAxis(3);
 			joystick[JOYSTICK_DROIT].y = controller.getAxis(2);
 			
-			if(joystick[JOYSTICK_GAUCHE].x < 0.1 && joystick[JOYSTICK_GAUCHE].x > -0.1)
+			if(joystick[JOYSTICK_GAUCHE].x < margeErreur && joystick[JOYSTICK_GAUCHE].x > -margeErreur)
 				joystick[JOYSTICK_GAUCHE].x = 0;
-			if(joystick[JOYSTICK_GAUCHE].y < 0.1 && joystick[JOYSTICK_GAUCHE].y > -0.1)
+			if(joystick[JOYSTICK_GAUCHE].y < margeErreur && joystick[JOYSTICK_GAUCHE].y > -margeErreur)
 				joystick[JOYSTICK_GAUCHE].y = 0;
-			if(joystick[JOYSTICK_DROIT].x < 0.1 && joystick[JOYSTICK_DROIT].x > -0.1)
+			if(joystick[JOYSTICK_DROIT].x < margeErreur && joystick[JOYSTICK_DROIT].x > -margeErreur)
 				joystick[JOYSTICK_DROIT].x = 0;
-			if(joystick[JOYSTICK_DROIT].y < 0.1 && joystick[JOYSTICK_DROIT].y > -0.1)
+			if(joystick[JOYSTICK_DROIT].y < margeErreur && joystick[JOYSTICK_DROIT].y > -margeErreur)
 				joystick[JOYSTICK_DROIT].y = 0;
 			
 			
@@ -113,11 +117,11 @@ public class Event {
 		}
 	}
 	
-	// Verifie appui sur une touche de déplacement
+	// Verifie appui sur une touche de dï¿½placement
 	public boolean getToucheDeplacement(int id)
 	{ return toucheDeplacement[id]; }
 	
-	//Vérifie l'appui d'une touche d'action 
+	//Vï¿½rifie l'appui d'une touche d'action 
 	public boolean getAction (int id)
 	{ return action[id]; }
 	
