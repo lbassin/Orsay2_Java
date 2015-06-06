@@ -27,7 +27,7 @@ public class Niveau {
 		map = new Map(nomMap,nomFichierCollision);
 		this.persos = persos;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
-		camera = new Camera (batch, this.persos.get(0), ennemis);
+		camera = new Camera (batch, this.persos, ennemis);
 		hud = new HUD();
 		
 		int tmp = 200;

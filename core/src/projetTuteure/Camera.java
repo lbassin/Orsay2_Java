@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,14 +14,14 @@ public class Camera {
 	
 	private Vector2 deplacementTotalCam;
 	
-	private Perso perso;
+	private ArrayList<Perso> persos;
 	
 	private GestionEnnemi ennemis; 
 	
-	public Camera(SpriteBatch batch, Perso perso, GestionEnnemi ennemis)
+	public Camera(SpriteBatch batch, ArrayList<Perso> persos, GestionEnnemi ennemis)
 	{
 		this.batch = batch;
-		this.perso = perso;
+		this.persos = persos;
 		this.ennemis = ennemis;
 
 		deplacementTotalCam = new Vector2(0,0);
@@ -34,36 +36,36 @@ public class Camera {
 	{
 		if (!presenceEnnemis())
 		{
-			if(perso.getPos().x + perso.getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
+			if(persos.get(0).getPos().x + persos.get(0).getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
 			{
-				cam.translate(perso.getVitesse(), 0);
-				deplacementTotalCam.x += perso.getVitesse();
+				cam.translate(persos.get(0).getVitesse(), 0);
+				deplacementTotalCam.x += persos.get(0).getVitesse();
 			}
-			else if(perso.getPos().x < deplacementTotalCam.x + 350)
+			else if(persos.get(0).getPos().x < deplacementTotalCam.x + 350)
 			{
-				cam.translate(-perso.getVitesse(), 0);
-				deplacementTotalCam.x -= perso.getVitesse();
+				cam.translate(-persos.get(0).getVitesse(), 0);
+				deplacementTotalCam.x -= persos.get(0).getVitesse();
 			}
 			
-			if(perso.getPos().y + perso.getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
+			if(persos.get(0).getPos().y + persos.get(0).getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
 			{
-				cam.translate(0, perso.getVitesse());
-				deplacementTotalCam.y += perso.getVitesse();
+				cam.translate(0, persos.get(0).getVitesse());
+				deplacementTotalCam.y += persos.get(0).getVitesse();
 			}
-			else if(perso.getPos().y < deplacementTotalCam.y + 150)
+			else if(persos.get(0).getPos().y < deplacementTotalCam.y + 150)
 			{
-				cam.translate(0, -perso.getVitesse());
-				deplacementTotalCam.y -= perso.getVitesse();
+				cam.translate(0, -persos.get(0).getVitesse());
+				deplacementTotalCam.y -= persos.get(0).getVitesse();
 			} 
 		}
 		else 
 		{
-			if( perso.getPos().x + perso.getDeplacement().x <= deplacementTotalCam.x 
-					|| perso.getPos().x + perso.getDeplacement().x + perso.getTaille().x >= deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN)
-				perso.setDeplacement(new Vector2(0, perso.getDeplacement().y));
-			if(perso.getPos().y + perso.getDeplacement().y <= deplacementTotalCam.y 
-					|| perso.getPos().y + perso.getDeplacement().y + perso.getTaille().y >= deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN)
-				perso.setDeplacement(new Vector2(perso.getDeplacement().x, 0));
+			if( persos.get(0).getPos().x + persos.get(0).getDeplacement().x <= deplacementTotalCam.x 
+					|| persos.get(0).getPos().x + persos.get(0).getDeplacement().x + persos.get(0).getTaille().x >= deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN)
+				persos.get(0).setDeplacement(new Vector2(0, persos.get(0).getDeplacement().y));
+			if(persos.get(0).getPos().y + persos.get(0).getDeplacement().y <= deplacementTotalCam.y 
+					|| persos.get(0).getPos().y + persos.get(0).getDeplacement().y + persos.get(0).getTaille().y >= deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN)
+				persos.get(0).setDeplacement(new Vector2(persos.get(0).getDeplacement().x, 0));
 		}
 		
 		batch.setProjectionMatrix(cam.combined);
