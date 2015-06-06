@@ -148,7 +148,7 @@ int i;
 
 		}
 		else if(event.getTypeController() == Event.MANETTE)
-		{
+		{	
 			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1);
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0));
 			

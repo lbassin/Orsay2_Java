@@ -34,29 +34,55 @@ public class Camera {
 	
 	public void update()
 	{
+		Vector2 deplacementCam = new Vector2(0, 0);
+		int e = 0;
+		
 		if (!presenceEnnemis())
 		{
-			if(persos.get(0).getPos().x + persos.get(0).getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
+			if(persos.get(e).getPos().x + persos.get(e).getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
 			{
-				cam.translate(persos.get(0).getVitesse(), 0);
-				deplacementTotalCam.x += persos.get(0).getVitesse();
+				deplacementCam.x = persos.get(e).getVitesse();
 			}
-			else if(persos.get(0).getPos().x < deplacementTotalCam.x + 350)
+			else if(persos.get(e).getPos().x < deplacementTotalCam.x + 350)
 			{
-				cam.translate(-persos.get(0).getVitesse(), 0);
-				deplacementTotalCam.x -= persos.get(0).getVitesse();
+				deplacementCam.x = -persos.get(e).getVitesse();
 			}
 			
-			if(persos.get(0).getPos().y + persos.get(0).getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
+			if(persos.get(e).getPos().y + persos.get(e).getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
 			{
-				cam.translate(0, persos.get(0).getVitesse());
-				deplacementTotalCam.y += persos.get(0).getVitesse();
+				deplacementCam.y = persos.get(e).getVitesse();
 			}
-			else if(persos.get(0).getPos().y < deplacementTotalCam.y + 150)
+			else if(persos.get(e).getPos().y < deplacementTotalCam.y + 150)
 			{
-				cam.translate(0, -persos.get(0).getVitesse());
-				deplacementTotalCam.y -= persos.get(0).getVitesse();
+				deplacementCam.y = -persos.get(e).getVitesse();
 			} 
+			
+			int i = 0;
+			boolean persoDehors = false;
+			while(i<persos.size() && !persoDehors)
+			{
+				if(persos.get(i).getPos().x + persos.get(i).getDeplacement().x + persos.get(i).getTaille().x > 
+							deplacementCam.x + deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN)
+				{
+					System.err.println("1");
+					persoDehors = true;
+				}
+				if(persos.get(i).getPos().x + persos.get(i).getDeplacement().x <
+							deplacementCam.x + deplacementTotalCam.x)
+				{								
+					System.err.println("2");
+					persoDehors = true;
+				}
+				
+				i++;
+			}
+			
+			if(!persoDehors)
+			{
+				cam.translate(deplacementCam);
+				deplacementTotalCam.add(deplacementCam);
+			}
+			System.out.println(deplacementCam + " - " + persoDehors);
 		}
 		else 
 		{
@@ -67,6 +93,8 @@ public class Camera {
 					|| persos.get(0).getPos().y + persos.get(0).getDeplacement().y + persos.get(0).getTaille().y >= deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN)
 				persos.get(0).setDeplacement(new Vector2(persos.get(0).getDeplacement().x, 0));
 		}
+		
+		
 		
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();

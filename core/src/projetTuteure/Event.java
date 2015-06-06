@@ -105,10 +105,6 @@ public class Event {
 			if(joystick[JOYSTICK_DROIT].y < margeErreur && joystick[JOYSTICK_DROIT].y > -margeErreur)
 				joystick[JOYSTICK_DROIT].y = 0;
 			
-			
-			System.out.println(joystick[0].x + " - " + joystick[0].y);
-			System.out.println(joystick[1].x + " - " + joystick[1].y + " \n");
-			
 			// Mise a jour touches actions
 			action[0] = controller.getButton(0);
 			action[1] = controller.getButton(1);
