@@ -60,20 +60,17 @@ public class Camera {
 			int i = 0;
 			boolean persoDehors = false;
 			while(i<persos.size() && !persoDehors)
-			{
-				if(persos.get(i).getPos().x + persos.get(i).getDeplacement().x + persos.get(i).getTaille().x > 
-							deplacementCam.x + deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN)
-				{
-					System.err.println("1");
-					persoDehors = true;
-				}
-				if(persos.get(i).getPos().x + persos.get(i).getDeplacement().x <
-							deplacementCam.x + deplacementTotalCam.x)
-				{								
-					System.err.println("2");
-					persoDehors = true;
-				}
-				
+			{	
+				// On cherche si un joueur sort de l'ecran à cause du deplacement de la camera
+				persoDehors = ((persos.get(i).getPos().x + persos.get(i).getDeplacement().x + persos.get(i).getTaille().x > 
+							deplacementCam.x + deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN) ||
+							(persos.get(i).getPos().x + persos.get(i).getDeplacement().x <
+							deplacementCam.x + deplacementTotalCam.x) ||
+							(persos.get(i).getPos().y + persos.get(i).getDeplacement().y + persos.get(i).getTaille().y >
+							deplacementCam.y + deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN) ||
+							(persos.get(i).getPos().y + persos.get(i).getDeplacement().y <
+							deplacementCam.y + deplacementTotalCam.y )
+						);			
 				i++;
 			}
 			
