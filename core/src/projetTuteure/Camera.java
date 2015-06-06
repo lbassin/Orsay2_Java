@@ -35,62 +35,54 @@ public class Camera {
 	public void update()
 	{
 		Vector2 deplacementCam = new Vector2(0, 0);
-		int e = 0;
-		
+		int e;
+		// Bug de camera (sacade) quand 2 joueurs dans zone de scroll
 		if (!presenceEnnemis())
 		{
-			if(persos.get(e).getPos().x + persos.get(e).getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
+			for(e = 0; e < persos.size(); e++)
 			{
-				deplacementCam.x = persos.get(e).getVitesse();
+				if(persos.get(e).getPos().x + persos.get(e).getTaille().x > (MyGdxGame.LARGEUR_ECRAN + deplacementTotalCam.x) - 350)
+				{
+					deplacementCam.x = persos.get(e).getVitesse();
+				}
+				else if(persos.get(e).getPos().x < deplacementTotalCam.x + 350)
+				{
+					deplacementCam.x = -persos.get(e).getVitesse();
+				}
+				
+				if(persos.get(e).getPos().y + persos.get(e).getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
+				{
+					deplacementCam.y = persos.get(e).getVitesse();
+				}
+				else if(persos.get(e).getPos().y < deplacementTotalCam.y + 150)
+				{
+					deplacementCam.y = -persos.get(e).getVitesse();
+				} 
+				
+				int i = 0;
+				boolean persoDehors = false;
+				while(i<persos.size() && !persoDehors)
+				{	
+					// On cherche si un joueur sort de l'ecran à cause du deplacement de la camera
+					persoDehors = ((persos.get(i).getPos().x + persos.get(i).getDeplacement().x + persos.get(i).getTaille().x > 
+								deplacementCam.x + deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN) ||
+								(persos.get(i).getPos().x + persos.get(i).getDeplacement().x <
+								deplacementCam.x + deplacementTotalCam.x) ||
+								(persos.get(i).getPos().y + persos.get(i).getDeplacement().y + persos.get(i).getTaille().y >
+								deplacementCam.y + deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN) ||
+								(persos.get(i).getPos().y + persos.get(i).getDeplacement().y <
+								deplacementCam.y + deplacementTotalCam.y )
+							);			
+					i++;
+				}
+					
+				if(!persoDehors)
+				{
+					cam.translate(deplacementCam);
+					deplacementTotalCam.add(deplacementCam);
+				}
 			}
-			else if(persos.get(e).getPos().x < deplacementTotalCam.x + 350)
-			{
-				deplacementCam.x = -persos.get(e).getVitesse();
-			}
-			
-			if(persos.get(e).getPos().y + persos.get(e).getTaille().y> (MyGdxGame.HAUTEUR_ECRAN + deplacementTotalCam.y) - 150)
-			{
-				deplacementCam.y = persos.get(e).getVitesse();
-			}
-			else if(persos.get(e).getPos().y < deplacementTotalCam.y + 150)
-			{
-				deplacementCam.y = -persos.get(e).getVitesse();
-			} 
-			
-			int i = 0;
-			boolean persoDehors = false;
-			while(i<persos.size() && !persoDehors)
-			{	
-				// On cherche si un joueur sort de l'ecran à cause du deplacement de la camera
-				persoDehors = ((persos.get(i).getPos().x + persos.get(i).getDeplacement().x + persos.get(i).getTaille().x > 
-							deplacementCam.x + deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN) ||
-							(persos.get(i).getPos().x + persos.get(i).getDeplacement().x <
-							deplacementCam.x + deplacementTotalCam.x) ||
-							(persos.get(i).getPos().y + persos.get(i).getDeplacement().y + persos.get(i).getTaille().y >
-							deplacementCam.y + deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN) ||
-							(persos.get(i).getPos().y + persos.get(i).getDeplacement().y <
-							deplacementCam.y + deplacementTotalCam.y )
-						);			
-				i++;
-			}
-			
-			if(!persoDehors)
-			{
-				cam.translate(deplacementCam);
-				deplacementTotalCam.add(deplacementCam);
-			}
-			System.out.println(deplacementCam + " - " + persoDehors);
 		}
-		else 
-		{
-			if( persos.get(0).getPos().x + persos.get(0).getDeplacement().x <= deplacementTotalCam.x 
-					|| persos.get(0).getPos().x + persos.get(0).getDeplacement().x + persos.get(0).getTaille().x >= deplacementTotalCam.x + MyGdxGame.LARGEUR_ECRAN)
-				persos.get(0).setDeplacement(new Vector2(0, persos.get(0).getDeplacement().y));
-			if(persos.get(0).getPos().y + persos.get(0).getDeplacement().y <= deplacementTotalCam.y 
-					|| persos.get(0).getPos().y + persos.get(0).getDeplacement().y + persos.get(0).getTaille().y >= deplacementTotalCam.y + MyGdxGame.HAUTEUR_ECRAN)
-				persos.get(0).setDeplacement(new Vector2(persos.get(0).getDeplacement().x, 0));
-		}
-		
 		
 		
 		batch.setProjectionMatrix(cam.combined);
