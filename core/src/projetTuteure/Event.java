@@ -59,7 +59,7 @@ public class Event {
 		action = new Boolean[4];
 		posSouri = new Vector2();	
 		
-		margeErreur = 0.2f;
+		margeErreur = 0.3f;
 		
 		System.out.println("Manette");
 	}
