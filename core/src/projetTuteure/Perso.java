@@ -25,6 +25,7 @@ public class Perso {
 	private Vector2 deplacement;
 	private float vitesse;
 	private Vector2 taille;
+	private Vector2 tailleImg;
 	
 	//Variables pour la gestion de l'image
 	private Texture img;
@@ -81,13 +82,17 @@ public class Perso {
 		vitesse = 10; // 12
 		
 		img = new Texture("perso.png");
-		nbImgParAnim = 4;
+		nbImgParAnim = 8;
 		portrait = new Texture("portrait.png");
 		imgActuelle = 0;
 		
 		taille = new Vector2();
 		taille.x = 82;
-		taille.y = 96;
+		taille.y = 136;
+		
+		tailleImg = new Vector2();
+		tailleImg.x = 140;
+		tailleImg.y = 235;
 		
 		projectiles = new ArrayList <Projectile>();
 		dateLancementSort = new long [4];
@@ -101,7 +106,7 @@ public class Perso {
 		
 		orientation = DROITE;
 		
-		ralentissementAnim = 5;
+		ralentissementAnim = 6;
 		
 		finiLevel = false;
 		mort = false;
@@ -285,10 +290,10 @@ public class Perso {
 		TextureRegion imgAffiche;
 		
 		// Pour prendre en compte chaque orientation
-		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y)), (int)taille.x, (int)taille.y);
+		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)tailleImg.x), (int)(orientation*(tailleImg.y)), (int)tailleImg.x, (int)tailleImg.y);
 		
 		if(imgAffiche != null)
-			batch.draw(imgAffiche, pos.x, pos.y);
+			batch.draw(imgAffiche, pos.x, pos.y, taille.x, taille.y);
 	}
 
 	//Procedure d'affichage du personnage
