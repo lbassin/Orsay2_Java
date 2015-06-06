@@ -116,7 +116,7 @@ public class Perso {
 	//Calcul du deplacement
 	public void update(ArrayList <Ennemi> ennemis, Camera camera, Map map)
 	{
-int i;
+		int i;
 		
 		if(event.getTypeController() == Event.CLAVIER)
 		{
@@ -211,6 +211,14 @@ int i;
 			mana+=1;
 			RegenMana = System.currentTimeMillis();
 		}
+		
+		// Empeche le perso de sortir de l'ecran
+		if((pos.x + deplacement.x + taille.x > MyGdxGame.LARGEUR_ECRAN + camera.getDeplacementTotalCam().x) || 
+				(pos.x + deplacement.x < camera.getDeplacementTotalCam().x))
+			deplacement.x = 0;
+		if((pos.y + deplacement.y + taille.y > MyGdxGame.HAUTEUR_ECRAN + camera.getDeplacementTotalCam().y) ||
+				(pos.y + deplacement.y < camera.getDeplacementTotalCam().y))
+			deplacement.y = 0;
 	}
 	
 	//Procedure de deplacement
