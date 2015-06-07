@@ -211,10 +211,14 @@ public class Perso {
 		}
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x * map.getTailleTile().x - 500) && (pos.y <= -(map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300));
 		mort = (vie == 0);
+		
 		if((System.currentTimeMillis() - RegenMana) > 50)
 		{
-			mana+=1;
-			RegenMana = System.currentTimeMillis();
+			if(mana + 1 <= manaMax)
+			{
+				mana+=1;
+				RegenMana = System.currentTimeMillis();
+			}
 		}
 	}
 	
