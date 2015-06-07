@@ -42,7 +42,7 @@ public class Niveau {
 		imgFin[0] = new Texture("../core/assets/imgFin1.png");
 		imgFin[1] = new Texture("../core/assets/imgFin2.png");
 		imgFinActuelle = 0;
-		ralentiAnimFin = 27; // 130 BPM
+		ralentiAnimFin = 27/2; // 130 BPM
 	}
 	
 	public void niveauUpdate()
@@ -68,9 +68,9 @@ public class Niveau {
 	public void draw(SpriteBatch batch)
 	{
 		map.draw(batch);
+		ennemis.draw(batch);
 		perso.draw(batch);
 		perso.drawProjectile(batch);
-		ennemis.draw(batch);
 	}
 	
 	public void gestionNiveau()

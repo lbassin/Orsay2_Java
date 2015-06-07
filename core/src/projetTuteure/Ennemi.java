@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ennemi {
@@ -15,7 +16,14 @@ public class Ennemi {
 	
 	private float vitesse;
 	
+	//Variables pour la gestion de l'image
 	private Texture img;
+	private int nbImgParAnim;
+	private int imgActuelle;
+	private int ralentissementAnim;
+	
+	private int orientation;
+	
 	private boolean estMort;
 	
 	private Texture cadreVie;
@@ -32,6 +40,9 @@ public class Ennemi {
 		this.pos = new Vector2(posX, posY);
 		deplacement = new Vector2();
 		this.type= type;
+		
+		orientation = Perso.GAUCHE;
+		
 		switch (this.type)
 		{
 		case "Tank" :
@@ -43,6 +54,10 @@ public class Ennemi {
 			taille.x = img.getWidth();
 			taille.y = img.getHeight();
 			
+			nbImgParAnim = 1;
+			imgActuelle = 0;
+			ralentissementAnim = 1;
+			
 			estMort = false;
 			
 			vieMax = 250;
@@ -52,6 +67,10 @@ public class Ennemi {
 			vitesse = 7f;
 			
 			img = new Texture("../core/assets/ennemi.png");
+			
+			nbImgParAnim = 1;
+			imgActuelle = 0;
+			ralentissementAnim = 1;
 			
 			taille = new Vector2();
 			taille.x = img.getWidth();
@@ -65,11 +84,14 @@ public class Ennemi {
 		case "Normal" :	
 			vitesse = 5f;
 			
-			img = new Texture("../core/assets/ennemi.png");
+			img = new Texture("../core/assets/ennemiNormal.png");
+			nbImgParAnim = 21;
+			imgActuelle = 0;
+			ralentissementAnim = 1;
 			
 			taille = new Vector2();
-			taille.x = img.getWidth();
-			taille.y = img.getHeight();
+			taille.x = 82;
+			taille.y = 96;
 			
 			estMort = false;
 			
@@ -139,8 +161,17 @@ public class Ennemi {
 		if(cible.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
 		{
 			deplacement = new Vector2(0, 0);
-			cible.subitAttaque(1, 0);
+			//cible.subitAttaque(1, 0);
 		}
+		
+		if(deplacement.x > 0)
+			orientation = Perso.DROITE;
+		else
+			orientation = Perso.GAUCHE;
+		
+		imgActuelle++;
+		if(imgActuelle >= nbImgParAnim*ralentissementAnim)
+			imgActuelle = 0;
 	}
 	
 	public boolean collision(Vector2 pos, Vector2 taille)
@@ -173,7 +204,17 @@ public class Ennemi {
 	{
 		int tailleBarreVieRestant = (int) ((getPourcentageVieRestant() * tailleBarreVie.x) / 100);
 		
-		batch.draw(img, pos.x, pos.y);
+		//batch.draw(img, pos.x, pos.y);
+		
+		TextureRegion imgAffiche;
+		
+		imgAffiche = new TextureRegion(img, (imgActuelle/ralentissementAnim)*((int)taille.x), (int)(orientation*(taille.y)), (int)taille.x, (int)taille.y);
+		
+		if(imgAffiche != null)
+			batch.draw(imgAffiche, pos.x, pos.y);
+		
+		
+		
 		batch.draw(cadreVie, pos.x, pos.y + taille.y + 10);
 		batch.draw(barreVie, pos.x+2, pos.y + taille.y + 10 + 2, 0, 0, tailleBarreVieRestant, (int)tailleBarreVie.y);	
 	}

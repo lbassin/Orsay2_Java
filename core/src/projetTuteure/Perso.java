@@ -140,18 +140,7 @@ public class Perso {
 				deplacement.x+=vitesse;
 				orientation = DROITE;
 			}
-			
-			if(!deplacement.isZero())
-			{
-				
-				imgActuelle++;
-				if(imgActuelle >= nbImgParAnim*ralentissementAnim)
-					imgActuelle = 0;
-			}
-			else
-				imgActuelle = 0;
-
-			
+						
 			for (i=0; i<4; i++)
 			{
 				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
@@ -194,6 +183,16 @@ public class Perso {
 				}
 			}
 		}
+		
+		if(!deplacement.isZero())
+		{
+			
+			imgActuelle++;
+			if(imgActuelle >= nbImgParAnim*ralentissementAnim)
+				imgActuelle = 0;
+		}
+		else
+			imgActuelle = 0;
 		
 		for(i=0; i < ennemis.size(); i++)
 		{
