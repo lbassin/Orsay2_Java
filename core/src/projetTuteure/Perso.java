@@ -315,6 +315,26 @@ public class Perso {
 		return new Vector2(pos);	
 	}
 	
+	public void collision(ArrayList<Perso> persos) {
+		for(int i=0; i < persos.size(); i++)
+		{
+			if(this != persos.get(i))
+			{	
+				if(this.collision(persos.get(i).getPos(), persos.get(i).getTaille()))
+				{
+					if((persos.get(i).getPos().y >= this.pos.y + (this.taille.y/2) || // Si le joueur est dessous ou dessus
+							(persos.get(i).getPos().y + (persos.get(i).getTaille().y/2)) <= this.pos.y))
+						deplacement.y = 0; // Il peut toujours se deplacer en x
+						
+					if((persos.get(i).getPos().x >= this.pos.x + this.taille.x) || // Si le joueur est à gauche ou à droite
+							(persos.get(i).getPos().x + persos.get(i).getTaille().x < this.pos.x))
+						deplacement.x = 0; // Il peut toujours se deplacer en y
+				}
+			}
+		}
+		
+	}
+	
 	public float getVitesse()
 	{ return vitesse; }
 	
@@ -343,4 +363,5 @@ public class Perso {
 	{ return finiLevel; }
 	public int getOrientation()
 	{ return orientation; }
+
 }

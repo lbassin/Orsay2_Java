@@ -71,7 +71,10 @@ public class Niveau {
 	public void collision()
 	{
 		for(Perso perso : persos)
+		{
 			map.collision(perso);
+			perso.collision(persos);		
+		}
 	}
 	
 	public void deplacement()
