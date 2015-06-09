@@ -76,7 +76,7 @@ public class Niveau {
 			perso.collision(persos);		
 		}
 	}
-	
+		
 	public void deplacement()
 	{
 		for(Perso perso : persos)
