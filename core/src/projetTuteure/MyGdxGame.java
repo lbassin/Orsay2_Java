@@ -1,5 +1,7 @@
 package projetTuteure;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -17,10 +19,9 @@ public class MyGdxGame extends ApplicationAdapter {
     public static final int NB_JOUEUR_MAX = 4;
 	
     private SpriteBatch batch;
-	private SpriteBatch batchHUD;
-	
-	private Perso perso;
-	private HUD hud;
+    private SpriteBatch batchHUD;
+    
+	private gestionJoueurs persos;
 	private Niveau niveau;
 	
 	@Override
@@ -28,35 +29,25 @@ public class MyGdxGame extends ApplicationAdapter {
 			batch = new SpriteBatch();
 			batchHUD = new SpriteBatch();
 			
-			if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
-			{
-				// Si une manette est connecte, le perso est controlle avec la manette
-				if(Controllers.getControllers().size == 0)
-					perso = new Perso(new Vector2(400, 000));
-				else
-					perso = new Perso(new Vector2(400, 200), 0);
-			}
+			persos = new gestionJoueurs();
 			
-			hud = new HUD();
-			hud.addJoueur(perso);
-			niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+			niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
 	}
 
 	@Override
 	public void render () {
-		
 		//Initialisation de la fenetre
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		//Affichage seulement de l'image si le perso est mort
-		if (perso.estMort())
+		if (persos.unJoueurMort())
 		{
 			niveau.mortPerso();
 			
 			if(Gdx.input.isKeyJustPressed(Keys.G))
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+				niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
 			}
 				
 			batchHUD.begin();
@@ -64,14 +55,14 @@ public class MyGdxGame extends ApplicationAdapter {
 			batchHUD.end();
 		}
 		//Affichage seulement si le perso gagn�
-		else if (perso.aFiniLevel() && niveau.lastLevel())
+		else if (persos.unJoueurFiniLevel() && niveau.lastLevel())
 		{
 			niveau.victoirePerso();
 			
 			if(Gdx.input.isKeyJustPressed(Keys.G))
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map2.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+				niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
 			}
 			
 			batchHUD.begin();
@@ -95,10 +86,10 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			
 			//Si le joueur fini le niveau
-			if (perso.aFiniLevel() && !niveau.lastLevel())
+			if (persos.unJoueurFiniLevel() && !niveau.lastLevel())
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map3.txt", "collision.txt", perso, "initEnnemi.txt", batch);
+				niveau = new Niveau ("map3.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
 			}
 			
 			//Affichages
@@ -106,8 +97,8 @@ public class MyGdxGame extends ApplicationAdapter {
 				niveau.draw(batch);
 			batch.end();
 			
-			batchHUD.begin(); // Batch classique pour affichage sans tenir compte camera
-				hud.afficher(batchHUD);
+			batchHUD.begin();
+				niveau.afficherHUD(batchHUD);
 			batchHUD.end();
 			
 			// Supprime les ennemis morts

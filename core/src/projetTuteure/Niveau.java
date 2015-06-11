@@ -10,9 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Niveau {
 	private Map map;
-	private Perso perso;
+	private ArrayList<Perso> persos;
 	private GestionEnnemi ennemis;
 	private Camera camera;
+	private HUD hud;
+	
 	private boolean musique;
 	private ArrayList<Sound> sound;
 	
@@ -20,13 +22,21 @@ public class Niveau {
 	private int imgFinActuelle;
 	private int ralentiAnimFin;
 	
-	Niveau(String nomMap, String nomFichierCollision, Perso perso, String nomFichierEnnemi, SpriteBatch batch)
+	Niveau(String nomMap, String nomFichierCollision, ArrayList<Perso> persos, String nomFichierEnnemi, SpriteBatch batch)
 	{
 		map = new Map(nomMap,nomFichierCollision);
-		this.perso = perso;
+		this.persos = persos;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
-		camera = new Camera (batch, this.perso, ennemis);
-		perso.init(new Vector2(400, 200));
+		camera = new Camera (batch, this.persos, ennemis);
+		hud = new HUD();
+		
+		int tmp = 200;
+		for(Perso perso : persos)
+		{
+			perso.init(new Vector2(400, tmp));
+			hud.addJoueur(perso);
+			tmp-=100;
+		}
 		
 		musique = false;
 		sound = new ArrayList<Sound>();
@@ -43,40 +53,54 @@ public class Niveau {
 		imgFin[1] = new Texture("../core/assets/imgFin2.png");
 		imgFinActuelle = 0;
 		ralentiAnimFin = 27/2; // 130 BPM
+
 	}
 	
 	public void niveauUpdate()
 	{
-
-		perso.updateEvent();
-		perso.update(ennemis.getListeEnnemis(), camera, map);
-		ennemis.update(perso, camera);
+		for(Perso perso : persos)
+		{
+			perso.updateEvent();
+			perso.update(ennemis.getListeEnnemis(), camera, map);
+		}
+		ennemis.update(persos.get(0), camera);
 		camera.update();
 	}	
 	
 	public void collision()
 	{
-		map.collision(perso);
+		for(Perso perso : persos)
+		{
+			map.collision(perso);
+			perso.collision(persos);		
+		}
 	}
-	
+		
 	public void deplacement()
 	{
-		perso.deplacement();
+		for(Perso perso : persos)
+			perso.deplacement();
 		ennemis.deplacement();	
 	}
 	
 	public void draw(SpriteBatch batch)
 	{
 		map.draw(batch);
+
+		for(Perso perso : persos)
+		{
+			perso.draw(batch);
+			perso.drawProjectile(batch);
+		}
 		ennemis.draw(batch);
-		perso.draw(batch);
-		perso.drawProjectile(batch);
+		
 	}
 	
 	public void gestionNiveau()
 	{
 		ennemis.suppressionEnnemi();
-		perso.gestionProjectile(camera);
+		for(Perso perso : persos)
+			perso.gestionProjectile(camera);
 	}
 	
 	public void mortPerso()
@@ -85,7 +109,8 @@ public class Niveau {
 		{
 			ennemis.supprimerTousEnnemis();
 			map = null;
-			perso = null;
+			for(Perso perso : persos)
+				perso = null;
 		
 			sound.get(2).stop();
 			long idSound = sound.get(0).play();
@@ -100,7 +125,8 @@ public class Niveau {
 		{
 			ennemis.supprimerTousEnnemis();
 			//map = null;
-			perso = null;
+			for(Perso perso : persos)
+				perso = null;
 			
 			sound.get(2).stop();
 			long idSound = sound.get(1).play();
@@ -134,5 +160,9 @@ public class Niveau {
 		if(imgFinActuelle >= 2*ralentiAnimFin)
 			imgFinActuelle = 0;
 		
+	}
+
+	public void afficherHUD(SpriteBatch batchHUD) {
+		hud.afficher(batchHUD);
 	}
 }

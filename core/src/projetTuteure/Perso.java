@@ -140,50 +140,38 @@ public class Perso {
 				deplacement.x+=vitesse;
 				orientation = DROITE;
 			}
-						
-			for (i=0; i<4; i++)
-			{
-				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
-				{
-					Projectile p = new Projectile(this, i);
-					
-					if (mana - p.getCoutMana() >= 0)
-					{
-						mana-=p.getCoutMana();
-						projectiles.add(p);
-						dateLancementSort[i] = System.currentTimeMillis();
-						/*if(i == 3){
-							deplacement = new Vector2(0,0);
-						}*/
-					}
-				}
-			}
-			for (i=0; i< projectiles.size(); i++)
-			{
-				projectiles.get(i).update(camera);
-				projectiles.get(i).collision(ennemis);
-			}
+
+
 		}
 		else if(event.getTypeController() == Event.MANETTE)
+		{	
+			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1);
+			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0));
+			
+			if (deplacement.x > 0)
+				orientation = DROITE;
+			else if (deplacement.x < 0)
+				orientation = GAUCHE;
+			
+			
+		}
+		
+		for (i=0; i<4; i++)
 		{
-			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0);
-			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1));
-			for (i=0; i<4; i++)
+			if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
 			{
-				if (event.getAction(i) && (System.currentTimeMillis() - dateLancementSort[i]) > 750)
+				Projectile p = new Projectile(this, i);
+				
+				if (mana - p.getCoutMana() >= 0)
 				{
-					Projectile p = new Projectile(this, i);
-					
-					if (mana - p.getCoutMana() >= 0)
-					{
-						mana-=p.getCoutMana();
-						projectiles.add(p);
-						dateLancementSort[i] = System.currentTimeMillis();
-					}
+					mana-=p.getCoutMana();
+					projectiles.add(p);
+					dateLancementSort[i] = System.currentTimeMillis();
 				}
 			}
 		}
 		
+
 		if(!deplacement.isZero())
 		{
 			
@@ -193,6 +181,12 @@ public class Perso {
 		}
 		else
 			imgActuelle = 0;
+
+		for (i=0; i< projectiles.size(); i++)
+		{
+			projectiles.get(i).update(camera);
+			projectiles.get(i).collision(ennemis);
+		}
 		
 		for(i=0; i < ennemis.size(); i++)
 		{
@@ -208,6 +202,7 @@ public class Perso {
 					deplacement.x = 0; // Il peut toujours se deplacer en y
 			}
 		}
+		
 		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x * map.getTailleTile().x - 500) && (pos.y <= -(map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300));
 		mort = (vie == 0);
 		
@@ -219,6 +214,14 @@ public class Perso {
 				RegenMana = System.currentTimeMillis();
 			}
 		}
+		
+		// Empeche le perso de sortir de l'ecran
+		if((pos.x + deplacement.x + taille.x > MyGdxGame.LARGEUR_ECRAN + camera.getDeplacementTotalCam().x) || 
+				(pos.x + deplacement.x < camera.getDeplacementTotalCam().x))
+			deplacement.x = 0;
+		if((pos.y + deplacement.y + taille.y > MyGdxGame.HAUTEUR_ECRAN + camera.getDeplacementTotalCam().y) ||
+				(pos.y + deplacement.y < camera.getDeplacementTotalCam().y))
+			deplacement.y = 0;
 	}
 	
 	//Procedure de deplacement
@@ -315,6 +318,26 @@ public class Perso {
 		return new Vector2(pos);	
 	}
 	
+	public void collision(ArrayList<Perso> persos) {
+		for(int i=0; i < persos.size(); i++)
+		{
+			if(this != persos.get(i))
+			{	
+				if(this.collision(persos.get(i).getPos(), persos.get(i).getTaille()))
+				{
+					if((persos.get(i).getPos().y >= this.pos.y + (this.taille.y/2) || // Si le joueur est dessous ou dessus
+							(persos.get(i).getPos().y + (persos.get(i).getTaille().y/2)) <= this.pos.y))
+						deplacement.y = 0; // Il peut toujours se deplacer en x
+						
+					if((persos.get(i).getPos().x >= this.pos.x + this.taille.x) || // Si le joueur est à gauche ou à droite
+							(persos.get(i).getPos().x + persos.get(i).getTaille().x < this.pos.x))
+						deplacement.x = 0; // Il peut toujours se deplacer en y
+				}
+			}
+		}
+		
+	}
+	
 	public float getVitesse()
 	{ return vitesse; }
 	
@@ -343,4 +366,5 @@ public class Perso {
 	{ return finiLevel; }
 	public int getOrientation()
 	{ return orientation; }
+
 }

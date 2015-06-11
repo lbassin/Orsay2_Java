@@ -58,7 +58,7 @@ public class HUD {
 		barreManaTmp.setColor(0.17f, 0.13f, 0.79f, 1); // 44 32 201
 		barreManaTmp.fillRectangle(0, 0, (int)tailleBarreMana.x - tailleBordure, (int)tailleBarreMana.y);
 				
-		// Genere texture a partir de l'img generé
+		// Genere texture a partir de l'img generï¿½
 		cadrePortrait = new Texture(carrePortraitTmp);
 		cadreJauge = new Texture(carreJaugeTmp);
 		barreVie = new Texture(barreVieTmp);
@@ -76,13 +76,13 @@ public class HUD {
 		}
 	}
 	
-	public void afficher(SpriteBatch batch)
+	public void afficher(SpriteBatch batchHUD)
 	{
 		Vector2 pos = new Vector2(30, MyGdxGame.HAUTEUR_ECRAN - cadrePortrait.getHeight() - 20);
 		
 		for(int i=0; i < nbJoueur; i++)
 		{
-			afficherInfosPerso(batch, new Vector2(pos.x, pos.y), i);
+			afficherInfosPerso(batchHUD, new Vector2(pos.x, pos.y), i);
 			pos.x += 300;
 		}
 	}
