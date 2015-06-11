@@ -1,6 +1,8 @@
 package projetTuteure;
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
@@ -130,8 +132,29 @@ public class Ennemi {
 		
 	}
 	
-	public void update(Perso cible, Camera cam)
+	// Determine le joueur le plus proche de l'ennemi
+	private Perso persoProche(ArrayList<Perso> persos) {
+		
+		float distance[] = new float[persos.size()];
+		int indicePlusProche = 0;
+		
+		for(int i = 0; i < persos.size(); i++)
+			distance[i] = persos.get(i).getPos().dst(this.pos); // Calcul la distance entre lui et chaque joueur
+		
+		for(int i = 0; i < persos.size(); i++)
+		{
+			if(distance[indicePlusProche] > distance[i])
+				indicePlusProche = i;
+		}
+		
+		return persos.get(indicePlusProche);
+	}
+	
+	public void update(ArrayList<Perso> persos, Camera cam)
 	{
+		// L'ennemi attaque le joueur le plus proche
+		Perso cible = persoProche(persos);
+		
 		Vector2 posCible = cible.getPos();
 		Vector2 posEnnemi = new Vector2(this.pos);
 		Vector2 ennemiToPerso = new Vector2();
@@ -155,13 +178,14 @@ public class Ennemi {
 			}
 		}
 		
-		// Test collision avec joueurs :
-		// TODO : Boucle pour tous les joueurs
-		
-		if(cible.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
+		// Test collision avec joueurs 
+		for(Perso perso : persos)
 		{
-			deplacement = new Vector2(0, 0);
-			//cible.subitAttaque(1, 0);
+			if(perso.collision(new Vector2(this.pos).add(this.deplacement), this.taille))
+			{
+				deplacement = new Vector2(0, 0);
+				//cible.subitAttaque(1, 0);
+			}
 		}
 		
 		if(deplacement.x > 0)
@@ -173,7 +197,7 @@ public class Ennemi {
 		if(imgActuelle >= nbImgParAnim*ralentissementAnim)
 			imgActuelle = 0;
 	}
-	
+
 	public boolean collision(Vector2 pos, Vector2 taille)
 	{
 		if((pos.x <= this.pos.x + this.taille.x + this.deplacement.x && pos.x >= this.pos.x + this.deplacement.x) 

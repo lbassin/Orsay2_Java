@@ -42,11 +42,11 @@ public class GestionEnnemi {
 		return ennemis;
 	}
 	
-	public void update(Perso cible, Camera cam)
+	public void update(ArrayList<Perso> persos, Camera cam)
 	{
 		
 		for(int i=0; i<ennemis.size(); i++)
-			ennemis.get(i).update(cible, cam);
+			ennemis.get(i).update(persos, cam);
 		
 		// Test collision entre ennemis
 		int i, e;

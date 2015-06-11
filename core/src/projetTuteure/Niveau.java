@@ -63,7 +63,7 @@ public class Niveau {
 			perso.updateEvent();
 			perso.update(ennemis.getListeEnnemis(), camera, map);
 		}
-		ennemis.update(persos.get(0), camera);
+		ennemis.update(persos, camera);
 		camera.update();
 	}	
 	
