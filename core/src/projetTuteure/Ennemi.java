@@ -51,19 +51,19 @@ public class Ennemi {
 			vitesse = 2f;
 			
 			img = new Texture("../core/assets/ennemiTank.png");
-			
-			taille = new Vector2();
-			taille.x = img.getWidth();
-			taille.y = img.getHeight();
-			
-			nbImgParAnim = 1;
+			nbImgParAnim = 21;
 			imgActuelle = 0;
 			ralentissementAnim = 1;
+			
+			taille = new Vector2();
+			taille.x = 82*2;
+			taille.y = 96*2;
 			
 			estMort = false;
 			
 			vieMax = 250;
 			vie = 200;
+
 			break;
 		case "Rapide" :
 			vitesse = 7f;

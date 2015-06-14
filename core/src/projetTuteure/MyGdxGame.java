@@ -28,13 +28,16 @@ public class MyGdxGame extends ApplicationAdapter {
 			persos = new gestionJoueurs();
 			
 			niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
+
 	}
 
 	@Override
 	public void render () {
 		//Initialisation de la fenetre
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0.48f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		
 		//Affichage seulement de l'image si le perso est mort
 		if (persos.unJoueurMort())
 		{
@@ -101,6 +104,5 @@ public class MyGdxGame extends ApplicationAdapter {
 			// Supprime les projectiles sortie de l'ecran
 			niveau.gestionNiveau();
 			}
-		
 	}
 }

@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Map {
 	
-    public static final int NB_MAP = 2;
+    public static final int NB_MAP = 4;
 	
 	private Vector2 tailleMap;
 	private Vector2 tailleTile;
@@ -89,7 +89,7 @@ public class Map {
 		} 
 		catch (FileNotFoundException e) 
 		{
-			System.err.println("Fichier de carte non trouvé");
+			System.err.println("Fichier de carte non trouvï¿½");
 			System.exit(4);
 		}	
 		
