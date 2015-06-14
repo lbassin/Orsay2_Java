@@ -16,9 +16,7 @@ public class gestionJoueurs {
 		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 		{
 			// Si une manette est connecte, le perso est controlle avec la manette
-			if(Controllers.getControllers().size == 0)
-				joueurs.add(new Perso(new Vector2(400, 000)));
-			else
+			if(Controllers.getControllers().size == 1)
 				joueurs.add(new Perso(new Vector2(0, 0), 0)); // Cette position ne sert à rien, direct reinit dans niveau
 			
 			joueurs.add(new Perso(new Vector2(0, 0)));
