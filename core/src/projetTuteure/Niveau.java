@@ -74,6 +74,10 @@ public class Niveau {
 			map.collision(perso);
 			perso.collision(persos);		
 		}
+		for(Ennemi ennemi : ennemis.getListeEnnemis())
+		{
+			map.collision(ennemi);		
+		}
 	}
 		
 	public void deplacement()

@@ -143,6 +143,56 @@ public class Map {
 		}
 	}
 	
+	public void collision(Ennemi ennemi)
+	{
+		Vector2 posEnnemi = new Vector2(ennemi.getPos());
+		
+		// Ajoute le deplacement pour anticiper la position
+		// Pour ne pas se retrouver dans le mur
+		posEnnemi.x += ennemi.getDeplacement().x;
+		posEnnemi.y += ennemi.getDeplacement().y;		
+		
+		Vector2 tailleEnnemi = new Vector2(ennemi.getTaille());
+		
+		tailleEnnemi.y /= 2;
+		
+		int cptTile = 0;
+		//Optimisation : while(tile.y < perso.y)
+		for(int i = 0; i < tailleMap.y; i++)
+		{
+			for(int j = 0; j < tailleMap.x; j++)
+			{
+				Vector2 posTile = new Vector2(tiles.get(cptTile).getPos());
+				// Test la collision de la hitbox du tile et du perso
+				
+				// collisions x
+				if((posTile.x < posEnnemi.x + tailleEnnemi.x && posTile.x > posEnnemi.x) 
+					|| (posTile.x + tailleTile.x < posEnnemi.x + tailleEnnemi.x && posTile.x + tailleTile.x > posEnnemi.x))
+				{
+					// collisions y
+					if((posTile.y < posEnnemi.y + tailleEnnemi.y && posTile.y > posEnnemi.y) 
+					|| (posTile.y + tailleTile.y < posEnnemi.y + tailleEnnemi.y && posTile.y + tailleTile.y > posEnnemi.y))
+					{
+						// TODO : Remplacer par dichotomie
+						int e = 0;
+						boolean tileTrouve = false;
+						while(e < tilePassable.size() && !tileTrouve)
+						{
+							tileTrouve = (tilePassable.get(e) == tiles.get(cptTile).getNum());
+							e++;
+						}
+						
+						if(!tileTrouve){
+							ennemi.setDeplacement(new Vector2(0, 0));
+						}
+							
+					}
+				}
+				cptTile++;
+			}
+		}
+	}
+	
 	public boolean estMapFinale()
 	{
 		return (num == NB_MAP);
