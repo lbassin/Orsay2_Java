@@ -56,6 +56,7 @@ public class Perso {
 	private boolean finiLevel;
 	private boolean mort;
 	
+	private boolean bloque;
 	//Constructeur de la classe	Perso(Vector2 pos)
 	Perso(Vector2 pos)
 	{
@@ -110,6 +111,7 @@ public class Perso {
 		
 		finiLevel = false;
 		mort = false;
+		bloque = false;
 	}
 	
 	//Mise a jour des evenements
@@ -130,12 +132,12 @@ public class Perso {
 			else if (event.getToucheDeplacement(Event.TOUCHE_BAS))
 				deplacement.y-=vitesse;
 	
-			if (event.getToucheDeplacement(Event.TOUCHE_GAUCHE))
+			if (event.getToucheDeplacement(Event.TOUCHE_GAUCHE) && !bloque)
 			{
 				deplacement.x-=vitesse;
 				orientation = GAUCHE;
 			}
-			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE))
+			else if (event.getToucheDeplacement(Event.TOUCHE_DROITE) && !bloque)
 			{
 				deplacement.x+=vitesse;
 				orientation = DROITE;
@@ -143,7 +145,7 @@ public class Perso {
 
 
 		}
-		else if(event.getTypeController() == Event.MANETTE)
+		else if(event.getTypeController() == Event.MANETTE && !bloque)
 		{	
 			deplacement.x =   vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 1);
 			deplacement.y = -(vitesse * event.getValJoystick(Event.JOYSTICK_GAUCHE, 0));
@@ -170,7 +172,6 @@ public class Perso {
 				}
 			}
 		}
-		
 
 		if(!deplacement.isZero())
 		{
@@ -186,8 +187,14 @@ public class Perso {
 		{
 			projectiles.get(i).update(camera);
 			projectiles.get(i).collision(ennemis);
+			bloque = (projectiles.get(i).getId()==3);
 		}
-		
+		if (bloque)
+		{
+			deplacement.x = 0;
+			deplacement.y = 0;
+			imgActuelle = 0;
+		}
 		for(i=0; i < ennemis.size(); i++)
 		{
 			// Si il y a une collision avec ennemi
@@ -279,7 +286,10 @@ public class Perso {
 			else if(projectiles.get(i).getId() == 3){
 				if ((projectiles.get(i).getPos().x + projectiles.get(i).getTaille().x > MyGdxGame.LARGEUR_ECRAN + camera.getDeplacementTotalCam().x) || 
 						(projectiles.get(i).getPos().x + projectiles.get(i).getTaille().x < camera.getDeplacementTotalCam().x))
+				{
 					projectiles.remove(i);
+					bloque = false;
+				}
 			}
 		}
 	}
