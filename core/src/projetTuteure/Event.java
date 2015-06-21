@@ -91,8 +91,8 @@ public class Event {
 		else if(typeController == Event.MANETTE)
 		{
 			// Mise a jour des joystick
-			joystick[JOYSTICK_GAUCHE].x = controller.getAxis(1);
-			joystick[JOYSTICK_GAUCHE].y = controller.getAxis(0);
+			joystick[JOYSTICK_GAUCHE].x = controller.getAxis(0);
+			joystick[JOYSTICK_GAUCHE].y = controller.getAxis(1);
 			joystick[JOYSTICK_DROIT].x = controller.getAxis(3);
 			joystick[JOYSTICK_DROIT].y = controller.getAxis(2);
 			
