@@ -84,9 +84,7 @@ public class Camera {
 					deplacementCam.x = 0;
 				else if(deplacementTotalCam.x + deplacementCam.x + MyGdxGame.LARGEUR_ECRAN > new Vector2(map.getTailleMap()).scl(map.getTailleTile()).x)
 					deplacementCam.x = 0;
-				
-				System.out.println( MyGdxGame.HAUTEUR_ECRAN - new Vector2(map.getTailleMap()).scl(map.getTailleTile()).y);
-				
+
 				if(deplacementTotalCam.y + deplacementCam.y > 0)
 					deplacementCam.y = 0;
 				else if(deplacementTotalCam.y + deplacementCam.y < MyGdxGame.HAUTEUR_ECRAN - new Vector2(map.getTailleMap()).scl(map.getTailleTile()).y)
