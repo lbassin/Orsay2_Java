@@ -18,12 +18,15 @@ public class Camera {
 	
 	private GestionEnnemi ennemis; 
 	
-	public Camera(SpriteBatch batch, ArrayList<Perso> persos, GestionEnnemi ennemis)
+	private Map map;
+	
+	public Camera(SpriteBatch batch, ArrayList<Perso> persos, GestionEnnemi ennemis, Map map)
 	{
 		this.batch = batch;
 		this.persos = persos;
 		this.ennemis = ennemis;
-
+		this.map = map;
+		
 		deplacementTotalCam = new Vector2(0,0);
 		
 		cam = new OrthographicCamera(MyGdxGame.LARGEUR_ECRAN, MyGdxGame.HAUTEUR_ECRAN);
@@ -76,6 +79,17 @@ public class Camera {
 					i++;
 				}
 					
+				// Annulation du deplacement si la camera sort de la map
+				if(deplacementTotalCam.x + deplacementCam.x < 0)
+					deplacementCam.x = 0;
+				else if(deplacementTotalCam.x + deplacementCam.x + MyGdxGame.LARGEUR_ECRAN > new Vector2(map.getTailleMap()).scl(map.getTailleTile()).x)
+					deplacementCam.x = 0;
+				
+				if(deplacementTotalCam.y + deplacementCam.y < 0)
+					deplacementCam.y = 0;
+				else if(deplacementTotalCam.y + deplacementCam.y > new Vector2(map.getTailleMap()).scl(map.getTailleTile()).y)
+					deplacementCam.y = 0;
+					
 				if(!persoDehors)
 				{
 					cam.translate(deplacementCam);
@@ -84,6 +98,8 @@ public class Camera {
 			}
 		}
 		
+		
+
 		
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();

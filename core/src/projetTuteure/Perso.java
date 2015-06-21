@@ -210,7 +210,12 @@ public class Perso {
 			}
 		}
 		
-		finiLevel = ((ennemis.size()==0) && (pos.x >= map.getTailleMap().x * map.getTailleTile().x - 500) && (pos.y <= -(map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300));
+		finiLevel = (
+						(ennemis.size() == 0) && // Si tous les ennemis sont morts
+						(pos.x >= map.getTailleMap().x * map.getTailleTile().x - 200) && 
+						(pos.y <= - (map.getTailleMap().y * map.getTailleTile().y) + HAUTEUR_ECRAN + 300)
+					);
+		
 		mort = (vie == 0);
 		
 		if((System.currentTimeMillis() - RegenMana) > 50)
@@ -374,6 +379,7 @@ public class Perso {
 	
 	public boolean aFiniLevel()
 	{ return finiLevel; }
+	
 	public int getOrientation()
 	{ return orientation; }
 

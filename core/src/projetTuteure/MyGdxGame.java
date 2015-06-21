@@ -27,7 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			persos = new gestionJoueurs();
 			
-			niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "initEnnemi.txt", batch);
+			niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch);
 
 	}
 
@@ -46,7 +46,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			if(Gdx.input.isKeyJustPressed(Keys.G))
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
+				niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch);
 			}
 				
 			batchHUD.begin();
@@ -61,7 +61,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			if(Gdx.input.isKeyJustPressed(Keys.G))
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
+				niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch);
 			}
 			
 			batchHUD.begin();
@@ -88,7 +88,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			if (persos.unJoueurFiniLevel() && !niveau.lastLevel())
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map3.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
+				niveau = new Niveau ("map2.txt", "collision2.txt", persos.getPersos(), "ennemis2.txt", batch);
 			}
 			
 			//Affichages

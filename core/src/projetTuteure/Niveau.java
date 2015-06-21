@@ -27,7 +27,7 @@ public class Niveau {
 		map = new Map(nomMap,nomFichierCollision);
 		this.persos = persos;
 		ennemis = new GestionEnnemi (nomFichierEnnemi);
-		camera = new Camera (batch, this.persos, ennemis);
+		camera = new Camera (batch, this.persos, ennemis, map);
 		hud = new HUD();
 		
 		int tmp = 200;
@@ -153,7 +153,7 @@ public class Niveau {
 	
 	public boolean lastLevel()
 	{
-		return map.getNum()== Map.NB_MAP;
+		return map.getNum() == Map.NB_MAP;
 	}
 	
 	public void afficheImgFin(SpriteBatch batch)
