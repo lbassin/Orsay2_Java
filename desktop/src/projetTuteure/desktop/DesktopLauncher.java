@@ -1,8 +1,9 @@
 package projetTuteure.desktop;
 
+import projetTuteure.MyGdxGame;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import projetTuteure.MyGdxGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -15,7 +16,7 @@ public class DesktopLauncher {
 		config.backgroundFPS = 60;
 		
 		config.resizable = false;
-
+		
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }
