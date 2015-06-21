@@ -101,8 +101,8 @@ public class Perso {
 		vie = 70;
 		vieMax = 100;
 		
-		manaMax = 100;
-		mana = 100;
+		manaMax = 500;
+		mana = 500;
 		RegenMana = System.currentTimeMillis();
 		
 		orientation = DROITE;
@@ -218,7 +218,7 @@ public class Perso {
 		
 		mort = (vie == 0);
 		
-		if((System.currentTimeMillis() - RegenMana) > 50)
+		if((System.currentTimeMillis() - RegenMana) > 30)
 		{
 			if(mana + 1 <= manaMax)
 			{

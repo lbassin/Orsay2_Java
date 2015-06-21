@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class MyGdxGame extends ApplicationAdapter {
 	
@@ -27,7 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			persos = new gestionJoueurs();
 			
-			niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch);
+			niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch, new Vector2(400, 200));
 
 	}
 
@@ -46,7 +47,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			if(Gdx.input.isKeyJustPressed(Keys.G))
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch);
+				niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch, new Vector2(400, 200));
 			}
 				
 			batchHUD.begin();
@@ -61,7 +62,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			if(Gdx.input.isKeyJustPressed(Keys.G))
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch);
+				niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch, new Vector2(400, 200));
 			}
 			
 			batchHUD.begin();
@@ -88,7 +89,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			if (persos.unJoueurFiniLevel() && !niveau.lastLevel())
 			{
 				niveau.stopMusique();
-				niveau = new Niveau ("map2.txt", "collision2.txt", persos.getPersos(), "ennemis2.txt", batch);
+				niveau = new Niveau ("map2.txt", "collision2.txt", persos.getPersos(), "ennemis2.txt", batch, new Vector2(130, 80));
 			}
 			
 			//Affichages

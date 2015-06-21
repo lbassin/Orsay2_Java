@@ -1,0 +1,7 @@
+6
+1000 30 Normal
+1200 30 Normal
+1400 30 Normal
+1600 30 Normal
+1800 30 Tank
+2000 30 Normal

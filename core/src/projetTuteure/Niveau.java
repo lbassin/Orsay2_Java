@@ -22,7 +22,7 @@ public class Niveau {
 	private int imgFinActuelle;
 	private int ralentiAnimFin;
 	
-	Niveau(String nomMap, String nomFichierCollision, ArrayList<Perso> persos, String nomFichierEnnemi, SpriteBatch batch)
+	Niveau(String nomMap, String nomFichierCollision, ArrayList<Perso> persos, String nomFichierEnnemi, SpriteBatch batch, Vector2 posJoueur)
 	{
 		map = new Map(nomMap,nomFichierCollision);
 		this.persos = persos;
@@ -30,10 +30,10 @@ public class Niveau {
 		camera = new Camera (batch, this.persos, ennemis, map);
 		hud = new HUD();
 		
-		int tmp = 200;
+		float tmp = posJoueur.y;
 		for(Perso perso : persos)
 		{
-			perso.init(new Vector2(400, tmp));
+			perso.init(new Vector2(posJoueur.x, tmp));
 			hud.addJoueur(perso);
 			tmp-=100;
 		}
@@ -113,8 +113,7 @@ public class Niveau {
 		{
 			ennemis.supprimerTousEnnemis();
 			map = null;
-			for(Perso perso : persos)
-				perso = null;
+
 		
 			sound.get(2).stop();
 			long idSound = sound.get(0).play();
@@ -129,8 +128,6 @@ public class Niveau {
 		{
 			ennemis.supprimerTousEnnemis();
 			//map = null;
-			for(Perso perso : persos)
-				perso = null;
 			
 			sound.get(2).stop();
 			long idSound = sound.get(1).play();
