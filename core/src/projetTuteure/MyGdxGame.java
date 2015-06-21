@@ -27,7 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			persos = new gestionJoueurs();
 			
-			niveau = new Niveau ("map2.txt", "collision.txt", persos.getPersos(), "initEnnemi.txt", batch);
+			niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "initEnnemi.txt", batch);
 
 	}
 
