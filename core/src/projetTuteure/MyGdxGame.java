@@ -18,7 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private SpriteBatch batch;
     private SpriteBatch batchHUD;
     
-	private gestionJoueurs persos;
+	private GestionJoueurs persos;
 	private Niveau niveau;
 	
 	@Override
@@ -26,7 +26,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			batch = new SpriteBatch();
 			batchHUD = new SpriteBatch();
 			
-			persos = new gestionJoueurs();
+			persos = new GestionJoueurs();
 			
 			niveau = new Niveau ("map1.txt", "collision1.txt", persos.getPersos(), "ennemis1.txt", batch, new Vector2(400, 200));
 

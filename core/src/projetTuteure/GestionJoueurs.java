@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
 
-public class gestionJoueurs {
+public class GestionJoueurs {
 
 	private ArrayList<Perso> joueurs;
 	
-	public gestionJoueurs()
+	public GestionJoueurs()
 	{
 		joueurs = new ArrayList<Perso>();
 		
 		if(Perso.nbJoueurs <= Perso.NB_JOUEURS_MAX)
 		{
 			// Si une manette est connecte, le perso est controlle avec la manette
-			if(Controllers.getControllers().size == 1)
-				joueurs.add(new Perso(new Vector2(0, 0), 0)); // Cette position ne sert à rien, direct reinit dans niveau
+			for(int i = 0; i < Controllers.getControllers().size; i++)
+				joueurs.add(new Perso(new Vector2(0, 0), i)); // Cette position ne sert à rien, direct reinit dans niveau
 			
 			joueurs.add(new Perso(new Vector2(0, 0)));
 		}

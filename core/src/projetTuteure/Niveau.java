@@ -30,12 +30,12 @@ public class Niveau {
 		camera = new Camera (batch, this.persos, ennemis, map);
 		hud = new HUD();
 		
-		float tmp = posJoueur.y;
+		float tmp = posJoueur.x;
 		for(Perso perso : persos)
 		{
-			perso.init(new Vector2(posJoueur.x, tmp));
+			perso.init(new Vector2(tmp, posJoueur.y));
 			hud.addJoueur(perso);
-			tmp-=80;
+			tmp+=100;
 		}
 		
 		musique = false;
