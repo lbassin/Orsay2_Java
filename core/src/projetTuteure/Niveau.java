@@ -35,7 +35,7 @@ public class Niveau {
 		{
 			perso.init(new Vector2(posJoueur.x, tmp));
 			hud.addJoueur(perso);
-			tmp-=100;
+			tmp-=80;
 		}
 		
 		musique = false;
@@ -44,10 +44,10 @@ public class Niveau {
 		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/fin.mp3")));
 		
 		sound.add(Gdx.audio.newSound(Gdx.files.internal("../core/assets/inGame.mp3")));
-		/*
+		
 		long soundId = sound.get(2).play();
 		sound.get(2).setLooping(soundId, true);
-		*/
+		
 		imgFin = new Texture[2];
 		imgFin[0] = new Texture("../core/assets/imgFin1.png");
 		imgFin[1] = new Texture("../core/assets/imgFin2.png");
